@@ -1,0 +1,60 @@
+---
+// Header component con navegación y dark mode toggle
+---
+
+<header class="sticky top-0 z-50 glass-header border-b border-solid border-[#e7eaf3] dark:border-gray-800 px-6 md:px-10 py-3">
+  <div class="max-w-[1280px] mx-auto flex items-center justify-between whitespace-nowrap">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <div class="size-8 text-primary">
+        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+        </svg>
+      </div>
+      <h2 class="text-primary dark:text-blue-400 text-xl font-black leading-tight tracking-tight">MDA Analítica</h2>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="hidden lg:flex flex-1 justify-center gap-9">
+      <a class="hover:text-primary transition-colors text-sm font-semibold leading-normal" href="#solutions">Solutions</a>
+      <a class="hover:text-primary transition-colors text-sm font-semibold leading-normal" href="#analytics">Public Analytics</a>
+      <a class="hover:text-primary transition-colors text-sm font-semibold leading-normal" href="#consulting">Consulting</a>
+      <a class="hover:text-primary transition-colors text-sm font-semibold leading-normal" href="#company">Company</a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex gap-3 items-center">
+      <button
+        id="theme-toggle"
+        class="flex items-center justify-center rounded-lg h-10 w-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        aria-label="Toggle dark mode"
+      >
+        <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+      </button>
+      <button class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent">
+        <span>Probar Demo en Vivo</span>
+      </button>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button class="lg:hidden flex items-center justify-center rounded-lg h-10 w-10 text-gray-600 dark:text-gray-300" id="mobile-menu-btn">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+</header>
+
+<script>
+  // Dark mode toggle
+  const themeToggle = document.getElementById('theme-toggle');
+
+  themeToggle?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  // Check for saved theme preference
+  if (localStorage.getItem('theme') === 'dark' ||
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+</script>
