@@ -6,7 +6,8 @@
       "Bash(npm:*)",
       "Bash(git --version:*)",
       "Bash(npx astro add:*)",
-      "WebFetch(domain:astro.build)"
+      "WebFetch(domain:astro.build)",
+      "Bash(curl:*)"
     ]
   }
 }

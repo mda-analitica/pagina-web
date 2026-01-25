@@ -1,0 +1,65 @@
+---
+// Hero section component
+interface Props {
+  tagline?: string;
+  title?: string;
+  highlightedText?: string;
+  description?: string;
+  primaryCta?: string;
+  secondaryCta?: string;
+  imageUrl?: string;
+}
+
+const {
+  tagline = "Analytics Excellence",
+  title = "Cumplimiento Normativo y Analítica Financiera de",
+  highlightedText = "Nueva Generación",
+  description = "Especialistas en gestión de riesgos SARLAFT, SAGRILAFT y PTEE con analítica de avanzada para la toma de decisiones ejecutivas en tiempo real.",
+  primaryCta = "Probar Demo en Vivo",
+  secondaryCta = "Ver Servicios",
+  imageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuBDeJiGLsuZCLMPiJoexbwymF1w1Sb1Xfj-xqm82U-jEmkULud5_kJp73fEJowIKeJPSVzvPuxpIuGFG6JeRPBVwR3hBdIauB3zORfkyexcLjiBrge_lyoZ-fBFbrQrXJ-WEkGvKS8L2jMN8_aXdG2_AGAsqogF6UOlt1PBDoZi88T-AAvepFkt7S-1dnSI2NL4JkOEuhk2wXYlPo8nj40fvSEhPLh5T81FVL_pYjriw5sIC3ucpdM2a212dShKN7wQG2plXByKAPvI"
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-white dark:bg-background-dark py-16 lg:py-24">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10">
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <!-- Content -->
+      <div class="flex flex-col gap-8 flex-1">
+        <div class="flex flex-col gap-4 text-left">
+          <span class="text-primary dark:text-blue-400 text-sm font-extrabold uppercase tracking-widest">
+            {tagline}
+          </span>
+          <h1 class="text-[#0e111b] dark:text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight">
+            {title} <span class="text-primary dark:text-blue-400">{highlightedText}</span>
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl">
+            {description}
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button class="glow-button flex min-w-[240px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-base font-bold leading-normal tracking-wide border border-blue-400/20">
+            <span class="material-symbols-outlined mr-2">analytics</span>
+            <span>{primaryCta}</span>
+          </button>
+          <button class="flex min-w-[180px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 border-2 border-primary/20 bg-transparent text-primary dark:text-blue-400 dark:border-blue-400/20 text-base font-bold leading-normal hover:bg-primary/5">
+            {secondaryCta}
+          </button>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="flex-1 w-full relative">
+        <div
+          class="relative z-10 w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 bg-cover bg-center"
+          style={`background-image: url('${imageUrl}')`}
+        >
+          <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+        </div>
+        <!-- Decorative blurs -->
+        <div class="absolute -top-6 -right-6 w-32 h-32 bg-accent-green/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+      </div>
+    </div>
+  </div>
+</section>

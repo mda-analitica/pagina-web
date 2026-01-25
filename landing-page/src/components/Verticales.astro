@@ -1,0 +1,74 @@
+---
+// Verticales section - Services tabs
+const tabs = [
+  { id: 'cumplimiento', icon: 'verified_user', label: 'Cumplimiento (Core)', active: true },
+  { id: 'rif', icon: 'query_stats', label: 'RIF - Analítica Financiera', active: false },
+  { id: 'desarrollo', icon: 'code_blocks', label: 'Desarrollo & Consultoría', active: false },
+];
+
+const features = [
+  'Monitoreo SARLAFT 4.0',
+  'Gestión de Listas Restrictivas (AML)',
+  'Segmentación de Factores de Riesgo',
+];
+
+const stats = [
+  { value: '99%', label: 'Exactitud Técnica' },
+  { value: '50+', label: 'Clientes Core' },
+];
+---
+
+<section id="solutions" class="bg-pearl dark:bg-gray-900/50 py-16">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10">
+    <!-- Section header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-[#0e111b] dark:text-white">Nuestras Verticales</h2>
+      <div class="w-16 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap border-b border-gray-200 dark:border-gray-800 gap-4 md:gap-12 justify-center">
+      {tabs.map((tab) => (
+        <a
+          href="#"
+          class={`flex flex-col items-center justify-center border-b-4 pb-4 pt-2 transition-all ${
+            tab.active
+              ? 'border-primary text-primary'
+              : 'border-transparent text-gray-500 hover:text-primary'
+          }`}
+        >
+          <span class="material-symbols-outlined mb-2">{tab.icon}</span>
+          <p class="text-sm font-bold uppercase tracking-wider">{tab.label}</p>
+        </a>
+      ))}
+    </div>
+
+    <!-- Content -->
+    <div class="mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm">
+      <div>
+        <h3 class="text-2xl font-bold mb-4 dark:text-white">Expertos en Regulación Local</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+          Nuestras soluciones están diseñadas para cumplir con los estándares más estrictos de la Superintendencia Financiera y de Sociedades. Automatice sus procesos de debida diligencia y monitoreo transaccional.
+        </p>
+        <ul class="space-y-3">
+          {features.map((feature) => (
+            <li class="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <span class="material-symbols-outlined text-accent-green">check_circle</span>
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Stats grid -->
+      <div class="grid grid-cols-2 gap-4">
+        {stats.map((stat) => (
+          <div class="p-6 bg-pearl dark:bg-gray-700 rounded-xl">
+            <h4 class="text-primary dark:text-blue-400 text-3xl font-black mb-1">{stat.value}</h4>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
