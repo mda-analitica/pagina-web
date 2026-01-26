@@ -10,10 +10,10 @@ interface LoadingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  primary: 'bg-primary hover:bg-blue-700 text-white glow-button',
+  primary: 'bg-primary hover:bg-teal-700 text-white glow-button',
   secondary: 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white',
   accent: 'bg-accent-green hover:bg-emerald-600 text-white glow-accent',
-  outline: 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-white',
+  outline: 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white dark:border-teal-400 dark:text-teal-400 dark:hover:bg-teal-400 dark:hover:text-white',
 };
 
 const sizes = {

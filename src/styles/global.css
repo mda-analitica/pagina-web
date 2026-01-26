@@ -87,7 +87,7 @@ html {
 }
 
 .dark :focus-visible {
-  outline-color: #60a5fa;
+  outline-color: #2dd4bf;
 }
 
 /* Remove default focus outline and apply custom one */
@@ -108,7 +108,7 @@ textarea:focus-visible,
 .dark select:focus-visible,
 .dark textarea:focus-visible,
 .dark [tabindex]:focus-visible {
-  outline-color: #60a5fa;
+  outline-color: #2dd4bf;
 }
 
 /* Focus ring for buttons */
