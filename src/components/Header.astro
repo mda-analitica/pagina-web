@@ -4,18 +4,13 @@ import ThemeSwitch from './ThemeSwitch';
 
 // Get current path for active indicator
 const currentPath = Astro.url.pathname;
-const isActive = (href: string) => {
-  if (href === '/') return currentPath === '/';
-  return currentPath.startsWith(href.replace('/#', '/'));
-};
 
 const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/#solutions', label: 'Soluciones' },
-  { href: '/reportes', label: 'Reportes' },
-  { href: '/#analytics', label: 'Analítica' },
-  { href: '/#blog', label: 'Blog' },
-  { href: '/#company', label: 'Nosotros' },
+  { href: '/', label: 'Inicio', section: 'hero' },
+  { href: '/#solutions', label: 'Soluciones', section: 'solutions' },
+  { href: '/#analytics', label: 'Analítica', section: 'analytics' },
+  { href: '/#blog', label: 'Blog', section: 'blog' },
+  { href: '/#company', label: 'Nosotros', section: 'company' },
 ];
 ---
 
@@ -32,20 +27,15 @@ const navLinks = [
     </a>
 
     <!-- Navigation -->
-    <nav class="hidden lg:flex flex-1 justify-center gap-9">
+    <nav class="hidden lg:flex flex-1 justify-center gap-9" id="main-nav">
       {navLinks.map((link) => (
         <a
-          class={`nav-link relative text-sm font-semibold leading-normal transition-colors duration-300 ${
-            isActive(link.href)
-              ? 'text-primary dark:text-teal-400'
-              : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-teal-400'
-          }`}
+          class="nav-link relative text-sm font-semibold leading-normal transition-colors duration-300 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-teal-400"
           href={link.href}
+          data-section={link.section}
         >
           {link.label}
-          <span class={`nav-underline absolute -bottom-1 left-0 h-0.5 bg-primary dark:bg-teal-400 transition-all duration-300 ${
-            isActive(link.href) ? 'w-full' : 'w-0'
-          }`}></span>
+          <span class="nav-underline absolute -bottom-1 left-0 h-0.5 bg-primary dark:bg-teal-400 transition-all duration-300 w-0"></span>
         </a>
       ))}
     </nav>
@@ -113,24 +103,17 @@ const navLinks = [
           <li style={`--delay: ${index * 50}ms`}>
             <a
               href={link.href}
-              class={`mobile-nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold transition-all duration-300 ${
-                isActive(link.href)
-                  ? 'bg-primary/10 text-primary dark:text-teal-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
+              data-section={link.section}
+              class="mobile-nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold transition-all duration-300 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <span class="material-symbols-outlined text-xl">
                 {link.label === 'Inicio' && 'home'}
                 {link.label === 'Soluciones' && 'widgets'}
-                {link.label === 'Reportes' && 'assessment'}
                 {link.label === 'Analítica' && 'bar_chart'}
                 {link.label === 'Blog' && 'article'}
                 {link.label === 'Nosotros' && 'info'}
               </span>
               {link.label}
-              {isActive(link.href) && (
-                <span class="ml-auto material-symbols-outlined text-primary dark:text-teal-400">check_circle</span>
-              )}
             </a>
           </li>
         ))}
@@ -160,7 +143,6 @@ const navLinks = [
   const mobileMenuClose = document.getElementById('mobile-menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-  const menuIcon = document.getElementById('menu-icon');
 
   let isMenuOpen = false;
   let focusableElements: HTMLElement[] = [];
@@ -176,7 +158,6 @@ const navLinks = [
     mobileMenuBtn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
 
-    // Focus trap setup
     focusableElements = Array.from(
       mobileMenu.querySelectorAll<HTMLElement>(
         'a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])'
@@ -185,7 +166,6 @@ const navLinks = [
     firstFocusable = focusableElements[0];
     lastFocusable = focusableElements[focusableElements.length - 1];
 
-    // Focus first element
     setTimeout(() => firstFocusable?.focus(), 100);
   }
 
@@ -198,22 +178,18 @@ const navLinks = [
     mobileMenuBtn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
 
-    // Return focus to menu button
     mobileMenuBtn.focus();
   }
 
-  // Event listeners
   mobileMenuBtn?.addEventListener('click', openMenu);
   mobileMenuClose?.addEventListener('click', closeMenu);
   mobileMenuOverlay?.addEventListener('click', closeMenu);
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isMenuOpen) {
       closeMenu();
     }
 
-    // Focus trap
     if (e.key === 'Tab' && isMenuOpen) {
       if (e.shiftKey && document.activeElement === firstFocusable) {
         e.preventDefault();
@@ -225,7 +201,6 @@ const navLinks = [
     }
   });
 
-  // Close menu on navigation link click
   const mobileNavLinks = mobileMenu?.querySelectorAll('a');
   mobileNavLinks?.forEach(link => {
     link.addEventListener('click', () => {
@@ -239,7 +214,6 @@ const navLinks = [
       const href = this.getAttribute('href');
       if (!href) return;
 
-      // If we're on the homepage, scroll smoothly
       if (window.location.pathname === '/') {
         e.preventDefault();
         const targetId = href.replace('/', '');
@@ -249,16 +223,119 @@ const navLinks = [
             behavior: 'smooth',
             block: 'start'
           });
-          // Update URL without reload
           history.pushState(null, '', href);
         }
       }
     });
   });
+
+  // Scroll Spy - Highlight active section in navigation
+  function initScrollSpy() {
+    if (window.location.pathname !== '/') return;
+
+    const sections = [
+      { id: 'hero', element: document.querySelector('main') },
+      { id: 'solutions', element: document.getElementById('solutions') },
+      { id: 'analytics', element: document.getElementById('analytics') },
+      { id: 'blog', element: document.getElementById('blog') },
+      { id: 'company', element: document.getElementById('company') },
+    ].filter(s => s.element);
+
+    const navLinks = document.querySelectorAll('#main-nav .nav-link');
+    const mobileLinks = document.querySelectorAll('#mobile-menu .mobile-nav-link');
+
+    function setActiveLink(sectionId: string) {
+      // Desktop navigation
+      navLinks.forEach(link => {
+        const linkSection = link.getAttribute('data-section');
+        const underline = link.querySelector('.nav-underline') as HTMLElement;
+
+        if (linkSection === sectionId) {
+          link.classList.add('text-primary', 'dark:text-teal-400');
+          link.classList.remove('text-gray-700', 'dark:text-gray-300');
+          if (underline) underline.style.width = '100%';
+        } else {
+          link.classList.remove('text-primary', 'dark:text-teal-400');
+          link.classList.add('text-gray-700', 'dark:text-gray-300');
+          if (underline) underline.style.width = '0';
+        }
+      });
+
+      // Mobile navigation
+      mobileLinks.forEach(link => {
+        const linkSection = link.getAttribute('data-section');
+
+        if (linkSection === sectionId) {
+          link.classList.add('bg-primary/10', 'text-primary', 'dark:text-teal-400');
+          link.classList.remove('text-gray-700', 'dark:text-gray-300');
+        } else {
+          link.classList.remove('bg-primary/10', 'text-primary', 'dark:text-teal-400');
+          link.classList.add('text-gray-700', 'dark:text-gray-300');
+        }
+      });
+    }
+
+    // Use Intersection Observer for efficient scroll detection
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    };
+
+    let currentSection = 'hero';
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const section = sections.find(s => s.element === entry.target);
+          if (section) {
+            currentSection = section.id;
+            setActiveLink(currentSection);
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    sections.forEach(section => {
+      if (section.element) {
+        observer.observe(section.element);
+      }
+    });
+
+    // Set initial active state
+    setActiveLink('hero');
+
+    // Also check on scroll for edge cases (top of page)
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY < 100) {
+            setActiveLink('hero');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+
+  // Initialize scroll spy when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollSpy);
+  } else {
+    initScrollSpy();
+  }
 </script>
 
 <style>
   .nav-link:hover .nav-underline {
+    width: 100%;
+  }
+
+  .nav-link.text-primary .nav-underline,
+  .nav-link.dark\:text-teal-400 .nav-underline {
     width: 100%;
   }
 </style>

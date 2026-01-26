@@ -7,244 +7,165 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>MDA Analítica - Secure Login</title>
+    <title>MDA Analítica - Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <style>
-      .geometric-pattern {
-        background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
-        background-size: 40px 40px;
-      }
-    </style>
   </head>
-  <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-gray-100 font-display transition-colors duration-300 min-h-screen flex flex-col">
+  <body class="bg-pearl dark:bg-background-dark text-slate-900 dark:text-gray-100 font-display transition-colors duration-300 min-h-screen flex flex-col items-center justify-center p-4">
     <!-- Theme toggle -->
-    <nav class="fixed top-0 left-0 right-0 p-6 flex justify-between z-50">
-      <a href="/" class="flex items-center gap-2 text-primary dark:text-teal-400 font-bold hover:opacity-80 transition-opacity">
-        <span class="material-symbols-outlined">arrow_back</span>
-        Volver al inicio
-      </a>
-      <button
-        id="theme-toggle"
-        class="flex items-center justify-center rounded-lg h-10 w-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur shadow-sm border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-        aria-label="Toggle dark mode"
-      >
-        <span class="material-symbols-outlined text-[20px]">dark_mode</span>
-      </button>
-    </nav>
+    <button
+      id="theme-toggle"
+      class="fixed top-6 right-6 flex items-center justify-center rounded-lg h-10 w-10 bg-white dark:bg-slate-800 shadow-sm border border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors z-50"
+      aria-label="Toggle dark mode"
+    >
+      <span class="material-symbols-outlined text-[20px]" id="theme-icon">dark_mode</span>
+    </button>
 
-    <main class="flex-grow flex items-center justify-center p-4 lg:p-0">
-      <div class="w-full max-w-[1100px] h-full lg:h-[700px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-gray-200 dark:border-slate-800">
-        <!-- Left panel - Decorative -->
-        <div class="hidden lg:flex flex-1 bg-[#0a192f] relative overflow-hidden items-center justify-center p-12">
-          <div class="absolute inset-0 geometric-pattern opacity-40"></div>
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-          <div class="relative z-10 w-full">
-            <div class="space-y-6">
-              <div class="flex items-center gap-4 animate-pulse">
-                <div class="w-12 h-2 bg-teal-500/30 rounded"></div>
-                <div class="flex-1 h-0.5 bg-teal-500/10"></div>
-              </div>
-              <div class="h-48 border-l-2 border-b-2 border-teal-500/20 relative">
-                <svg class="absolute bottom-0 left-0 w-full h-full text-teal-400/20" preserveAspectRatio="none" viewBox="0 0 100 100">
-                  <path d="M0 80 Q 20 20 40 50 T 80 10 T 100 60 L 100 100 L 0 100 Z" fill="currentColor"></path>
-                </svg>
-              </div>
-              <div class="grid grid-cols-3 gap-4">
-                <div class="h-16 bg-white/5 rounded-xl border border-white/10 flex flex-col justify-center px-4">
-                  <span class="text-[10px] text-teal-300 font-bold uppercase tracking-wider">Security</span>
-                  <span class="text-white font-black">99.9%</span>
-                </div>
-                <div class="h-16 bg-white/5 rounded-xl border border-white/10 flex flex-col justify-center px-4">
-                  <span class="text-[10px] text-teal-300 font-bold uppercase tracking-wider">Analytics</span>
-                  <span class="text-white font-black">AES-256</span>
-                </div>
-                <div class="h-16 bg-white/5 rounded-xl border border-white/10 flex flex-col justify-center px-4">
-                  <span class="text-[10px] text-teal-300 font-bold uppercase tracking-wider">Compliance</span>
-                  <span class="text-white font-black">Active</span>
-                </div>
-              </div>
+    <main class="w-full max-w-md">
+      <!-- Logo -->
+      <div class="flex items-center justify-center gap-3 mb-10">
+        <img
+          src="https://media.licdn.com/dms/image/v2/D4D0BAQFBTb4ytPgBqg/company-logo_200_200/company-logo_200_200/0/1734536293594/soli_data_logo?e=2147483647&v=beta&t=u1oNzOV0yDffdp9DSRG7Ga_wkfTgM4KBAuSzIUtaNXc"
+          alt="Soli Data Logo"
+          class="size-10 rounded-lg object-contain"
+        />
+        <h1 class="text-primary dark:text-teal-400 text-2xl font-black leading-tight tracking-tight">MDA Analítica</h1>
+      </div>
+
+      <!-- Login Card -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-800 p-8">
+        <form id="login-form" class="space-y-5" novalidate>
+          <div class="form-group">
+            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="email-input">
+              Correo electrónico
+            </label>
+            <div class="relative">
+              <input
+                id="email-input"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="form-input w-full h-12 px-4 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 outline-none"
+                placeholder="nombre@empresa.com"
+                aria-describedby="email-error"
+              />
+              <span class="input-icon absolute right-4 top-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300">
+                <span class="material-symbols-outlined text-xl success-icon text-green-500 hidden">check_circle</span>
+                <span class="material-symbols-outlined text-xl error-icon text-red-500 hidden">error</span>
+              </span>
             </div>
-            <div class="mt-12">
-              <h3 class="text-white text-2xl font-bold">Resiliencia Corporativa</h3>
-              <p class="text-teal-200/60 text-sm mt-2 leading-relaxed">Infraestructura blindada para el manejo de datos normativos y financieros de alto impacto.</p>
+            <p id="email-error" class="error-message mt-2 text-sm text-red-500 hidden" role="alert" aria-live="polite"></p>
+          </div>
+
+          <div class="form-group">
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-semibold text-slate-700 dark:text-slate-300" for="password-input">Contraseña</label>
+              <a class="text-sm font-bold text-primary dark:text-teal-400 hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" href="/recuperar-password">¿Olvidó su contraseña?</a>
             </div>
-          </div>
-        </div>
-
-        <!-- Right panel - Login form -->
-        <div class="flex-1 p-8 lg:p-16 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-10">
-            <img
-              src="https://media.licdn.com/dms/image/v2/D4D0BAQFBTb4ytPgBqg/company-logo_200_200/company-logo_200_200/0/1734536293594/soli_data_logo?e=2147483647&v=beta&t=u1oNzOV0yDffdp9DSRG7Ga_wkfTgM4KBAuSzIUtaNXc"
-              alt="Soli Data Logo"
-              class="size-8 rounded-lg object-contain"
-            />
-            <h2 class="text-primary dark:text-teal-400 text-xl font-black leading-tight tracking-tight">MDA Analítica</h2>
-          </div>
-
-          <div class="mb-8">
-            <h1 class="text-3xl font-black text-slate-900 dark:text-white leading-tight">Bienvenido al Portal Ejecutivo</h1>
-            <p class="text-slate-500 dark:text-slate-400 mt-2">Inicie sesión para acceder a su panel de control y reportes normativos</p>
-          </div>
-
-          <form id="login-form" class="space-y-5" novalidate>
-            <div class="form-group">
-              <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="email-input">
-                Correo electrónico corporativo
-              </label>
-              <div class="relative">
-                <input
-                  id="email-input"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                  class="form-input w-full h-12 px-4 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 outline-none"
-                  placeholder="nombre@empresa.com"
-                  aria-describedby="email-error"
-                />
-                <span class="input-icon absolute right-4 top-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300">
+            <div class="relative">
+              <input
+                id="password-input"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                minlength="8"
+                class="form-input w-full h-12 px-4 pr-20 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 outline-none"
+                placeholder="••••••••"
+                aria-describedby="password-error"
+              />
+              <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                <span class="input-icon opacity-0 transition-opacity duration-300">
                   <span class="material-symbols-outlined text-xl success-icon text-green-500 hidden">check_circle</span>
                   <span class="material-symbols-outlined text-xl error-icon text-red-500 hidden">error</span>
                 </span>
-              </div>
-              <p id="email-error" class="error-message mt-2 text-sm text-red-500 hidden" role="alert" aria-live="polite"></p>
-            </div>
-
-            <div class="form-group">
-              <div class="flex justify-between mb-2">
-                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300" for="password-input">Contraseña</label>
-                <a class="text-sm font-bold text-primary dark:text-teal-400 hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" href="/recuperar-password">¿Olvidó su contraseña?</a>
-              </div>
-              <div class="relative">
-                <input
-                  id="password-input"
-                  name="password"
-                  type="password"
-                  autocomplete="current-password"
-                  required
-                  minlength="8"
-                  class="form-input w-full h-12 px-4 pr-20 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 outline-none"
-                  placeholder="••••••••"
-                  aria-describedby="password-error"
-                />
-                <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                  <span class="input-icon opacity-0 transition-opacity duration-300">
-                    <span class="material-symbols-outlined text-xl success-icon text-green-500 hidden">check_circle</span>
-                    <span class="material-symbols-outlined text-xl error-icon text-red-500 hidden">error</span>
-                  </span>
-                  <button
-                    class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none focus:text-primary transition-colors"
-                    type="button"
-                    id="toggle-password"
-                    aria-label="Mostrar contraseña"
-                  >
-                    <span class="material-symbols-outlined text-xl">visibility</span>
-                  </button>
-                </div>
-              </div>
-              <p id="password-error" class="error-message mt-2 text-sm text-red-500 hidden" role="alert" aria-live="polite"></p>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <input
-                class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900 cursor-pointer"
-                id="remember"
-                name="remember"
-                type="checkbox"
-              />
-              <label class="text-sm text-slate-600 dark:text-slate-400 cursor-pointer select-none" for="remember">Recordarme</label>
-            </div>
-
-            <button
-              type="submit"
-              id="submit-btn"
-              class="w-full h-12 bg-primary hover:bg-teal-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-black rounded-xl glow-button transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            >
-              <span id="submit-text">Iniciar Sesión</span>
-              <span id="submit-spinner" class="hidden">
-                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              </span>
-            </button>
-
-            <!-- Form-level error message -->
-            <div id="form-error" class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl hidden" role="alert">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-red-500">warning</span>
-                <p id="form-error-text" class="text-sm font-medium text-red-600 dark:text-red-400"></p>
+                <button
+                  class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none focus:text-primary transition-colors"
+                  type="button"
+                  id="toggle-password"
+                  aria-label="Mostrar contraseña"
+                >
+                  <span class="material-symbols-outlined text-xl">visibility</span>
+                </button>
               </div>
             </div>
-          </form>
+            <p id="password-error" class="error-message mt-2 text-sm text-red-500 hidden" role="alert" aria-live="polite"></p>
+          </div>
 
-          <div class="mt-8">
-            <div class="relative flex items-center justify-center mb-6">
-              <div class="border-t border-slate-200 dark:border-slate-700 w-full"></div>
-              <span class="absolute bg-white dark:bg-slate-900 px-4 text-xs font-bold text-slate-400 uppercase tracking-widest">O continuar con</span>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <button class="flex items-center justify-center gap-3 h-12 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <svg class="size-5" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg"><path d="M11.4 24l-11.4-1.1v-14.2l11.4-1.1v16.4zm1.6-16.4l11-1.1v14.2l-11-1.1v-12z" fill="#00a4ef"></path></svg>
-                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Microsoft</span>
-              </button>
-              <button class="flex items-center justify-center gap-3 h-12 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                <svg class="size-5" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#4285F4"></path></svg>
-                <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Google</span>
-              </button>
+          <div class="flex items-center gap-2">
+            <input
+              class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900 cursor-pointer"
+              id="remember"
+              name="remember"
+              type="checkbox"
+            />
+            <label class="text-sm text-slate-600 dark:text-slate-400 cursor-pointer select-none" for="remember">Recordarme</label>
+          </div>
+
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full h-12 bg-primary hover:bg-teal-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            <span id="submit-text">Iniciar Sesión</span>
+            <span id="submit-spinner" class="hidden">
+              <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </span>
+          </button>
+
+          <!-- Form-level error message -->
+          <div id="form-error" class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl hidden" role="alert">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-red-500">warning</span>
+              <p id="form-error-text" class="text-sm font-medium text-red-600 dark:text-red-400"></p>
             </div>
           </div>
+        </form>
+
+        <!-- Divider -->
+        <div class="relative flex items-center justify-center my-6">
+          <div class="border-t border-slate-200 dark:border-slate-700 w-full"></div>
+          <span class="absolute bg-white dark:bg-slate-900 px-4 text-xs font-medium text-slate-400">o</span>
+        </div>
+
+        <!-- Social Login -->
+        <div class="grid grid-cols-2 gap-3">
+          <button class="flex items-center justify-center gap-2 h-11 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <svg class="size-5" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg"><path d="M11.4 24l-11.4-1.1v-14.2l11.4-1.1v16.4zm1.6-16.4l11-1.1v14.2l-11-1.1v-12z" fill="#00a4ef"></path></svg>
+            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Microsoft</span>
+          </button>
+          <button class="flex items-center justify-center gap-2 h-11 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+            <svg class="size-5" viewBox="0 0 48 48"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#4285F4"></path></svg>
+            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Google</span>
+          </button>
         </div>
       </div>
+
+      <!-- Footer link -->
+      <p class="text-center mt-6 text-sm text-slate-500 dark:text-slate-400">
+        <a href="/" class="text-primary dark:text-teal-400 font-semibold hover:underline">← Volver al sitio</a>
+      </p>
     </main>
-
-    <footer class="p-8">
-      <div class="max-w-[1100px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 opacity-60">
-        <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-primary dark:text-teal-400">gavel</span>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cumplimiento GDPR & Ley 1581</span>
-        </div>
-        <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 hidden md:block"></div>
-        <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-primary dark:text-teal-400">verified_user</span>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Seguridad de grado bancario (AES-256)</span>
-        </div>
-        <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 hidden md:block"></div>
-        <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-primary dark:text-teal-400">lock</span>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">SSL 256-bit Encryption</span>
-        </div>
-      </div>
-      <div class="text-center mt-6">
-        <p class="text-[10px] text-slate-400 font-medium">© 2024 MDA Analítica S.A.S. - Enterprise Compliance Systems</p>
-      </div>
-    </footer>
-
-    <!-- AI Assistant Button -->
-    <div class="fixed bottom-8 right-8 z-[100] group flex flex-col items-end">
-      <div class="mb-4 mr-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-none">
-        <div class="bg-slate-900 dark:bg-primary text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-2xl relative whitespace-nowrap">
-          ¿Dudas sobre SAGRILAFT? Pregúntame
-          <div class="absolute bottom-[-6px] right-6 w-3 h-3 bg-slate-900 dark:bg-primary rotate-45"></div>
-        </div>
-      </div>
-      <button class="ai-glow relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary via-primary to-[#1e40af] dark:from-accent-green dark:to-[#065f46] text-white shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 border-2 border-white/20">
-        <span class="material-symbols-outlined text-3xl font-light">auto_awesome</span>
-        <span class="absolute top-0 right-0 flex h-4 w-4">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-400 border-2 border-white dark:border-slate-900"></span>
-        </span>
-      </button>
-    </div>
 
     <script>
       // Dark mode toggle
       const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+
+      function updateThemeIcon() {
+        if (themeIcon) {
+          themeIcon.textContent = document.documentElement.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        }
+      }
+
       themeToggle?.addEventListener('click', () => {
         document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        updateThemeIcon();
       });
 
       // Check for saved theme preference
@@ -252,6 +173,7 @@ import '../styles/global.css';
           (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
       }
+      updateThemeIcon();
 
       // Toggle password visibility
       const togglePassword = document.getElementById('toggle-password');
@@ -357,7 +279,6 @@ import '../styles/global.css';
         });
 
         input.addEventListener('input', () => {
-          // Clear error on typing
           const formGroup = input.closest('.form-group');
           const errorEl = formGroup?.querySelector('.error-message') as HTMLElement;
           if (errorEl && !errorEl.classList.contains('hidden')) {
@@ -370,39 +291,30 @@ import '../styles/global.css';
       loginForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Hide previous form error
         formError?.classList.add('hidden');
 
-        // Validate all fields
         const emailValid = validateField(emailInput);
         const passwordValid = validateField(passwordInput);
 
         if (!emailValid || !passwordValid) {
-          // Focus first invalid field
           if (!emailValid) emailInput?.focus();
           else if (!passwordValid) passwordInput?.focus();
           return;
         }
 
-        // Show loading state
         submitBtn.disabled = true;
         submitText?.classList.add('hidden');
         submitSpinner?.classList.remove('hidden');
 
         try {
-          // Simulate API call
           await new Promise(resolve => setTimeout(resolve, 2000));
-
-          // Simulate success - redirect to dashboard
           window.location.href = '/dashboard';
         } catch (error) {
-          // Show error
           if (formError && formErrorText) {
             formErrorText.textContent = 'Error al iniciar sesión. Por favor, verifique sus credenciales.';
             formError.classList.remove('hidden');
           }
         } finally {
-          // Reset button state
           submitBtn.disabled = false;
           submitText?.classList.remove('hidden');
           submitSpinner?.classList.add('hidden');
@@ -423,16 +335,6 @@ import '../styles/global.css';
       .form-input.border-green-500:focus {
         --tw-ring-color: rgba(34, 197, 94, 0.2);
         border-color: rgb(34 197 94);
-      }
-
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-        20%, 40%, 60%, 80% { transform: translateX(4px); }
-      }
-
-      .shake {
-        animation: shake 0.5s ease-in-out;
       }
     </style>
   </body>
