@@ -7,7 +7,11 @@
       "Bash(git --version:*)",
       "Bash(npx astro add:*)",
       "WebFetch(domain:astro.build)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(timeout:*)",
+      "Bash(dir /b)",
+      "Bash(dir:*)",
+      "mcp__astro-docs__search_astro_docs"
     ]
   }
 }

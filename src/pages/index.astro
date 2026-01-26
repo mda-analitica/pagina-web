@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Verticales from '../components/Verticales.astro';
+import IntelligenceHub from '../components/IntelligenceHub.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Footer from '../components/Footer.astro';
+import Chatbot from '../components/Chatbot';
+---
+
+<Layout
+  title="MDA Analítica - Cumplimiento Normativo y Analítica Financiera"
+  description="Especialistas en gestión de riesgos SARLAFT, SAGRILAFT y PTEE con analítica avanzada para la toma de decisiones ejecutivas en tiempo real."
+>
+  <Header />
+
+  <main>
+    <Hero />
+    <Verticales />
+    <IntelligenceHub />
+    <CtaSection />
+  </main>
+
+  <Footer />
+
+  <!-- Chatbot React component with client-side hydration -->
+  <Chatbot client:load />
+</Layout>

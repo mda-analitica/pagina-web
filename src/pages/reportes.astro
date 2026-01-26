@@ -1,0 +1,351 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const categories = [
+  { label: 'Todos', active: true },
+  { label: 'Executive', active: false },
+  { label: 'Real-Time', active: false },
+  { label: 'Macro', active: false },
+  { label: 'Compliance', active: false },
+];
+
+const reports = [
+  {
+    title: 'Financial',
+    description: 'Evolución de márgenes y EBITDA',
+    tag: 'Executive',
+    tagColor: 'bg-primary',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC-ULsmmEvbRa0tS3FriS7z7Y2XyLM0ZKcUkbxsozMX01R40ydV9N9PlhzaRZ0eVKl8xGxsYPEldFMBBTJ_yvR1wzvFgyWc7-tSJsoVdTa6lQHf8Kgn1FrMUqtPwuqjeMbVuJLFoHmezFWKg9WGceJiLI-hg9wJMaoFTwdEgwd-LQGcD_fDYfW4nGOpE3gtDK7TEqPualt12hzNg5J4m70fVeSt0Xh6lcvv9cf9vKNxeWq5bh0PmtinM5q1CbygjKocE4UxfTf49SFG',
+  },
+  {
+    title: 'Risk',
+    description: 'Mapas de calor e indicadores SARLAFT',
+    tag: 'Real-Time',
+    tagColor: 'bg-accent-green',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDhNDVuxeVSREDjsfgoaXX2RfXDw92Z464uewljymqB7Keudos2ymZQTq1brinODTfBpdV_aSmAGe6PdHRNmb7sLsb5sVML3TKraLxJvJEE67BNM_MX4GWaqYeKmcMwf957kXdLq5zsnRjuvCXDmPoqj_iTcxW9APzEqwuY0rGVs2Wmlbq9j1h9fo-Cobs08zByz92Jmk1_DhgLs4zk56jVslI9khaVIXz363xvDss-EAvFMiDxZmVaeNjVyi2DP9k7Vsyg8z_Pct2_',
+  },
+  {
+    title: 'Real Sector',
+    description: 'Análisis sectorial y competitividad',
+    tag: 'Macro',
+    tagColor: 'bg-gray-800',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDlyl3zM5wQ_f2RHbf2Jw55jdiI2VXlK3bwMu-iW5xIoYe9wcQnrumU-SKXEBx-CUXqevFpH-X-9IP-2avXYRKDjPo5uVuWyTxZ0IvHXlqg3X4jeMt8P1j85yXxzpNlshlUrnixijHnmeGNa_P1qAlv-ZshdeIdRAS0TuW_F0GLaKt3r6xbFgvduaK9lob1joKgDyvvQbXJx_TKaBI_eFX_PbP5DubMFGwQVk-L87duuXY3vzb0_khZ5dbEaOyoPDPrrLWmfkFU4tZd',
+  },
+  {
+    title: 'Compliance Dashboard',
+    description: 'Estado de cumplimiento normativo integral',
+    tag: 'Compliance',
+    tagColor: 'bg-amber-500',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAzeb-nUlDbLvt4opgQ_u6gW-BJMNyotIiOv1-W3lbR6miBXAMujy7LlfDz-vr0QoqsjGDpd6F9Ciwsk_qL_Z_G0x4CWo5a_bs_97Zhy8ikmCwjHAfimpr3P5HM_2d8G4bKDa2ZMYOSVC_T-DOCkecJQSRNRbmzLMDVpk8DW1BgajsqoctjiakKNaNxI9yKd24GRaG0af2qYcprgZQn7bH_alUm8r9vlO0pUCUhTQw1OT18hqRzPDiFpQu-oR0kkfCYd85_sscuAOTW',
+  },
+  {
+    title: 'Operations',
+    description: 'KPIs operacionales y eficiencia',
+    tag: 'Executive',
+    tagColor: 'bg-primary',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAwxuU0G7PAXbuvfkCmPy12fO-30uCFLCAY3x6_kyLV2tYSN1i9xgf9lFEPFy0fgihHMrfowsKx-OxsK6vXEqs3oEKSAauD0H-NrGcFXrnOwI068zjZC70GgRsujancmi_VBoAIQhJ9CkMlexH6WqG0mXcksZsbbEN29W__CdZV2vFlw5rE30dIFmtV07Ug2uXSgJEAniEdFSSXkdnUkbQ6hET0ojthqtrR7zCKqbYCScbMBFmJtcMO3aiCAbFmQoJE4Yj_eCEgnRIs',
+  },
+  {
+    title: 'Transactions Monitor',
+    description: 'Monitoreo transaccional en tiempo real',
+    tag: 'Real-Time',
+    tagColor: 'bg-accent-green',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCa8AvioyoNv5xtYu2jHP0RvxxQtjPPp68j-D6O-ISSBT-RPDRRMZPMOOrJ0X6EW3x2ZBTp9fJ1CG4al4rv7Ubs-0IAYdMMapNXZoR66X4ki3KrUkOXgti7-24lvvf_lAQ61_Io94veE79LQsb7trDTlHmQYNCvnk5ZlciGzraCF96AHZMqd_USFJdn4QJnihsshIyJnzM_9nDNQR5B3FkwFqZ-Ij45ncWArSVqHpMWxtRf0EQflEXWpdmQ_RsDadeZpun10xDV9Uky',
+  },
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MDA Analítica | Intelligence Hub - Reportes Power BI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-gray-100 font-display transition-colors duration-300">
+    <Header />
+
+    <main class="max-w-[1280px] mx-auto px-6 md:px-10 py-12">
+      <!-- Hero Section -->
+      <section class="mb-12 text-center max-w-3xl mx-auto">
+        <div class="flex items-center justify-center gap-4 mb-6">
+          <div class="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center text-white">
+            <span class="material-symbols-outlined text-2xl">bar_chart</span>
+          </div>
+          <h1 class="text-[#0e111b] dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-tight">
+            Intelligence Hub <span class="text-gray-400 font-light">| Power BI</span>
+          </h1>
+        </div>
+        <p class="text-gray-600 dark:text-gray-400 text-lg font-normal leading-relaxed">
+          Explore nuestra galería completa de reportes interactivos. Dashboards ejecutivos, análisis de riesgo y métricas en tiempo real para la toma de decisiones estratégicas.
+        </p>
+      </section>
+
+      <!-- Category Filters -->
+      <div class="flex gap-3 mb-12 overflow-x-auto pb-4 justify-center">
+        {categories.map((cat) => (
+          <button class={`flex h-10 shrink-0 items-center justify-center px-6 rounded-full text-sm font-medium transition-colors ${
+            cat.active
+              ? 'bg-primary text-white shadow-sm font-bold'
+              : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/20'
+          }`}>
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Reports Grid -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {reports.map((report, index) => (
+          <div class="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900 aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer">
+            <div
+              class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+              style={`background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('${report.image}')`}
+            ></div>
+            <div class={`absolute top-4 left-4 ${report.tagColor} text-white text-[10px] font-black px-3 py-1 rounded-full uppercase`}>
+              {report.tag}
+            </div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <p class="text-white text-xl font-bold leading-tight">{report.title}</p>
+              <p class="text-white/80 text-sm mt-1">{report.description}</p>
+            </div>
+            <!-- Hover overlay -->
+            <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <button
+                class="report-btn bg-white text-primary font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+                data-title={report.title}
+                data-description={report.description}
+                data-tag={report.tag}
+                data-image={report.image}
+              >
+                <span class="material-symbols-outlined">open_in_new</span>
+                Ver Reporte
+              </button>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-primary rounded-2xl p-8 lg:p-12 text-white text-center relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-accent-green/10 rounded-full blur-3xl -ml-24 -mb-24"></div>
+        <div class="relative z-10">
+          <h2 class="text-2xl lg:text-3xl font-black mb-4">¿Necesita un reporte personalizado?</h2>
+          <p class="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+            Nuestro equipo de analistas puede crear dashboards a medida para sus necesidades específicas de cumplimiento y análisis financiero.
+          </p>
+          <a href="/login" class="inline-flex items-center gap-2 bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-xl">
+            <span class="material-symbols-outlined">support_agent</span>
+            Solicitar Consulta
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <!-- Report Modal/Popup -->
+    <div id="report-modal" class="fixed inset-0 z-[90] hidden">
+      <!-- Backdrop -->
+      <div id="modal-backdrop" class="absolute inset-0 bg-[#0e111b]/50 backdrop-blur-[2px]"></div>
+
+      <!-- Modal Content -->
+      <div class="absolute inset-4 md:inset-8 lg:inset-12 flex flex-col lg:flex-row gap-4 z-10">
+        <!-- Main Report Viewer -->
+        <div class="flex-1 bg-white dark:bg-background-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col">
+          <!-- Header -->
+          <div class="h-16 px-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center text-white">
+                <span class="material-symbols-outlined">bar_chart</span>
+              </div>
+              <div>
+                <h3 id="modal-title" class="text-lg font-bold text-gray-900 dark:text-white leading-none mb-1">Financial Report</h3>
+                <p id="modal-description" class="text-xs text-gray-500 dark:text-gray-400">Evolución de márgenes y EBITDA</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" title="Pantalla completa">
+                <span class="material-symbols-outlined text-xl">fullscreen</span>
+              </button>
+              <button id="close-modal" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-gray-500 hover:text-red-500 transition-colors" title="Cerrar">
+                <span class="material-symbols-outlined text-xl">close</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Report Content (Power BI Embed Placeholder) -->
+          <div class="flex-1 bg-pearl dark:bg-[#0b0e14] p-4 overflow-auto">
+            <div id="modal-report-content" class="w-full h-full rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 relative">
+              <!-- Report Image/Preview -->
+              <img id="modal-image" src="" alt="Power BI Report" class="w-full h-full object-cover" />
+              <!-- Overlay with Power BI branding -->
+              <div class="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur px-3 py-2 rounded-lg shadow-lg">
+                <span class="material-symbols-outlined text-yellow-500">bolt</span>
+                <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Powered by Power BI</span>
+              </div>
+              <!-- Interactive overlay hint -->
+              <div class="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                <div class="bg-white dark:bg-gray-900 px-6 py-4 rounded-xl shadow-2xl text-center">
+                  <span class="material-symbols-outlined text-4xl text-primary mb-2">touch_app</span>
+                  <p class="text-sm font-bold text-gray-700 dark:text-gray-300">Haga clic para interactuar</p>
+                  <p class="text-xs text-gray-500">Reporte interactivo de Power BI</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Assistant Sidebar -->
+        <div class="w-full lg:w-[380px] bg-white dark:bg-background-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col">
+          <!-- Assistant Header -->
+          <div class="h-16 px-5 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
+            <div class="flex items-center gap-3">
+              <div class="size-9 text-primary bg-primary/10 rounded-lg p-1.5 flex items-center justify-center">
+                <svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-gray-900 dark:text-white leading-none mb-1">Asistente MDA</h3>
+                <div class="flex items-center gap-1.5">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-green"></span>
+                  </span>
+                  <span class="text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Online</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Messages -->
+          <div class="flex-1 bg-pearl dark:bg-[#0b0e14] p-5 overflow-y-auto">
+            <div class="space-y-6">
+              <div class="flex justify-center my-2">
+                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-200/50 dark:bg-gray-800 px-3 py-1 rounded-full">Hoy</span>
+              </div>
+              <div class="flex gap-3">
+                <div class="size-8 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm flex-shrink-0 mt-1">
+                  <span class="material-symbols-outlined text-[16px]">smart_toy</span>
+                </div>
+                <div class="flex flex-col gap-1 max-w-[85%]">
+                  <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente Normativo</span>
+                  <div class="p-4 bg-white dark:bg-gray-800 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <p>Hola, estoy aquí para ayudarte a analizar este reporte.</p>
+                    <p class="mt-2">Puedo explicarte los <strong class="text-primary dark:text-blue-400 font-semibold">indicadores clave</strong>, hacer <strong class="text-primary dark:text-blue-400 font-semibold">comparaciones</strong> o responder preguntas sobre cumplimiento.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div class="mt-8 flex flex-col gap-2">
+              <p class="text-[10px] uppercase font-bold text-gray-400 ml-1 mb-1">Sugerencias</p>
+              <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
+                <span>Explica los indicadores principales</span>
+                <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
+              </button>
+              <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
+                <span>¿Hay alertas de cumplimiento?</span>
+                <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
+              </button>
+              <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
+                <span>Generar resumen ejecutivo</span>
+                <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat Input -->
+          <div class="p-4 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
+            <div class="relative">
+              <input class="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-blue-500 outline-none transition-all placeholder-gray-400" placeholder="Pregunta sobre el reporte..." type="text" />
+              <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md">
+                <span class="material-symbols-outlined text-[18px]">send</span>
+              </button>
+            </div>
+            <div class="flex justify-center mt-3 gap-2 text-[10px] text-gray-400">
+              <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[10px]">lock</span> Encrypted</span>
+              <span>•</span>
+              <span>Powered by MDA Core</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Dark mode toggle
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      });
+
+      // Check for saved theme preference
+      if (localStorage.getItem('theme') === 'dark' ||
+          (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+
+      // Report Modal functionality
+      const modal = document.getElementById('report-modal');
+      const modalBackdrop = document.getElementById('modal-backdrop');
+      const closeModalBtn = document.getElementById('close-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalDescription = document.getElementById('modal-description');
+      const modalImage = document.getElementById('modal-image') as HTMLImageElement;
+      const reportButtons = document.querySelectorAll('.report-btn');
+
+      // Open modal
+      reportButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const button = e.currentTarget as HTMLElement;
+          const title = button.dataset.title || 'Report';
+          const description = button.dataset.description || '';
+          const image = button.dataset.image || '';
+
+          if (modalTitle) modalTitle.textContent = title;
+          if (modalDescription) modalDescription.textContent = description;
+          if (modalImage) modalImage.src = image;
+
+          modal?.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+          document.body.setAttribute('data-modal-open', 'true');
+
+          // Hide any floating chatbot
+          const chatbotButtons = document.querySelectorAll('[data-chatbot-trigger]');
+          chatbotButtons.forEach(cb => (cb as HTMLElement).style.display = 'none');
+        });
+      });
+
+      // Close modal
+      const closeModal = () => {
+        modal?.classList.add('hidden');
+        document.body.style.overflow = '';
+        document.body.removeAttribute('data-modal-open');
+
+        // Show chatbot again
+        const chatbotButtons = document.querySelectorAll('[data-chatbot-trigger]');
+        chatbotButtons.forEach(cb => (cb as HTMLElement).style.display = '');
+      };
+
+      closeModalBtn?.addEventListener('click', closeModal);
+      modalBackdrop?.addEventListener('click', closeModal);
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>
