@@ -11,7 +11,10 @@
       "Bash(timeout:*)",
       "Bash(dir /b)",
       "Bash(dir:*)",
-      "mcp__astro-docs__search_astro_docs"
+      "mcp__astro-docs__search_astro_docs",
+      "WebFetch(domain:medium.com)",
+      "WebSearch",
+      "WebFetch(domain:www.heroui.com)"
     ]
   }
 }

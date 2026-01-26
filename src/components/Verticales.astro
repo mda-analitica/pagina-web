@@ -6,16 +6,49 @@ const tabs = [
   { id: 'desarrollo', icon: 'code_blocks', label: 'Desarrollo & Consultoría', active: false },
 ];
 
-const features = [
-  'Monitoreo SARLAFT 4.0',
-  'Gestión de Listas Restrictivas (AML)',
-  'Segmentación de Factores de Riesgo',
-];
-
-const stats = [
-  { value: '99%', label: 'Exactitud Técnica' },
-  { value: '50+', label: 'Clientes Core' },
-];
+const tabContent = {
+  cumplimiento: {
+    title: 'Expertos en Regulación Local',
+    description: 'Nuestras soluciones están diseñadas para cumplir con los estándares más estrictos de la Superintendencia Financiera y de Sociedades. Automatice sus procesos de debida diligencia y monitoreo transaccional.',
+    features: [
+      'Monitoreo SARLAFT 4.0',
+      'Gestión de Listas Restrictivas (AML)',
+      'Segmentación de Factores de Riesgo',
+    ],
+    stats: [
+      { value: '99%', label: 'Exactitud Técnica' },
+      { value: '50+', label: 'Clientes Core' },
+    ],
+  },
+  rif: {
+    title: 'Inteligencia Financiera Avanzada',
+    description: 'Transforme sus datos financieros en insights accionables. Nuestra plataforma RIF integra análisis predictivo, detección de anomalías y reportería automatizada para una gestión de riesgos proactiva.',
+    features: [
+      'Dashboards ejecutivos en tiempo real',
+      'Análisis predictivo de cartera',
+      'Detección automática de fraudes',
+      'Reportes ROS automatizados',
+    ],
+    stats: [
+      { value: '85%', label: 'Reducción tiempo análisis' },
+      { value: '200+', label: 'Reportes generados/mes' },
+    ],
+  },
+  desarrollo: {
+    title: 'Soluciones a la Medida',
+    description: 'Nuestro equipo de expertos desarrolla soluciones personalizadas que se adaptan a las necesidades específicas de su organización. Desde integraciones API hasta sistemas completos de gestión de riesgos.',
+    features: [
+      'Desarrollo de APIs e integraciones',
+      'Consultoría técnica especializada',
+      'Capacitación y transferencia de conocimiento',
+      'Soporte técnico dedicado 24/7',
+    ],
+    stats: [
+      { value: '30+', label: 'Proyectos entregados' },
+      { value: '100%', label: 'Satisfacción cliente' },
+    ],
+  },
+};
 ---
 
 <section id="solutions" class="bg-pearl dark:bg-gray-900/50 py-16">
@@ -29,9 +62,9 @@ const stats = [
     <!-- Tabs -->
     <div class="flex flex-wrap border-b border-gray-200 dark:border-gray-800 gap-4 md:gap-12 justify-center">
       {tabs.map((tab) => (
-        <a
-          href="#"
-          class={`flex flex-col items-center justify-center border-b-4 pb-4 pt-2 transition-all ${
+        <button
+          data-tab={tab.id}
+          class={`tab-btn flex flex-col items-center justify-center border-b-4 pb-4 pt-2 transition-all cursor-pointer ${
             tab.active
               ? 'border-primary text-primary'
               : 'border-transparent text-gray-500 hover:text-primary'
@@ -39,36 +72,72 @@ const stats = [
         >
           <span class="material-symbols-outlined mb-2">{tab.icon}</span>
           <p class="text-sm font-bold uppercase tracking-wider">{tab.label}</p>
-        </a>
+        </button>
       ))}
     </div>
 
-    <!-- Content -->
-    <div class="mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm">
-      <div>
-        <h3 class="text-2xl font-bold mb-4 dark:text-white">Expertos en Regulación Local</h3>
-        <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-          Nuestras soluciones están diseñadas para cumplir con los estándares más estrictos de la Superintendencia Financiera y de Sociedades. Automatice sus procesos de debida diligencia y monitoreo transaccional.
-        </p>
-        <ul class="space-y-3">
-          {features.map((feature) => (
-            <li class="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <span class="material-symbols-outlined text-accent-green">check_circle</span>
-              {feature}
-            </li>
-          ))}
-        </ul>
-      </div>
+    <!-- Content Panels -->
+    {Object.entries(tabContent).map(([id, content]) => (
+      <div
+        id={`panel-${id}`}
+        class={`tab-panel mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm transition-all duration-300 ${
+          id === 'cumplimiento' ? '' : 'hidden'
+        }`}
+      >
+        <div>
+          <h3 class="text-2xl font-bold mb-4 dark:text-white">{content.title}</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+            {content.description}
+          </p>
+          <ul class="space-y-3">
+            {content.features.map((feature) => (
+              <li class="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <span class="material-symbols-outlined text-accent-green">check_circle</span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <!-- Stats grid -->
-      <div class="grid grid-cols-2 gap-4">
-        {stats.map((stat) => (
-          <div class="p-6 bg-pearl dark:bg-gray-700 rounded-xl">
-            <h4 class="text-primary dark:text-blue-400 text-3xl font-black mb-1">{stat.value}</h4>
-            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{stat.label}</p>
-          </div>
-        ))}
+        <!-- Stats grid -->
+        <div class="grid grid-cols-2 gap-4">
+          {content.stats.map((stat) => (
+            <div class="p-6 bg-pearl dark:bg-gray-700 rounded-xl">
+              <h4 class="text-primary dark:text-blue-400 text-3xl font-black mb-1">{stat.value}</h4>
+              <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{stat.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    ))}
   </div>
 </section>
+
+<script>
+  // Tab functionality
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.getAttribute('data-tab');
+
+      // Update button states
+      tabButtons.forEach(b => {
+        b.classList.remove('border-primary', 'text-primary');
+        b.classList.add('border-transparent', 'text-gray-500');
+      });
+      btn.classList.remove('border-transparent', 'text-gray-500');
+      btn.classList.add('border-primary', 'text-primary');
+
+      // Update panel visibility
+      tabPanels.forEach(panel => {
+        panel.classList.add('hidden');
+      });
+      const activePanel = document.getElementById(`panel-${tabId}`);
+      if (activePanel) {
+        activePanel.classList.remove('hidden');
+      }
+    });
+  });
+</script>

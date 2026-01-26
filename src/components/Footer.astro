@@ -15,9 +15,9 @@ const company = [
 ];
 
 const contact = [
-  { icon: 'location_on', text: 'Bogotá, Colombia - Edificio Corporativo' },
-  { icon: 'mail', text: 'contacto@mda-analitica.com' },
-  { icon: 'phone', text: '+57 (601) 456-7890' },
+  { icon: 'location_on', text: 'Medellín, Antioquia, Belén Rincón' },
+  { icon: 'mail', text: 'contacto@mda-analitica.com', href: 'mailto:contacto@mda-analitica.com' },
+  { icon: 'phone', text: '+57 (301) 215-9933', href: 'tel:+573012159933' },
 ];
 
 const legal = [
@@ -88,7 +88,11 @@ const legal = [
           {contact.map((item) => (
             <li class="flex items-center gap-3 text-sm text-gray-500">
               <span class="material-symbols-outlined text-primary">{item.icon}</span>
-              {item.text}
+              {item.href ? (
+                <a href={item.href} class="hover:text-primary transition-colors">{item.text}</a>
+              ) : (
+                item.text
+              )}
             </li>
           ))}
         </ul>
