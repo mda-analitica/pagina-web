@@ -1,17 +1,17 @@
 ---
 // Footer component
 const solutions = [
-  { label: 'Monitoreo SARLAFT', href: '#' },
-  { label: 'Gestión PTEE', href: '#' },
-  { label: 'Tableros Power BI', href: '#' },
-  { label: 'Auditoría Técnica', href: '#' },
+  { label: 'Monitoreo SARLAFT', href: '/#solutions' },
+  { label: 'Gestión PTEE', href: '/#solutions' },
+  { label: 'Tableros Power BI', href: '/reportes' },
+  { label: 'Auditoría Técnica', href: '/#solutions' },
 ];
 
 const company = [
-  { label: 'Sobre Nosotros', href: '#' },
-  { label: 'Nuestra Metodología', href: '#' },
-  { label: 'Blog de Riesgos', href: '#' },
-  { label: 'Carreras', href: '#' },
+  { label: 'Sobre Nosotros', href: '/#company' },
+  { label: 'Nuestra Metodología', href: '/#solutions' },
+  { label: 'Blog de Riesgos', href: '/blog' },
+  { label: 'Carreras', href: '/#company' },
 ];
 
 const contact = [
@@ -21,9 +21,14 @@ const contact = [
 ];
 
 const legal = [
-  { label: 'Términos y Condiciones', href: '#' },
-  { label: 'Política de Privacidad', href: '#' },
-  { label: 'Cookies', href: '#' },
+  { label: 'Términos y Condiciones', href: '/terminos' },
+  { label: 'Política de Privacidad', href: '/privacidad' },
+  { label: 'Cookies', href: '/cookies' },
+];
+
+const socialLinks = [
+  { icon: 'public', href: 'https://www.mda-analitica.com', label: 'Sitio web' },
+  { icon: 'alternate_email', href: 'mailto:contacto@mda-analitica.com', label: 'Email' },
 ];
 ---
 
@@ -38,18 +43,23 @@ const legal = [
               <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
             </svg>
           </div>
-          <h2 class="text-primary dark:text-blue-400 text-lg font-bold">MDA Analítica</h2>
+          <h2 class="text-primary dark:text-teal-400 text-lg font-bold">MDA Analítica</h2>
         </div>
         <p class="text-gray-500 text-sm leading-relaxed mb-6">
           Líderes en analítica avanzada y consultoría de cumplimiento normativo para el sector financiero y real.
         </p>
         <div class="flex gap-4">
-          <a class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all" href="#">
-            <span class="material-symbols-outlined">public</span>
-          </a>
-          <a class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all" href="#">
-            <span class="material-symbols-outlined">alternate_email</span>
-          </a>
+          {socialLinks.map((link) => (
+            <a
+              class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              href={link.href}
+              aria-label={link.label}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              <span class="material-symbols-outlined">{link.icon}</span>
+            </a>
+          ))}
         </div>
       </div>
 
@@ -59,7 +69,10 @@ const legal = [
         <ul class="space-y-4">
           {solutions.map((item) => (
             <li>
-              <a class="text-gray-500 hover:text-primary transition-colors text-sm" href={item.href}>
+              <a
+                class="footer-link text-gray-500 hover:text-primary transition-colors duration-300 text-sm focus:outline-none focus:text-primary"
+                href={item.href}
+              >
                 {item.label}
               </a>
             </li>
@@ -73,7 +86,10 @@ const legal = [
         <ul class="space-y-4">
           {company.map((item) => (
             <li>
-              <a class="text-gray-500 hover:text-primary transition-colors text-sm" href={item.href}>
+              <a
+                class="footer-link text-gray-500 hover:text-primary transition-colors duration-300 text-sm focus:outline-none focus:text-primary"
+                href={item.href}
+              >
                 {item.label}
               </a>
             </li>
@@ -101,10 +117,13 @@ const legal = [
 
     <!-- Bottom bar -->
     <div class="mt-16 pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-400">
-      <p>© 2024 MDA Analítica S.A.S. Todos los derechos reservados.</p>
+      <p>© 2025 MDA Analítica S.A.S. Todos los derechos reservados.</p>
       <div class="flex gap-6">
         {legal.map((item) => (
-          <a class="hover:text-primary transition-colors" href={item.href}>
+          <a
+            class="hover:text-primary transition-colors duration-300 focus:outline-none focus:text-primary"
+            href={item.href}
+          >
             {item.label}
           </a>
         ))}
@@ -112,3 +131,28 @@ const legal = [
     </div>
   </div>
 </footer>
+
+<script>
+  // Smooth scroll for anchor links in footer
+  document.querySelectorAll('.footer-link[href^="/#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href) return;
+
+      // If we're on the homepage, scroll smoothly
+      if (window.location.pathname === '/') {
+        e.preventDefault();
+        const targetId = href.replace('/', '');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Update URL without reload
+          history.pushState(null, '', href);
+        }
+      }
+    });
+  });
+</script>

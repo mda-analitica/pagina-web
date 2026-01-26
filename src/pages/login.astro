@@ -20,7 +20,7 @@ import '../styles/global.css';
   <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-gray-100 font-display transition-colors duration-300 min-h-screen flex flex-col">
     <!-- Theme toggle -->
     <nav class="fixed top-0 left-0 right-0 p-6 flex justify-between z-50">
-      <a href="/" class="flex items-center gap-2 text-primary dark:text-blue-400 font-bold hover:opacity-80 transition-opacity">
+      <a href="/" class="flex items-center gap-2 text-primary dark:text-teal-400 font-bold hover:opacity-80 transition-opacity">
         <span class="material-symbols-outlined">arrow_back</span>
         Volver al inicio
       </a>
@@ -42,32 +42,32 @@ import '../styles/global.css';
           <div class="relative z-10 w-full">
             <div class="space-y-6">
               <div class="flex items-center gap-4 animate-pulse">
-                <div class="w-12 h-2 bg-blue-500/30 rounded"></div>
-                <div class="flex-1 h-0.5 bg-blue-500/10"></div>
+                <div class="w-12 h-2 bg-teal-500/30 rounded"></div>
+                <div class="flex-1 h-0.5 bg-teal-500/10"></div>
               </div>
-              <div class="h-48 border-l-2 border-b-2 border-blue-500/20 relative">
-                <svg class="absolute bottom-0 left-0 w-full h-full text-blue-400/20" preserveAspectRatio="none" viewBox="0 0 100 100">
+              <div class="h-48 border-l-2 border-b-2 border-teal-500/20 relative">
+                <svg class="absolute bottom-0 left-0 w-full h-full text-teal-400/20" preserveAspectRatio="none" viewBox="0 0 100 100">
                   <path d="M0 80 Q 20 20 40 50 T 80 10 T 100 60 L 100 100 L 0 100 Z" fill="currentColor"></path>
                 </svg>
               </div>
               <div class="grid grid-cols-3 gap-4">
                 <div class="h-16 bg-white/5 rounded-xl border border-white/10 flex flex-col justify-center px-4">
-                  <span class="text-[10px] text-blue-300 font-bold uppercase tracking-wider">Security</span>
+                  <span class="text-[10px] text-teal-300 font-bold uppercase tracking-wider">Security</span>
                   <span class="text-white font-black">99.9%</span>
                 </div>
                 <div class="h-16 bg-white/5 rounded-xl border border-white/10 flex flex-col justify-center px-4">
-                  <span class="text-[10px] text-blue-300 font-bold uppercase tracking-wider">Analytics</span>
+                  <span class="text-[10px] text-teal-300 font-bold uppercase tracking-wider">Analytics</span>
                   <span class="text-white font-black">AES-256</span>
                 </div>
                 <div class="h-16 bg-white/5 rounded-xl border border-white/10 flex flex-col justify-center px-4">
-                  <span class="text-[10px] text-blue-300 font-bold uppercase tracking-wider">Compliance</span>
+                  <span class="text-[10px] text-teal-300 font-bold uppercase tracking-wider">Compliance</span>
                   <span class="text-white font-black">Active</span>
                 </div>
               </div>
             </div>
             <div class="mt-12">
               <h3 class="text-white text-2xl font-bold">Resiliencia Corporativa</h3>
-              <p class="text-blue-200/60 text-sm mt-2 leading-relaxed">Infraestructura blindada para el manejo de datos normativos y financieros de alto impacto.</p>
+              <p class="text-teal-200/60 text-sm mt-2 leading-relaxed">Infraestructura blindada para el manejo de datos normativos y financieros de alto impacto.</p>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@ import '../styles/global.css';
                 <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
               </svg>
             </div>
-            <h2 class="text-primary dark:text-blue-400 text-xl font-black leading-tight tracking-tight">MDA Analítica</h2>
+            <h2 class="text-primary dark:text-teal-400 text-xl font-black leading-tight tracking-tight">MDA Analítica</h2>
           </div>
 
           <div class="mb-8">
@@ -88,30 +88,96 @@ import '../styles/global.css';
             <p class="text-slate-500 dark:text-slate-400 mt-2">Inicie sesión para acceder a su panel de control y reportes normativos</p>
           </div>
 
-          <form class="space-y-5">
-            <div>
-              <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Correo electrónico corporativo</label>
-              <input class="w-full h-12 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" placeholder="nombre@empresa.com" type="email" />
+          <form id="login-form" class="space-y-5" novalidate>
+            <div class="form-group">
+              <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2" for="email-input">
+                Correo electrónico corporativo
+              </label>
+              <div class="relative">
+                <input
+                  id="email-input"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  class="form-input w-full h-12 px-4 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 outline-none"
+                  placeholder="nombre@empresa.com"
+                  aria-describedby="email-error"
+                />
+                <span class="input-icon absolute right-4 top-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300">
+                  <span class="material-symbols-outlined text-xl success-icon text-green-500 hidden">check_circle</span>
+                  <span class="material-symbols-outlined text-xl error-icon text-red-500 hidden">error</span>
+                </span>
+              </div>
+              <p id="email-error" class="error-message mt-2 text-sm text-red-500 hidden" role="alert" aria-live="polite"></p>
             </div>
-            <div>
+
+            <div class="form-group">
               <div class="flex justify-between mb-2">
-                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Contraseña</label>
-                <a class="text-sm font-bold text-primary dark:text-blue-400 hover:underline" href="/recuperar-password">¿Olvidó su contraseña?</a>
+                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300" for="password-input">Contraseña</label>
+                <a class="text-sm font-bold text-primary dark:text-teal-400 hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" href="/recuperar-password">¿Olvidó su contraseña?</a>
               </div>
               <div class="relative">
-                <input class="w-full h-12 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" placeholder="••••••••" type="password" id="password-input" />
-                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" type="button" id="toggle-password">
-                  <span class="material-symbols-outlined text-xl">visibility</span>
-                </button>
+                <input
+                  id="password-input"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                  minlength="8"
+                  class="form-input w-full h-12 px-4 pr-20 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 outline-none"
+                  placeholder="••••••••"
+                  aria-describedby="password-error"
+                />
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                  <span class="input-icon opacity-0 transition-opacity duration-300">
+                    <span class="material-symbols-outlined text-xl success-icon text-green-500 hidden">check_circle</span>
+                    <span class="material-symbols-outlined text-xl error-icon text-red-500 hidden">error</span>
+                  </span>
+                  <button
+                    class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none focus:text-primary transition-colors"
+                    type="button"
+                    id="toggle-password"
+                    aria-label="Mostrar contraseña"
+                  >
+                    <span class="material-symbols-outlined text-xl">visibility</span>
+                  </button>
+                </div>
+              </div>
+              <p id="password-error" class="error-message mt-2 text-sm text-red-500 hidden" role="alert" aria-live="polite"></p>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <input
+                class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900 cursor-pointer"
+                id="remember"
+                name="remember"
+                type="checkbox"
+              />
+              <label class="text-sm text-slate-600 dark:text-slate-400 cursor-pointer select-none" for="remember">Recordarme</label>
+            </div>
+
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full h-12 bg-primary hover:bg-teal-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-black rounded-xl glow-button transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              <span id="submit-text">Iniciar Sesión</span>
+              <span id="submit-spinner" class="hidden">
+                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </span>
+            </button>
+
+            <!-- Form-level error message -->
+            <div id="form-error" class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl hidden" role="alert">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-red-500">warning</span>
+                <p id="form-error-text" class="text-sm font-medium text-red-600 dark:text-red-400"></p>
               </div>
             </div>
-            <div class="flex items-center gap-2">
-              <input class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary" id="remember" type="checkbox" />
-              <label class="text-sm text-slate-600 dark:text-slate-400" for="remember">Recordarme</label>
-            </div>
-            <button type="submit" class="w-full h-12 bg-primary hover:bg-blue-700 text-white font-black rounded-xl glow-button transition-all flex items-center justify-center gap-2">
-              <span>Iniciar Sesión</span>
-            </button>
           </form>
 
           <div class="mt-8">
@@ -137,17 +203,17 @@ import '../styles/global.css';
     <footer class="p-8">
       <div class="max-w-[1100px] mx-auto flex flex-col md:flex-row items-center justify-center gap-8 opacity-60">
         <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-primary dark:text-blue-400">gavel</span>
+          <span class="material-symbols-outlined text-primary dark:text-teal-400">gavel</span>
           <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cumplimiento GDPR & Ley 1581</span>
         </div>
         <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 hidden md:block"></div>
         <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-primary dark:text-blue-400">verified_user</span>
+          <span class="material-symbols-outlined text-primary dark:text-teal-400">verified_user</span>
           <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Seguridad de grado bancario (AES-256)</span>
         </div>
         <div class="h-4 w-px bg-slate-300 dark:bg-slate-700 hidden md:block"></div>
         <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-primary dark:text-blue-400">lock</span>
+          <span class="material-symbols-outlined text-primary dark:text-teal-400">lock</span>
           <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">SSL 256-bit Encryption</span>
         </div>
       </div>
@@ -189,7 +255,7 @@ import '../styles/global.css';
 
       // Toggle password visibility
       const togglePassword = document.getElementById('toggle-password');
-      const passwordInput = document.getElementById('password-input');
+      const passwordInput = document.getElementById('password-input') as HTMLInputElement;
       togglePassword?.addEventListener('click', () => {
         const type = passwordInput?.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput?.setAttribute('type', type);
@@ -197,7 +263,177 @@ import '../styles/global.css';
         if (icon) {
           icon.textContent = type === 'password' ? 'visibility' : 'visibility_off';
         }
+        togglePassword.setAttribute('aria-label', type === 'password' ? 'Mostrar contraseña' : 'Ocultar contraseña');
+      });
+
+      // Form Validation
+      const loginForm = document.getElementById('login-form') as HTMLFormElement;
+      const emailInput = document.getElementById('email-input') as HTMLInputElement;
+      const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+      const submitText = document.getElementById('submit-text');
+      const submitSpinner = document.getElementById('submit-spinner');
+      const formError = document.getElementById('form-error');
+      const formErrorText = document.getElementById('form-error-text');
+
+      // Validation rules
+      const validators = {
+        email: {
+          validate: (value: string) => {
+            if (!value.trim()) return { valid: false, message: 'El correo electrónico es requerido' };
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) return { valid: false, message: 'Ingrese un correo electrónico válido' };
+            return { valid: true, message: '' };
+          }
+        },
+        password: {
+          validate: (value: string) => {
+            if (!value) return { valid: false, message: 'La contraseña es requerida' };
+            if (value.length < 8) return { valid: false, message: 'La contraseña debe tener al menos 8 caracteres' };
+            return { valid: true, message: '' };
+          }
+        }
+      };
+
+      // Update field visual state
+      function updateFieldState(input: HTMLInputElement, isValid: boolean, errorMessage: string) {
+        const formGroup = input.closest('.form-group');
+        if (!formGroup) return;
+
+        const errorEl = formGroup.querySelector('.error-message') as HTMLElement;
+        const iconContainer = formGroup.querySelector('.input-icon') as HTMLElement;
+        const successIcon = iconContainer?.querySelector('.success-icon') as HTMLElement;
+        const errorIcon = iconContainer?.querySelector('.error-icon') as HTMLElement;
+
+        // Update input border
+        input.classList.remove('border-red-500', 'border-green-500', 'dark:border-red-500', 'dark:border-green-500');
+
+        if (input.value.trim()) {
+          if (isValid) {
+            input.classList.add('border-green-500', 'dark:border-green-500');
+            successIcon?.classList.remove('hidden');
+            errorIcon?.classList.add('hidden');
+            iconContainer?.classList.add('opacity-100');
+            iconContainer?.classList.remove('opacity-0');
+          } else {
+            input.classList.add('border-red-500', 'dark:border-red-500');
+            errorIcon?.classList.remove('hidden');
+            successIcon?.classList.add('hidden');
+            iconContainer?.classList.add('opacity-100');
+            iconContainer?.classList.remove('opacity-0');
+          }
+        } else {
+          iconContainer?.classList.add('opacity-0');
+          iconContainer?.classList.remove('opacity-100');
+        }
+
+        // Update error message
+        if (errorEl) {
+          if (errorMessage && !isValid) {
+            errorEl.textContent = errorMessage;
+            errorEl.classList.remove('hidden');
+          } else {
+            errorEl.classList.add('hidden');
+          }
+        }
+      }
+
+      // Validate single field
+      function validateField(input: HTMLInputElement): boolean {
+        const fieldName = input.name as keyof typeof validators;
+        const validator = validators[fieldName];
+        if (!validator) return true;
+
+        const result = validator.validate(input.value);
+        updateFieldState(input, result.valid, result.message);
+        return result.valid;
+      }
+
+      // Add blur/input validation
+      [emailInput, passwordInput].forEach(input => {
+        if (!input) return;
+
+        input.addEventListener('blur', () => {
+          validateField(input);
+        });
+
+        input.addEventListener('input', () => {
+          // Clear error on typing
+          const formGroup = input.closest('.form-group');
+          const errorEl = formGroup?.querySelector('.error-message') as HTMLElement;
+          if (errorEl && !errorEl.classList.contains('hidden')) {
+            validateField(input);
+          }
+        });
+      });
+
+      // Form submission
+      loginForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Hide previous form error
+        formError?.classList.add('hidden');
+
+        // Validate all fields
+        const emailValid = validateField(emailInput);
+        const passwordValid = validateField(passwordInput);
+
+        if (!emailValid || !passwordValid) {
+          // Focus first invalid field
+          if (!emailValid) emailInput?.focus();
+          else if (!passwordValid) passwordInput?.focus();
+          return;
+        }
+
+        // Show loading state
+        submitBtn.disabled = true;
+        submitText?.classList.add('hidden');
+        submitSpinner?.classList.remove('hidden');
+
+        try {
+          // Simulate API call
+          await new Promise(resolve => setTimeout(resolve, 2000));
+
+          // Simulate success - redirect to dashboard
+          window.location.href = '/dashboard';
+        } catch (error) {
+          // Show error
+          if (formError && formErrorText) {
+            formErrorText.textContent = 'Error al iniciar sesión. Por favor, verifique sus credenciales.';
+            formError.classList.remove('hidden');
+          }
+        } finally {
+          // Reset button state
+          submitBtn.disabled = false;
+          submitText?.classList.remove('hidden');
+          submitSpinner?.classList.add('hidden');
+        }
       });
     </script>
+
+    <style>
+      .form-input:focus {
+        border-color: var(--color-primary);
+      }
+
+      .form-input.border-red-500:focus {
+        --tw-ring-color: rgba(239, 68, 68, 0.2);
+        border-color: rgb(239 68 68);
+      }
+
+      .form-input.border-green-500:focus {
+        --tw-ring-color: rgba(34, 197, 94, 0.2);
+        border-color: rgb(34 197 94);
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+        20%, 40%, 60%, 80% { transform: translateX(4px); }
+      }
+
+      .shake {
+        animation: shake 0.5s ease-in-out;
+      }
+    </style>
   </body>
 </html>

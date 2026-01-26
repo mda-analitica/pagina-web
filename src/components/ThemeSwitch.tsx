@@ -33,61 +33,54 @@ export default function ThemeSwitch() {
   // Prevent hydration mismatch
   if (!mounted) {
     return (
-      <div className="w-16 h-8 rounded-full bg-gray-200 dark:bg-gray-700" />
+      <button
+        className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 transition-colors"
+        aria-label="Cargando tema"
+      >
+        <span className="material-symbols-outlined text-xl text-gray-400">contrast</span>
+      </button>
     );
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className="relative inline-flex h-8 w-16 items-center rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-      style={{
-        backgroundColor: isDark ? '#1e293b' : '#e2e8f0',
-      }}
+      className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 group"
       aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
       role="switch"
       aria-checked={isDark}
     >
-      {/* Sun icon */}
+      {/* Sun icon - visible in dark mode (to switch to light) */}
       <span
-        className={`absolute left-1.5 transition-all duration-300 ${
-          isDark ? 'opacity-0 scale-50' : 'opacity-100 scale-100'
+        className={`absolute transition-all duration-300 ${
+          isDark
+            ? 'opacity-100 scale-100 rotate-0'
+            : 'opacity-0 scale-50 rotate-90'
         }`}
       >
-        <svg
-          className="h-5 w-5 text-amber-500"
-          fill="currentColor"
-          viewBox="0 0 24 24"
+        <span
+          className="material-symbols-outlined text-2xl text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]"
+          style={{ fontVariationSettings: "'FILL' 1" }}
         >
-          <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
-        </svg>
+          light_mode
+        </span>
       </span>
 
-      {/* Moon icon */}
+      {/* Moon icon - visible in light mode (to switch to dark) */}
       <span
-        className={`absolute right-1.5 transition-all duration-300 ${
-          isDark ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+        className={`absolute transition-all duration-300 ${
+          isDark
+            ? 'opacity-0 scale-50 -rotate-90'
+            : 'opacity-100 scale-100 rotate-0'
         }`}
       >
-        <svg
-          className="h-5 w-5 text-indigo-300"
-          fill="currentColor"
-          viewBox="0 0 24 24"
+        <span
+          className="material-symbols-outlined text-2xl text-indigo-500 dark:text-indigo-400"
+          style={{ fontVariationSettings: "'FILL' 1" }}
         >
-          <path
-            fillRule="evenodd"
-            d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
-            clipRule="evenodd"
-          />
-        </svg>
+          dark_mode
+        </span>
       </span>
-
-      {/* Toggle circle */}
-      <span
-        className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-300 ease-in-out ${
-          isDark ? 'translate-x-8' : 'translate-x-1'
-        }`}
-      />
     </button>
   );
 }

@@ -27,24 +27,30 @@ const {
       <!-- Content -->
       <div class="flex flex-col gap-8 flex-1">
         <div class="flex flex-col gap-4 text-left">
-          <span class="text-primary dark:text-blue-400 text-sm font-extrabold uppercase tracking-widest">
+          <span class="text-primary dark:text-teal-400 text-sm font-extrabold uppercase tracking-widest">
             {tagline}
           </span>
           <h1 class="text-[#0e111b] dark:text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight">
-            {title} <span class="text-primary dark:text-blue-400">{highlightedText}</span>
+            {title} <span class="text-primary dark:text-teal-400">{highlightedText}</span>
           </h1>
           <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl">
             {description}
           </p>
         </div>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/login" class="glow-button flex min-w-[240px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-base font-bold leading-normal tracking-wide border border-blue-400/20">
-            <span class="material-symbols-outlined mr-2">analytics</span>
+          <a
+            href="/login"
+            class="hero-btn-primary glow-button flex min-w-[240px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-base font-bold leading-normal tracking-wide border border-teal-400/20 transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            <span class="material-symbols-outlined mr-2 transition-transform duration-300 group-hover:rotate-12" aria-hidden="true">analytics</span>
             <span>{primaryCta}</span>
           </a>
-          <button class="flex min-w-[180px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 border-2 border-primary/20 bg-transparent text-primary dark:text-blue-400 dark:border-blue-400/20 text-base font-bold leading-normal hover:bg-primary/5">
+          <a
+            href="/#solutions"
+            class="hero-btn-secondary flex min-w-[180px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 border-2 border-primary/20 bg-transparent text-primary dark:text-teal-400 dark:border-teal-400/20 text-base font-bold leading-normal transition-all duration-300 hover:bg-primary/5 hover:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
             {secondaryCta}
-          </button>
+          </a>
         </div>
       </div>
 

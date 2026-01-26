@@ -1,5 +1,8 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Chatbot from '../components/Chatbot';
 
 const categories = [
   { label: 'Todos', active: true },
@@ -46,51 +49,13 @@ const posts = [
 ];
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>MDA Analítica | Insights & Perspectivas Normativas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-  </head>
-  <body class="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-white antialiased transition-colors duration-300">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-solid border-gray-200 dark:border-gray-800 px-4 md:px-20 py-3">
-      <div class="max-w-[1200px] mx-auto flex items-center justify-between">
-        <div class="flex items-center gap-8">
-          <a href="/" class="flex items-center gap-3">
-            <div class="size-8 text-primary">
-              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
-              </svg>
-            </div>
-            <h2 class="text-[#0e111b] dark:text-white text-xl font-bold tracking-tight">MDA Analítica</h2>
-          </a>
-          <nav class="hidden lg:flex items-center gap-8">
-            <a class="text-gray-600 dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors" href="/#solutions">Soluciones</a>
-            <a class="text-gray-600 dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors" href="/#analytics">Metodología</a>
-            <a class="text-primary text-sm font-bold" href="/blog">Insights</a>
-            <a class="text-gray-600 dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors" href="/#company">Nosotros</a>
-          </nav>
-        </div>
-        <div class="flex items-center gap-4">
-          <a href="/login" class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-accent-green text-white text-sm font-bold transition-transform hover:scale-105">
-            Solicitar Demo
-          </a>
-          <button
-            id="theme-toggle"
-            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[#0e111b] dark:text-white"
-            aria-label="Toggle dark mode"
-          >
-            <span class="material-symbols-outlined text-[20px]">dark_mode</span>
-          </button>
-        </div>
-      </div>
-    </header>
+<Layout
+  title="MDA Analítica | Insights & Perspectivas Normativas"
+  description="Análisis profundo y actualizaciones críticas sobre SARLAFT, SAGRILAFT y las fronteras de la analítica financiera avanzada."
+>
+  <Header />
 
-    <main class="max-w-[1200px] mx-auto px-4 py-12">
+  <main id="main-content" class="max-w-[1200px] mx-auto px-4 py-12">
       <!-- Hero Section -->
       <section class="mb-16 text-center max-w-3xl mx-auto">
         <h1 class="text-[#0e111b] dark:text-white text-5xl font-black leading-tight tracking-tighter mb-6">
@@ -189,49 +154,8 @@ const posts = [
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="max-w-[1200px] mx-auto px-4 py-12 border-t border-gray-200 dark:border-gray-800">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="flex items-center gap-3 grayscale opacity-70">
-          <div class="size-6 text-[#0e111b] dark:text-white">
-            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
-            </svg>
-          </div>
-          <span class="text-sm font-bold">MDA Analítica © 2024</span>
-        </div>
-        <div class="flex gap-8">
-          <a class="text-gray-500 text-xs hover:text-primary transition-colors" href="#">Términos de Servicio</a>
-          <a class="text-gray-500 text-xs hover:text-primary transition-colors" href="#">Privacidad</a>
-          <a class="text-gray-500 text-xs hover:text-primary transition-colors" href="#">Cookies</a>
-        </div>
-      </div>
-    </footer>
+  <Footer />
 
-    <!-- Floating AI Assistant Button -->
-    <div class="fixed bottom-8 right-8 z-[60]">
-      <button class="size-14 rounded-full bg-accent-green text-white shadow-xl shadow-accent-green/20 flex items-center justify-center hover:scale-110 transition-transform cursor-pointer">
-        <span class="material-symbols-outlined text-[32px]">smart_toy</span>
-        <span class="absolute -top-1 -right-1 flex h-4 w-4">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-4 w-4 bg-accent-green border-2 border-white dark:border-background-dark"></span>
-        </span>
-      </button>
-    </div>
-
-    <script>
-      // Dark mode toggle
-      const themeToggle = document.getElementById('theme-toggle');
-      themeToggle?.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-      });
-
-      // Check for saved theme preference
-      if (localStorage.getItem('theme') === 'dark' ||
-          (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    </script>
-  </body>
-</html>
+  <!-- Chatbot -->
+  <Chatbot client:load />
+</Layout>

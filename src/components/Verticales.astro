@@ -60,17 +60,26 @@ const tabContent = {
     </div>
 
     <!-- Tabs -->
-    <div class="flex flex-wrap border-b border-gray-200 dark:border-gray-800 gap-4 md:gap-12 justify-center">
-      {tabs.map((tab) => (
+    <div
+      class="flex flex-wrap border-b border-gray-200 dark:border-gray-800 gap-4 md:gap-12 justify-center"
+      role="tablist"
+      aria-label="Verticales de servicio"
+    >
+      {tabs.map((tab, index) => (
         <button
           data-tab={tab.id}
-          class={`tab-btn flex flex-col items-center justify-center border-b-4 pb-4 pt-2 transition-all cursor-pointer ${
+          role="tab"
+          aria-selected={tab.active ? 'true' : 'false'}
+          aria-controls={`panel-${tab.id}`}
+          id={`tab-${tab.id}`}
+          tabindex={tab.active ? 0 : -1}
+          class={`tab-btn flex flex-col items-center justify-center border-b-4 pb-4 pt-2 transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
             tab.active
               ? 'border-primary text-primary'
               : 'border-transparent text-gray-500 hover:text-primary'
           }`}
         >
-          <span class="material-symbols-outlined mb-2">{tab.icon}</span>
+          <span class="material-symbols-outlined mb-2" aria-hidden="true">{tab.icon}</span>
           <p class="text-sm font-bold uppercase tracking-wider">{tab.label}</p>
         </button>
       ))}
@@ -80,7 +89,10 @@ const tabContent = {
     {Object.entries(tabContent).map(([id, content]) => (
       <div
         id={`panel-${id}`}
-        class={`tab-panel mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm transition-all duration-300 ${
+        role="tabpanel"
+        aria-labelledby={`tab-${id}`}
+        tabindex="0"
+        class={`tab-panel mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
           id === 'cumplimiento' ? '' : 'hidden'
         }`}
       >
@@ -103,7 +115,7 @@ const tabContent = {
         <div class="grid grid-cols-2 gap-4">
           {content.stats.map((stat) => (
             <div class="p-6 bg-pearl dark:bg-gray-700 rounded-xl">
-              <h4 class="text-primary dark:text-blue-400 text-3xl font-black mb-1">{stat.value}</h4>
+              <h4 class="text-primary dark:text-teal-400 text-3xl font-black mb-1">{stat.value}</h4>
               <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">{stat.label}</p>
             </div>
           ))}
@@ -114,30 +126,68 @@ const tabContent = {
 </section>
 
 <script>
-  // Tab functionality
-  const tabButtons = document.querySelectorAll('.tab-btn');
+  // Tab functionality with keyboard navigation
+  const tabButtons = document.querySelectorAll('.tab-btn') as NodeListOf<HTMLButtonElement>;
   const tabPanels = document.querySelectorAll('.tab-panel');
 
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tabId = btn.getAttribute('data-tab');
+  function activateTab(tab: HTMLButtonElement) {
+    const tabId = tab.getAttribute('data-tab');
 
-      // Update button states
-      tabButtons.forEach(b => {
-        b.classList.remove('border-primary', 'text-primary');
-        b.classList.add('border-transparent', 'text-gray-500');
-      });
-      btn.classList.remove('border-transparent', 'text-gray-500');
-      btn.classList.add('border-primary', 'text-primary');
+    // Update button states and ARIA attributes
+    tabButtons.forEach(b => {
+      b.classList.remove('border-primary', 'text-primary');
+      b.classList.add('border-transparent', 'text-gray-500');
+      b.setAttribute('aria-selected', 'false');
+      b.setAttribute('tabindex', '-1');
+    });
+    tab.classList.remove('border-transparent', 'text-gray-500');
+    tab.classList.add('border-primary', 'text-primary');
+    tab.setAttribute('aria-selected', 'true');
+    tab.setAttribute('tabindex', '0');
+    tab.focus();
 
-      // Update panel visibility
-      tabPanels.forEach(panel => {
-        panel.classList.add('hidden');
-      });
-      const activePanel = document.getElementById(`panel-${tabId}`);
-      if (activePanel) {
-        activePanel.classList.remove('hidden');
+    // Update panel visibility
+    tabPanels.forEach(panel => {
+      panel.classList.add('hidden');
+    });
+    const activePanel = document.getElementById(`panel-${tabId}`);
+    if (activePanel) {
+      activePanel.classList.remove('hidden');
+    }
+  }
+
+  tabButtons.forEach((btn, index) => {
+    // Click handler
+    btn.addEventListener('click', () => activateTab(btn));
+
+    // Keyboard navigation
+    btn.addEventListener('keydown', (e) => {
+      let targetIndex = index;
+
+      switch (e.key) {
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          e.preventDefault();
+          targetIndex = index === 0 ? tabButtons.length - 1 : index - 1;
+          break;
+        case 'ArrowRight':
+        case 'ArrowDown':
+          e.preventDefault();
+          targetIndex = index === tabButtons.length - 1 ? 0 : index + 1;
+          break;
+        case 'Home':
+          e.preventDefault();
+          targetIndex = 0;
+          break;
+        case 'End':
+          e.preventDefault();
+          targetIndex = tabButtons.length - 1;
+          break;
+        default:
+          return;
       }
+
+      activateTab(tabButtons[targetIndex]);
     });
   });
 </script>

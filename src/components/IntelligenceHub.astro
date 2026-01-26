@@ -47,8 +47,13 @@ const reports = [
 
     <!-- Reports grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {reports.map((report) => (
-        <div class="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900 aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer">
+      {reports.map((report, index) => (
+        <div
+          class="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900 aspect-video shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer card-hover focus-within:ring-2 focus-within:ring-primary"
+          tabindex="0"
+          role="button"
+          aria-label={`Ver reporte: ${report.title}`}
+        >
           <div
             class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
             style={`background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('${report.image}')`}
@@ -61,16 +66,17 @@ const reports = [
             <p class="text-white/80 text-sm mt-1">{report.description}</p>
           </div>
           <!-- Hover overlay -->
-          <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <button
-              class="hub-report-btn bg-white text-primary font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+              class="hub-report-btn bg-white text-primary font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 group-focus:translate-y-0 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white"
               data-title={report.title}
               data-description={report.description}
               data-tag={report.tag}
               data-image={report.image}
               data-embed={report.embedUrl}
+              aria-label={`Abrir reporte ${report.title}`}
             >
-              <span class="material-symbols-outlined">open_in_new</span>
+              <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
               Ver Reporte
             </button>
           </div>
@@ -81,17 +87,43 @@ const reports = [
 </section>
 
 <!-- Report Modal/Popup -->
-<div id="hub-report-modal" class="fixed inset-0 z-[90] hidden">
+<div
+  id="hub-report-modal"
+  class="fixed inset-0 z-[90] hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="hub-modal-title"
+  aria-describedby="hub-modal-description"
+>
   <!-- Backdrop -->
-  <div id="hub-modal-backdrop" class="absolute inset-0 bg-[#0e111b]/50 backdrop-blur-[2px]"></div>
+  <div id="hub-modal-backdrop" class="absolute inset-0 bg-[#0e111b]/50 backdrop-blur-[2px] opacity-0 transition-opacity duration-300"></div>
 
   <!-- Modal Content -->
-  <div class="absolute inset-4 md:inset-8 lg:inset-12 flex flex-col lg:flex-row gap-4 z-10">
+  <div class="modal-content absolute inset-4 md:inset-8 lg:inset-12 flex flex-col lg:flex-row gap-4 z-10 opacity-0 scale-95 transition-all duration-300">
     <!-- Main Report Viewer -->
     <div class="flex-1 bg-white dark:bg-background-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col">
       <!-- Header -->
       <div class="h-16 px-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
         <div class="flex items-center gap-4">
+          <!-- Navigation arrows -->
+          <div class="flex items-center gap-1">
+            <button
+              id="hub-prev-report"
+              class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              title="Reporte anterior"
+              aria-label="Ver reporte anterior"
+            >
+              <span class="material-symbols-outlined text-xl">chevron_left</span>
+            </button>
+            <button
+              id="hub-next-report"
+              class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              title="Siguiente reporte"
+              aria-label="Ver siguiente reporte"
+            >
+              <span class="material-symbols-outlined text-xl">chevron_right</span>
+            </button>
+          </div>
           <div class="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center text-white">
             <span class="material-symbols-outlined">bar_chart</span>
           </div>
@@ -101,10 +133,22 @@ const reports = [
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" title="Pantalla completa">
+          <!-- Report indicator -->
+          <span id="hub-report-indicator" class="text-xs font-medium text-gray-400 px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">1 / 3</span>
+          <button
+            id="hub-fullscreen-btn"
+            class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors"
+            title="Pantalla completa"
+            aria-label="Ver en pantalla completa"
+          >
             <span class="material-symbols-outlined text-xl">fullscreen</span>
           </button>
-          <button id="hub-close-modal" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-gray-500 hover:text-red-500 transition-colors" title="Cerrar">
+          <button
+            id="hub-close-modal"
+            class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-gray-500 hover:text-red-500 transition-colors"
+            title="Cerrar"
+            aria-label="Cerrar modal"
+          >
             <span class="material-symbols-outlined text-xl">close</span>
           </button>
         </div>
@@ -126,10 +170,26 @@ const reports = [
           <!-- Loading State -->
           <div id="hub-loading-state" class="absolute inset-0 flex items-center justify-center bg-white dark:bg-gray-900">
             <div class="text-center">
-              <div class="inline-flex items-center justify-center w-16 h-16 mb-4">
+              <div class="inline-flex items-center justify-center w-16 h-16 mb-4 relative">
                 <span class="material-symbols-outlined text-5xl text-primary animate-pulse">bar_chart</span>
+                <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 64 64">
+                  <circle
+                    id="hub-progress-ring"
+                    cx="32"
+                    cy="32"
+                    r="28"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    class="text-primary/30"
+                    stroke-dasharray="175.93"
+                    stroke-dashoffset="175.93"
+                  />
+                </svg>
               </div>
               <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Cargando reporte...</p>
+              <p id="hub-progress-text" class="text-xs text-gray-400 mt-1">0%</p>
             </div>
           </div>
         </div>
@@ -166,14 +226,14 @@ const reports = [
             <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-200/50 dark:bg-gray-800 px-3 py-1 rounded-full">Hoy</span>
           </div>
           <div class="flex gap-3">
-            <div class="size-8 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm flex-shrink-0 mt-1">
+            <div class="size-8 rounded-full bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center text-white shadow-sm flex-shrink-0 mt-1">
               <span class="material-symbols-outlined text-[16px]">smart_toy</span>
             </div>
             <div class="flex flex-col gap-1 max-w-[85%]">
               <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente Normativo</span>
               <div class="p-4 bg-white dark:bg-gray-800 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>Hola, estoy aquí para ayudarte a analizar este reporte.</p>
-                <p class="mt-2">Puedo explicarte los <strong class="text-primary dark:text-blue-400 font-semibold">indicadores clave</strong>, hacer <strong class="text-primary dark:text-blue-400 font-semibold">comparaciones</strong> o responder preguntas sobre cumplimiento.</p>
+                <p class="mt-2">Puedo explicarte los <strong class="text-primary dark:text-teal-400 font-semibold">indicadores clave</strong>, hacer <strong class="text-primary dark:text-teal-400 font-semibold">comparaciones</strong> o responder preguntas sobre cumplimiento.</p>
               </div>
             </div>
           </div>
@@ -182,15 +242,15 @@ const reports = [
         <!-- Suggestions -->
         <div class="mt-8 flex flex-col gap-2">
           <p class="text-[10px] uppercase font-bold text-gray-400 ml-1 mb-1">Sugerencias</p>
-          <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
+          <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-teal-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
             <span>Explica los indicadores principales</span>
             <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
           </button>
-          <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
+          <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-teal-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
             <span>¿Hay alertas de cumplimiento?</span>
             <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
           </button>
-          <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
+          <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-teal-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
             <span>Generar resumen ejecutivo</span>
             <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
           </button>
@@ -200,8 +260,8 @@ const reports = [
       <!-- Chat Input -->
       <div class="p-4 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
         <div class="relative">
-          <input class="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-blue-500 outline-none transition-all placeholder-gray-400" placeholder="Pregunta sobre el reporte..." type="text" />
-          <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md">
+          <input class="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-teal-500 outline-none transition-all placeholder-gray-400" placeholder="Pregunta sobre el reporte..." type="text" />
+          <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-teal-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md">
             <span class="material-symbols-outlined text-[18px]">send</span>
           </button>
         </div>
@@ -219,6 +279,7 @@ const reports = [
   // Report Modal functionality for Intelligence Hub
   const hubModal = document.getElementById('hub-report-modal');
   const hubModalBackdrop = document.getElementById('hub-modal-backdrop');
+  const hubModalContent = hubModal?.querySelector('.modal-content') as HTMLElement;
   const hubCloseModalBtn = document.getElementById('hub-close-modal');
   const hubModalTitle = document.getElementById('hub-modal-title');
   const hubModalDescription = document.getElementById('hub-modal-description');
@@ -226,77 +287,235 @@ const reports = [
   const hubModalIframe = document.getElementById('hub-modal-iframe') as HTMLIFrameElement;
   const hubLoadingState = document.getElementById('hub-loading-state');
   const hubReportButtons = document.querySelectorAll('.hub-report-btn');
+  const hubPrevBtn = document.getElementById('hub-prev-report');
+  const hubNextBtn = document.getElementById('hub-next-report');
+  const hubReportIndicator = document.getElementById('hub-report-indicator');
+  const hubProgressRing = document.getElementById('hub-progress-ring') as SVGCircleElement;
+  const hubProgressText = document.getElementById('hub-progress-text');
+  const hubFullscreenBtn = document.getElementById('hub-fullscreen-btn');
 
-  // Open modal
-  hubReportButtons.forEach(btn => {
+  // Reports data for navigation
+  const reportsData = Array.from(hubReportButtons).map(btn => ({
+    title: btn.getAttribute('data-title') || 'Report',
+    description: btn.getAttribute('data-description') || '',
+    image: btn.getAttribute('data-image') || '',
+    embedUrl: btn.getAttribute('data-embed') || '',
+  }));
+
+  let currentReportIndex = 0;
+  let focusableElements: HTMLElement[] = [];
+  let firstFocusable: HTMLElement | null = null;
+  let lastFocusable: HTMLElement | null = null;
+  let loadingProgress = 0;
+  let progressInterval: number | null = null;
+
+  // Simulate loading progress
+  function startLoadingProgress() {
+    loadingProgress = 0;
+    if (progressInterval) clearInterval(progressInterval);
+
+    progressInterval = setInterval(() => {
+      loadingProgress += Math.random() * 15;
+      if (loadingProgress > 90) loadingProgress = 90;
+
+      updateProgressRing(loadingProgress);
+    }, 200) as unknown as number;
+  }
+
+  function completeLoadingProgress() {
+    if (progressInterval) clearInterval(progressInterval);
+    updateProgressRing(100);
+    setTimeout(() => {
+      if (hubLoadingState) hubLoadingState.classList.add('hidden');
+    }, 200);
+  }
+
+  function updateProgressRing(percent: number) {
+    if (!hubProgressRing || !hubProgressText) return;
+    const circumference = 175.93;
+    const offset = circumference - (percent / 100) * circumference;
+    hubProgressRing.style.strokeDashoffset = String(offset);
+    hubProgressText.textContent = `${Math.round(percent)}%`;
+  }
+
+  // Update report indicator
+  function updateReportIndicator() {
+    if (hubReportIndicator) {
+      hubReportIndicator.textContent = `${currentReportIndex + 1} / ${reportsData.length}`;
+    }
+    // Update navigation buttons state
+    if (hubPrevBtn) {
+      hubPrevBtn.disabled = currentReportIndex === 0;
+    }
+    if (hubNextBtn) {
+      hubNextBtn.disabled = currentReportIndex === reportsData.length - 1;
+    }
+  }
+
+  // Load report by index
+  function loadReport(index: number) {
+    if (index < 0 || index >= reportsData.length) return;
+
+    currentReportIndex = index;
+    const report = reportsData[index];
+
+    if (hubModalTitle) hubModalTitle.textContent = report.title;
+    if (hubModalDescription) hubModalDescription.textContent = report.description;
+
+    // Show loading state
+    if (hubLoadingState) hubLoadingState.classList.remove('hidden');
+    if (hubModalImage) hubModalImage.classList.add('hidden');
+    if (hubModalIframe) hubModalIframe.classList.add('hidden');
+
+    startLoadingProgress();
+
+    // Check if we have an embed URL for Power BI
+    if (report.embedUrl) {
+      if (hubModalIframe) {
+        hubModalIframe.src = report.embedUrl;
+        hubModalIframe.onload = () => {
+          completeLoadingProgress();
+          hubModalIframe.classList.remove('hidden');
+        };
+      }
+    } else {
+      if (hubModalImage) {
+        hubModalImage.src = report.image;
+        hubModalImage.onload = () => {
+          completeLoadingProgress();
+          hubModalImage.classList.remove('hidden');
+        };
+      }
+    }
+
+    updateReportIndicator();
+  }
+
+  // Open modal with animation
+  function openHubModal(index: number) {
+    currentReportIndex = index;
+    loadReport(index);
+
+    hubModal?.classList.remove('hidden');
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+      hubModalBackdrop?.classList.remove('opacity-0');
+      hubModalContent?.classList.remove('opacity-0', 'scale-95');
+      hubModalContent?.classList.add('opacity-100', 'scale-100');
+    });
+
+    document.body.style.overflow = 'hidden';
+    document.body.setAttribute('data-modal-open', 'true');
+
+    // Hide any floating chatbot
+    const chatbotButtons = document.querySelectorAll('[data-chatbot-trigger]');
+    chatbotButtons.forEach(cb => (cb as HTMLElement).style.display = 'none');
+
+    // Setup focus trap
+    setupFocusTrap();
+  }
+
+  // Setup focus trap for accessibility
+  function setupFocusTrap() {
+    if (!hubModal) return;
+
+    focusableElements = Array.from(
+      hubModal.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+    );
+    firstFocusable = focusableElements[0];
+    lastFocusable = focusableElements[focusableElements.length - 1];
+
+    // Focus close button
+    setTimeout(() => hubCloseModalBtn?.focus(), 100);
+  }
+
+  // Close modal with animation
+  function closeHubModal() {
+    hubModalBackdrop?.classList.add('opacity-0');
+    hubModalContent?.classList.remove('opacity-100', 'scale-100');
+    hubModalContent?.classList.add('opacity-0', 'scale-95');
+
+    setTimeout(() => {
+      hubModal?.classList.add('hidden');
+      document.body.style.overflow = '';
+      document.body.removeAttribute('data-modal-open');
+
+      // Clear iframe src to stop loading/playing
+      if (hubModalIframe) hubModalIframe.src = '';
+
+      // Show chatbot again
+      const chatbotButtons = document.querySelectorAll('[data-chatbot-trigger]');
+      chatbotButtons.forEach(cb => (cb as HTMLElement).style.display = '');
+
+      // Clear progress
+      if (progressInterval) clearInterval(progressInterval);
+    }, 300);
+  }
+
+  // Event listeners for report buttons
+  hubReportButtons.forEach((btn, index) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const button = e.currentTarget as HTMLElement;
-      const title = button.dataset.title || 'Report';
-      const description = button.dataset.description || '';
-      const image = button.dataset.image || '';
-      const embedUrl = button.dataset.embed || '';
-
-      if (hubModalTitle) hubModalTitle.textContent = title;
-      if (hubModalDescription) hubModalDescription.textContent = description;
-
-      // Show loading state
-      if (hubLoadingState) hubLoadingState.classList.remove('hidden');
-      if (hubModalImage) hubModalImage.classList.add('hidden');
-      if (hubModalIframe) hubModalIframe.classList.add('hidden');
-
-      // Check if we have an embed URL for Power BI
-      if (embedUrl) {
-        // Show iframe with Power BI
-        if (hubModalIframe) {
-          hubModalIframe.src = embedUrl;
-          hubModalIframe.onload = () => {
-            if (hubLoadingState) hubLoadingState.classList.add('hidden');
-            hubModalIframe.classList.remove('hidden');
-          };
-        }
-      } else {
-        // Fallback to image
-        if (hubModalImage) {
-          hubModalImage.src = image;
-          hubModalImage.onload = () => {
-            if (hubLoadingState) hubLoadingState.classList.add('hidden');
-            hubModalImage.classList.remove('hidden');
-          };
-        }
-      }
-
-      hubModal?.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      document.body.setAttribute('data-modal-open', 'true');
-
-      // Hide any floating chatbot
-      const chatbotButtons = document.querySelectorAll('[data-chatbot-trigger]');
-      chatbotButtons.forEach(cb => (cb as HTMLElement).style.display = 'none');
+      openHubModal(index);
     });
   });
 
-  // Close modal
-  const closeHubModal = () => {
-    hubModal?.classList.add('hidden');
-    document.body.style.overflow = '';
-    document.body.removeAttribute('data-modal-open');
+  // Navigation buttons
+  hubPrevBtn?.addEventListener('click', () => {
+    if (currentReportIndex > 0) {
+      loadReport(currentReportIndex - 1);
+    }
+  });
 
-    // Clear iframe src to stop loading/playing
-    if (hubModalIframe) hubModalIframe.src = '';
+  hubNextBtn?.addEventListener('click', () => {
+    if (currentReportIndex < reportsData.length - 1) {
+      loadReport(currentReportIndex + 1);
+    }
+  });
 
-    // Show chatbot again
-    const chatbotButtons = document.querySelectorAll('[data-chatbot-trigger]');
-    chatbotButtons.forEach(cb => (cb as HTMLElement).style.display = '');
-  };
-
+  // Close button
   hubCloseModalBtn?.addEventListener('click', closeHubModal);
   hubModalBackdrop?.addEventListener('click', closeHubModal);
 
-  // Close on Escape key
+  // Fullscreen button
+  hubFullscreenBtn?.addEventListener('click', () => {
+    const reportContainer = document.getElementById('hub-report-container');
+    if (!reportContainer) return;
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      reportContainer.requestFullscreen();
+    }
+  });
+
+  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !hubModal?.classList.contains('hidden')) {
-      closeHubModal();
+    if (hubModal?.classList.contains('hidden')) return;
+
+    switch (e.key) {
+      case 'Escape':
+        closeHubModal();
+        break;
+      case 'ArrowLeft':
+        if (currentReportIndex > 0) loadReport(currentReportIndex - 1);
+        break;
+      case 'ArrowRight':
+        if (currentReportIndex < reportsData.length - 1) loadReport(currentReportIndex + 1);
+        break;
+      case 'Tab':
+        // Focus trap
+        if (e.shiftKey && document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable?.focus();
+        } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable?.focus();
+        }
+        break;
     }
   });
 </script>
