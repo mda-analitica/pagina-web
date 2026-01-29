@@ -14,7 +14,8 @@
       "mcp__astro-docs__search_astro_docs",
       "WebFetch(domain:medium.com)",
       "WebSearch",
-      "WebFetch(domain:www.heroui.com)"
+      "WebFetch(domain:www.heroui.com)",
+      "WebFetch(domain:pagina-web-lime.vercel.app)"
     ]
   }
 }
