@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Chatbot from '../components/Chatbot';
 
 const categories = [
   { label: 'Todos', active: true },
@@ -155,7 +154,4 @@ const posts = [
     </main>
 
   <Footer />
-
-  <!-- Chatbot -->
-  <Chatbot client:load />
 </Layout>

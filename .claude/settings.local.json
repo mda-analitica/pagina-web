@@ -15,7 +15,8 @@
       "WebFetch(domain:medium.com)",
       "WebSearch",
       "WebFetch(domain:www.heroui.com)",
-      "WebFetch(domain:pagina-web-lime.vercel.app)"
+      "WebFetch(domain:pagina-web-lime.vercel.app)",
+      "WebFetch(domain:www.chatbase.co)"
     ]
   }
 }

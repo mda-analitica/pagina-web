@@ -7,7 +7,6 @@ import IntelligenceHub from '../components/IntelligenceHub.astro';
 import BlogPreview from '../components/BlogPreview.astro';
 import CtaSection from '../components/CtaSection.astro';
 import Footer from '../components/Footer.astro';
-import Chatbot from '../components/Chatbot';
 import ToastContainer from '../components/Toast';
 ---
 
@@ -26,9 +25,6 @@ import ToastContainer from '../components/Toast';
   </main>
 
   <Footer />
-
-  <!-- Chatbot React component with client-side hydration -->
-  <Chatbot client:load />
 
   <!-- Toast notifications container -->
   <ToastContainer client:load />
