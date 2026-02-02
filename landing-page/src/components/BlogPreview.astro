@@ -1,0 +1,152 @@
+---
+// Blog Preview Section for Homepage
+import { Clock, Calendar, ArrowRight, ChevronRight } from "lucide-react";
+
+const featuredPost = {
+    tag: "DESTACADO",
+    readTime: "12 min",
+    title: "Tendencias 2026: El futuro del monitoreo transaccional",
+    description:
+        "Cómo la IA generativa está redefiniendo el cumplimiento regulatorio en el sector financiero.",
+    date: "14 Nov 2023",
+};
+
+const posts = [
+    {
+        category: "Cumplimiento",
+        readTime: "5 min",
+        title: "Nuevas normativas SAGRILAFT 2024",
+        description:
+            "Guía técnica sobre los cambios en la matriz de riesgo estructural.",
+        date: "Oct 12, 2023",
+    },
+    {
+        category: "Tecnología",
+        readTime: "8 min",
+        title: "Ciberseguridad en reportes UIAF",
+        description:
+            "Protección de datos financieros mediante cifrado cuántico.",
+        date: "Oct 10, 2023",
+    },
+    {
+        category: "Finanzas",
+        readTime: "6 min",
+        title: "IA Generativa en análisis de riesgo",
+        description:
+            "Reducción de falsos positivos en un 40% usando LLMs especializados.",
+        date: "Oct 05, 2023",
+    },
+];
+---
+
+<section id="blog" class="py-20 bg-white dark:bg-background-dark">
+    <div class="max-w-[1280px] mx-auto px-6 md:px-10">
+        <!-- Section Header -->
+        <div
+            class="flex flex-col md:flex-row md:items-center md:justify-between mb-12"
+        >
+            <div class="mb-6 md:mb-0">
+                <h2
+                    class="text-3xl font-bold text-[#0e111b] dark:text-white mb-3"
+                >
+                    Blog Normativo
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-xl">
+                    Análisis profundo y actualizaciones críticas sobre SARLAFT,
+                    SAGRILAFT y analítica financiera avanzada.
+                </p>
+            </div>
+            <a
+                href="/blog"
+                class="inline-flex items-center gap-2 text-primary font-bold hover:underline transition-all group"
+            >
+                Ver todos los artículos
+                <ArrowRight
+                    size={20}
+                    className="group-hover:translate-x-1 transition-transform"
+                />
+            </a>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Featured Post -->
+            <article
+                class="group bg-linear-to-br from-primary to-blue-700 rounded-2xl p-8 text-white relative overflow-hidden flex flex-col justify-end min-h-[400px]"
+            >
+                <div
+                    class="absolute inset-0 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuAzeb-nUlDbLvt4opgQ_u6gW-BJMNyotIiOv1-W3lbR6miBXAMujy7LlfDz-vr0QoqsjGDpd6F9Ciwsk_qL_Z_G0x4CWo5a_bs_97Zhy8ikmCwjHAfimpr3P5HM_2d8G4bKDa2ZMYOSVC_T-DOCkecJQSRNRbmzLMDVpk8DW1BgajsqoctjiakKNaNxI9yKd24GRaG0af2qYcprgZQn7bH_alUm8r9vlO0pUCUhTQw1OT18hqRzPDiFpQu-oR0kkfCYd85_sscuAOTW')] bg-cover bg-center opacity-30 group-hover:opacity-40 transition-opacity"
+                >
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span
+                            class="bg-accent-green text-white text-[10px] font-black px-3 py-1 rounded-full uppercase"
+                            >{featuredPost.tag}</span
+                        >
+                        <span
+                            class="text-white/80 text-xs flex items-center gap-1"
+                        >
+                            <Clock size={16} />
+                            {featuredPost.readTime}
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 group-hover:underline">
+                        {featuredPost.title}
+                    </h3>
+                    <p class="text-blue-100 text-sm mb-4 leading-relaxed">
+                        {featuredPost.description}
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-blue-200"
+                            >{featuredPost.date}</span
+                        >
+                        <a
+                            href="/blog"
+                            class="flex items-center gap-1 text-sm font-bold hover:gap-2 transition-all"
+                        >
+                            Leer <ChevronRight size={20} />
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Posts Grid -->
+            <div class="flex flex-col gap-4">
+                {
+                    posts.map((post) => (
+                        <article class="group flex gap-6 bg-gray-50 dark:bg-gray-800 rounded-xl p-5 hover:shadow-lg hover:shadow-primary/5 transition-all">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <span class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-[10px] font-bold px-2 py-1 rounded uppercase">
+                                        {post.category}
+                                    </span>
+                                    <span class="text-gray-500 text-[10px] flex items-center gap-1">
+                                        <Clock size={14} />
+                                        {post.readTime}
+                                    </span>
+                                </div>
+                                <h4 class="text-[#0e111b] dark:text-white font-bold mb-1 group-hover:text-primary transition-colors">
+                                    {post.title}
+                                </h4>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed hidden md:block">
+                                    {post.description}
+                                </p>
+                                <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="text-xs text-gray-400">
+                                        {post.date}
+                                    </span>
+                                    <a
+                                        href="/blog"
+                                        class="text-[#0e111b] dark:text-white text-sm font-bold flex items-center gap-1 hover:text-primary transition-colors"
+                                    >
+                                        Leer <ChevronRight size={20} />
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>

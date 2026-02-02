@@ -1,5 +1,7 @@
 ---
 // Hero section component
+import { BarChart3 } from "lucide-react";
+
 interface Props {
   tagline?: string;
   title?: string;
@@ -17,49 +19,117 @@ const {
   description = "Especialistas en gestión de riesgos SARLAFT, SAGRILAFT y PTEE con analítica de avanzada para la toma de decisiones ejecutivas en tiempo real.",
   primaryCta = "Probar Demo en Vivo",
   secondaryCta = "Ver Servicios",
-  imageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuBDeJiGLsuZCLMPiJoexbwymF1w1Sb1Xfj-xqm82U-jEmkULud5_kJp73fEJowIKeJPSVzvPuxpIuGFG6JeRPBVwR3hBdIauB3zORfkyexcLjiBrge_lyoZ-fBFbrQrXJ-WEkGvKS8L2jMN8_aXdG2_AGAsqogF6UOlt1PBDoZi88T-AAvepFkt7S-1dnSI2NL4JkOEuhk2wXYlPo8nj40fvSEhPLh5T81FVL_pYjriw5sIC3ucpdM2a212dShKN7wQG2plXByKAPvI"
+  imageUrl = "https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png",
 } = Astro.props;
+
+const images = [
+  "https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png",
+  "https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/jx5/y15/lye/Balance%20General%20Nivel%203.png",
+];
 ---
 
-<section class="relative overflow-hidden bg-white dark:bg-background-dark py-16 lg:py-24">
+<section
+  id="inicio"
+  class="relative overflow-hidden bg-white dark:bg-background-dark py-16 lg:py-24"
+>
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
     <div class="flex flex-col lg:flex-row items-center gap-12">
       <!-- Content -->
       <div class="flex flex-col gap-8 flex-1">
         <div class="flex flex-col gap-4 text-left">
-          <span class="text-primary dark:text-blue-400 text-sm font-extrabold uppercase tracking-widest">
+          <span
+            class="text-primary dark:text-blue-400 text-sm font-extrabold uppercase tracking-widest"
+          >
             {tagline}
           </span>
-          <h1 class="text-[#0e111b] dark:text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight">
-            {title} <span class="text-primary dark:text-blue-400">{highlightedText}</span>
+          <h1
+            class="text-[#0e111b] dark:text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight"
+          >
+            {title}
+            <span class="text-primary dark:text-blue-400"
+              >{highlightedText}</span
+            >
           </h1>
-          <p class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl">
+          <p
+            class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl"
+          >
             {description}
           </p>
         </div>
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="/login" class="glow-button flex min-w-[240px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-base font-bold leading-normal tracking-wide border border-blue-400/20">
-            <span class="material-symbols-outlined mr-2">analytics</span>
+          <a
+            href="/login"
+            class="glow-button flex min-w-[240px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-base font-bold leading-normal tracking-wide border border-blue-400/20"
+          >
+            <BarChart3 className="mr-2" size={20} />
             <span>{primaryCta}</span>
           </a>
-          <button class="flex min-w-[180px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 border-2 border-primary/20 bg-transparent text-primary dark:text-blue-400 dark:border-blue-400/20 text-base font-bold leading-normal hover:bg-primary/5">
+          <button
+            class="flex min-w-[180px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 border-2 border-primary/20 bg-transparent text-primary dark:text-blue-400 dark:border-blue-400/20 text-base font-bold leading-normal hover:bg-primary/5"
+          >
             {secondaryCta}
           </button>
         </div>
       </div>
 
-      <!-- Image -->
+      <!-- Dynamic Image Slider -->
       <div class="flex-1 w-full relative">
         <div
-          class="relative z-10 w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 bg-cover bg-center"
-          style={`background-image: url('${imageUrl}')`}
+          id="hero-slider"
+          class="relative z-10 w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
         >
-          <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent"></div>
+          {
+            images.map((img, index) => (
+              <img
+                src={img}
+                alt={`Balance General MDA Analítica ${index + 1}`}
+                class={`hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === 0 ? "opacity-100" : "opacity-0"}`}
+                data-index={index}
+              />
+            ))
+          }
         </div>
         <!-- Decorative blurs -->
-        <div class="absolute -top-6 -right-6 w-32 h-32 bg-accent-green/10 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+        <div
+          class="absolute -top-6 -right-6 w-32 h-32 bg-accent-green/10 rounded-full blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute -bottom-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-3xl"
+        >
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  function setupSlider() {
+    const slides = document.querySelectorAll(".hero-slide");
+    if (slides.length === 0) return;
+
+    let currentIndex = 0;
+
+    function nextSlide() {
+      // Hide current
+      slides[currentIndex].classList.remove("opacity-100");
+      slides[currentIndex].classList.add("opacity-0");
+
+      // Move to next
+      currentIndex = (currentIndex + 1) % slides.length;
+
+      // Show next
+      slides[currentIndex].classList.remove("opacity-0");
+      slides[currentIndex].classList.add("opacity-100");
+    }
+
+    // Change every 4 seconds
+    setInterval(nextSlide, 4000);
+  }
+
+  // Run on first load
+  setupSlider();
+
+  // Re-run if Astro swaps content (for View Transitions)
+  document.addEventListener("astro:after-swap", setupSlider);
+</script>

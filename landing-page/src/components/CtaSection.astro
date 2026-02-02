@@ -1,27 +1,44 @@
 ---
 // CTA Section - Consulting call to action
+import {
+  MessagesSquare,
+  LayoutGrid,
+  Cloud,
+  Rocket,
+  Code2,
+  Zap,
+} from "lucide-react";
+
 const stats = [
-  { value: '0.4s', label: 'Load Time', color: 'text-accent-green' },
-  { value: '100%', label: 'Accessibility', color: 'text-white' },
-  { value: '99.9%', label: 'Uptime', color: 'text-white' },
+  { value: "0.4s", label: "Load Time", color: "text-accent-green" },
+  { value: "100%", label: "Accessibility", color: "text-white" },
+  { value: "99.9%", label: "Uptime", color: "text-white" },
 ];
 
 const technologies = [
-  { icon: 'apps', name: 'Microsoft 365' },
-  { icon: 'hub', name: 'Power Platform' },
-  { icon: 'cloud', name: 'Azure' },
-  { icon: 'rocket_launch', name: 'Vercel' },
-  { icon: 'code', name: 'React' },
-  { icon: 'auto_awesome', name: 'Astro' },
+  { Icon: LayoutGrid, name: "Microsoft 365" },
+  { Icon: Code2, name: "Power Platform" },
+  { Icon: Cloud, name: "Azure" },
+  { Icon: Rocket, name: "Vercel" },
+  { Icon: Code2, name: "React" },
+  { Icon: Zap, name: "Astro" },
 ];
 ---
 
-<section id="consulting" class="py-20 bg-background-light dark:bg-gray-900 overflow-hidden relative">
+<section
+  id="consulting"
+  class="py-20 bg-background-light dark:bg-gray-900 overflow-hidden relative"
+>
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
     <!-- Main CTA card -->
-    <div class="bg-primary rounded-[2rem] p-10 lg:p-20 text-white relative overflow-hidden shadow-2xl">
+    <div
+      class="bg-primary rounded-4xl p-10 lg:p-20 text-white relative overflow-hidden shadow-2xl"
+    >
       <!-- Decorative element -->
-      <div class="absolute top-0 right-0 w-1/3 h-full bg-white/5 -skew-x-12 translate-x-1/2"></div>
+      <div
+        class="absolute top-0 right-0 w-1/3 h-full bg-white/5 -skew-x-12 translate-x-1/2"
+      >
+      </div>
 
       <div class="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
         <div>
@@ -29,35 +46,49 @@ const technologies = [
             ¿Necesita una plataforma como esta?
           </h2>
           <p class="text-blue-100 text-lg mb-10 leading-relaxed">
-            Construimos soluciones tecnológicas de alta gama. Desde arquitecturas cloud escalables hasta interfaces de usuario que deleitan.
+            Construimos soluciones tecnológicas de alta gama. Desde
+            arquitecturas cloud escalables hasta interfaces de usuario que
+            deleitan.
           </p>
           <div class="flex flex-wrap gap-8">
-            {stats.map((stat) => (
-              <div class="flex flex-col">
-                <span class={`text-4xl font-black ${stat.color}`}>{stat.value}</span>
-                <span class="text-xs font-bold uppercase tracking-widest text-blue-200">{stat.label}</span>
-              </div>
-            ))}
+            {
+              stats.map((stat) => (
+                <div class="flex flex-col">
+                  <span class={`text-4xl font-black ${stat.color}`}>
+                    {stat.value}
+                  </span>
+                  <span class="text-xs font-bold uppercase tracking-widest text-blue-200">
+                    {stat.label}
+                  </span>
+                </div>
+              ))
+            }
           </div>
         </div>
 
         <div class="flex justify-center lg:justify-end">
-          <button class="bg-white text-primary hover:bg-blue-50 transition-colors h-16 px-10 rounded-xl font-black text-lg flex items-center gap-3 shadow-xl">
+          <button
+            class="bg-white text-primary hover:bg-blue-50 transition-colors h-16 px-10 rounded-xl font-black text-lg flex items-center gap-3 shadow-xl"
+          >
             Agendar Consultoría Técnica
-            <span class="material-symbols-outlined">forum</span>
+            <MessagesSquare size={24} />
           </button>
         </div>
       </div>
     </div>
 
     <!-- Technologies -->
-    <div class="mt-20 flex flex-wrap justify-center items-center gap-12 opacity-40 grayscale hover:grayscale-0 transition-all">
-      {technologies.map((tech) => (
-        <div class="flex items-center gap-2 font-black text-2xl">
-          <span class="material-symbols-outlined text-3xl">{tech.icon}</span>
-          {tech.name}
-        </div>
-      ))}
+    <div
+      class="mt-20 flex flex-wrap justify-center items-center gap-12 opacity-40 grayscale hover:grayscale-0 transition-all"
+    >
+      {
+        technologies.map((tech) => (
+          <div class="flex items-center gap-3 font-black text-2xl">
+            <tech.Icon size={32} />
+            {tech.name}
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>

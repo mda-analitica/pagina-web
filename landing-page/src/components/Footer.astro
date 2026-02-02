@@ -1,113 +1,170 @@
 ---
 // Footer component
+import { MapPin, Mail, Phone, Globe, AtSign } from "lucide-react";
+
 const solutions = [
-  { label: 'Monitoreo SARLAFT', href: '#' },
-  { label: 'Gestión PTEE', href: '#' },
-  { label: 'Tableros Power BI', href: '#' },
-  { label: 'Auditoría Técnica', href: '#' },
+  { label: "Monitoreo SARLAFT", href: "#" },
+  { label: "Gestión PTEE", href: "#" },
+  { label: "Tableros Power BI", href: "#" },
+  { label: "Auditoría Técnica", href: "#" },
 ];
 
 const company = [
-  { label: 'Sobre Nosotros', href: '#' },
-  { label: 'Nuestra Metodología', href: '#' },
-  { label: 'Blog de Riesgos', href: '#' },
-  { label: 'Carreras', href: '#' },
+  { label: "Sobre Nosotros", href: "#" },
+  { label: "Nuestra Metodología", href: "#" },
+  { label: "Blog de Riesgos", href: "#" },
+  { label: "Carreras", href: "#" },
 ];
 
 const contact = [
-  { icon: 'location_on', text: 'Medellín, Antioquia, Belén Rincón' },
-  { icon: 'mail', text: 'contacto@mda-analitica.com', href: 'mailto:contacto@mda-analitica.com' },
-  { icon: 'phone', text: '+57 (301) 215-9933', href: 'tel:+573012159933' },
+  { Icon: MapPin, text: "Medellín, Antioquia, Belén Rincón" },
+  {
+    Icon: Mail,
+    text: "contacto@mda-analitica.com",
+    href: "mailto:contacto@mda-analitica.com",
+  },
+  { Icon: Phone, text: "+57 (301) 215-9933", href: "tel:+573012159933" },
 ];
 
 const legal = [
-  { label: 'Términos y Condiciones', href: '#' },
-  { label: 'Política de Privacidad', href: '#' },
-  { label: 'Cookies', href: '#' },
+  { label: "Términos y Condiciones", href: "#" },
+  { label: "Política de Privacidad", href: "#" },
+  { label: "Cookies", href: "#" },
 ];
 ---
 
-<footer id="company" class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 py-16">
+<footer
+  id="nosotros"
+  class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 py-16"
+>
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
       <!-- Brand -->
       <div class="col-span-1 lg:col-span-1">
         <div class="flex items-center gap-3 mb-6">
           <div class="size-6 text-primary">
-            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+            <svg
+              fill="none"
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                fill="currentColor"></path>
             </svg>
           </div>
-          <h2 class="text-primary dark:text-blue-400 text-lg font-bold">MDA Analítica</h2>
+          <h2 class="text-primary dark:text-blue-400 text-lg font-bold">
+            MDA Analítica
+          </h2>
         </div>
         <p class="text-gray-500 text-sm leading-relaxed mb-6">
-          Líderes en analítica avanzada y consultoría de cumplimiento normativo para el sector financiero y real.
+          Líderes en analítica avanzada y consultoría de cumplimiento normativo
+          para el sector financiero y real.
         </p>
         <div class="flex gap-4">
-          <a class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all" href="#">
-            <span class="material-symbols-outlined">public</span>
+          <a
+            class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all"
+            href="#"
+          >
+            <Globe size={18} />
           </a>
-          <a class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all" href="#">
-            <span class="material-symbols-outlined">alternate_email</span>
+          <a
+            class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all"
+            href="#"
+          >
+            <AtSign size={18} />
           </a>
         </div>
       </div>
 
       <!-- Solutions -->
       <div>
-        <h4 class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest">Soluciones</h4>
+        <h4
+          class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest"
+        >
+          Soluciones
+        </h4>
         <ul class="space-y-4">
-          {solutions.map((item) => (
-            <li>
-              <a class="text-gray-500 hover:text-primary transition-colors text-sm" href={item.href}>
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {
+            solutions.map((item) => (
+              <li>
+                <a
+                  class="text-gray-500 hover:text-primary transition-colors text-sm"
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
       <!-- Company -->
       <div>
-        <h4 class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest">Compañía</h4>
+        <h4
+          class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest"
+        >
+          Compañía
+        </h4>
         <ul class="space-y-4">
-          {company.map((item) => (
-            <li>
-              <a class="text-gray-500 hover:text-primary transition-colors text-sm" href={item.href}>
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {
+            company.map((item) => (
+              <li>
+                <a
+                  class="text-gray-500 hover:text-primary transition-colors text-sm"
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h4 class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest">Contacto Formal</h4>
+        <h4
+          class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest"
+        >
+          Contacto Formal
+        </h4>
         <ul class="space-y-4">
-          {contact.map((item) => (
-            <li class="flex items-center gap-3 text-sm text-gray-500">
-              <span class="material-symbols-outlined text-primary">{item.icon}</span>
-              {item.href ? (
-                <a href={item.href} class="hover:text-primary transition-colors">{item.text}</a>
-              ) : (
-                item.text
-              )}
-            </li>
-          ))}
+          {
+            contact.map((item) => (
+              <li class="flex items-center gap-3 text-sm text-gray-500">
+                <item.Icon size={18} className="text-primary shrink-0" />
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    class="hover:text-primary transition-colors"
+                  >
+                    {item.text}
+                  </a>
+                ) : (
+                  item.text
+                )}
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
 
     <!-- Bottom bar -->
-    <div class="mt-16 pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-400">
+    <div
+      class="mt-16 pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-400"
+    >
       <p>© 2024 MDA Analítica S.A.S. Todos los derechos reservados.</p>
       <div class="flex gap-6">
-        {legal.map((item) => (
-          <a class="hover:text-primary transition-colors" href={item.href}>
-            {item.label}
-          </a>
-        ))}
+        {
+          legal.map((item) => (
+            <a class="hover:text-primary transition-colors" href={item.href}>
+              {item.label}
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>

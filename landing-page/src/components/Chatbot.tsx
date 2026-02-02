@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { MessageCircle, X, Bot, ArrowRight, Send, Lock } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -78,11 +79,11 @@ export default function Chatbot() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] w-14 h-14 bg-primary hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-100 w-14 h-14 bg-primary hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
         aria-label="Abrir chat"
         data-chatbot-trigger
       >
-        <span className="material-symbols-outlined text-2xl">chat</span>
+        <MessageCircle size={28} />
       </button>
     );
   }
@@ -91,12 +92,12 @@ export default function Chatbot() {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-[#0e111b]/50 backdrop-blur-[2px] z-[90]"
+        className="fixed inset-0 bg-[#0e111b]/50 backdrop-blur-[2px] z-90"
         onClick={() => setIsOpen(false)}
       />
 
       {/* Chat window */}
-      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] flex flex-col items-end">
+      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-100 flex flex-col items-end">
         <div className="w-[360px] md:w-[400px] h-[600px] max-h-[85vh] bg-white dark:bg-background-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col font-display relative animate-in">
           {/* Header */}
           <div className="h-16 px-5 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md sticky top-0 z-10">
@@ -122,7 +123,7 @@ export default function Chatbot() {
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full text-gray-400 transition-colors"
               >
-                <span className="material-symbols-outlined text-[20px]">close</span>
+                <X size={20} />
               </button>
             </div>
           </div>
@@ -137,19 +138,18 @@ export default function Chatbot() {
               {messages.map((message) => (
                 <div key={message.id} className={`flex gap-3 ${message.type === 'user' ? 'justify-end' : ''}`}>
                   {message.type === 'bot' && (
-                    <div className="size-8 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm flex-shrink-0 mt-1">
-                      <span className="material-symbols-outlined text-[16px]">smart_toy</span>
+                    <div className="size-8 rounded-full bg-linear-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm shrink-0 mt-1">
+                      <Bot size={16} />
                     </div>
                   )}
                   <div className={`flex flex-col gap-1 max-w-[85%] ${message.type === 'user' ? 'items-end' : ''}`}>
                     {message.type === 'bot' && (
                       <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente Normativo</span>
                     )}
-                    <div className={`p-4 rounded-2xl shadow-sm text-sm leading-relaxed ${
-                      message.type === 'bot'
-                        ? 'bg-white dark:bg-gray-800 rounded-tl-none border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300'
-                        : 'bg-primary text-white rounded-tr-none'
-                    }`}>
+                    <div className={`p-4 rounded-2xl shadow-sm text-sm leading-relaxed ${message.type === 'bot'
+                      ? 'bg-white dark:bg-gray-800 rounded-tl-none border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300'
+                      : 'bg-primary text-white rounded-tr-none'
+                      }`}>
                       <p>{message.text}</p>
                     </div>
                   </div>
@@ -168,7 +168,7 @@ export default function Chatbot() {
                     className="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group"
                   >
                     <span>{suggestion}</span>
-                    <span className="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
+                    <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
                   </button>
                 ))}
               </div>
@@ -190,12 +190,12 @@ export default function Chatbot() {
                 onClick={handleSend}
                 className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md"
               >
-                <span className="material-symbols-outlined text-[18px]">send</span>
+                <Send size={18} />
               </button>
             </div>
             <div className="flex justify-center mt-3 gap-2 text-[10px] text-gray-400">
               <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[10px]">lock</span> Encrypted
+                <Lock size={10} /> Encrypted
               </span>
               <span>•</span>
               <span>Powered by MDA Core</span>
@@ -206,3 +206,4 @@ export default function Chatbot() {
     </>
   );
 }
+

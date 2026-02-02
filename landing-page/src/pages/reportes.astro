@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { BarChart3, ExternalLink, Headset, Fullscreen, X, Bolt, MousePointer2, Bot, MessageSquare, Send, Lock, ArrowRight } from 'lucide-react';
 
 const categories = [
   { label: 'Todos', active: true },
@@ -64,7 +65,6 @@ const reports = [
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>MDA Analítica | Intelligence Hub - Reportes Power BI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   </head>
   <body class="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-gray-100 font-display transition-colors duration-300">
     <Header />
@@ -74,7 +74,7 @@ const reports = [
       <section class="mb-12 text-center max-w-3xl mx-auto">
         <div class="flex items-center justify-center gap-4 mb-6">
           <div class="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center text-white">
-            <span class="material-symbols-outlined text-2xl">bar_chart</span>
+            <BarChart3 size={32} />
           </div>
           <h1 class="text-[#0e111b] dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-tight">
             Intelligence Hub <span class="text-gray-400 font-light">| Power BI</span>
@@ -122,7 +122,7 @@ const reports = [
                 data-tag={report.tag}
                 data-image={report.image}
               >
-                <span class="material-symbols-outlined">open_in_new</span>
+                <ExternalLink size={20} />
                 Ver Reporte
               </button>
             </div>
@@ -140,7 +140,7 @@ const reports = [
             Nuestro equipo de analistas puede crear dashboards a medida para sus necesidades específicas de cumplimiento y análisis financiero.
           </p>
           <a href="/login" class="inline-flex items-center gap-2 bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-xl">
-            <span class="material-symbols-outlined">support_agent</span>
+            <Headset size={20} />
             Solicitar Consulta
           </a>
         </div>
@@ -150,7 +150,7 @@ const reports = [
     <Footer />
 
     <!-- Report Modal/Popup -->
-    <div id="report-modal" class="fixed inset-0 z-[90] hidden">
+    <div id="report-modal" class="fixed inset-0 z-90 hidden">
       <!-- Backdrop -->
       <div id="modal-backdrop" class="absolute inset-0 bg-[#0e111b]/50 backdrop-blur-[2px]"></div>
 
@@ -162,7 +162,7 @@ const reports = [
           <div class="h-16 px-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
             <div class="flex items-center gap-4">
               <div class="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center text-white">
-                <span class="material-symbols-outlined">bar_chart</span>
+                <BarChart3 size={24} />
               </div>
               <div>
                 <h3 id="modal-title" class="text-lg font-bold text-gray-900 dark:text-white leading-none mb-1">Financial Report</h3>
@@ -171,10 +171,10 @@ const reports = [
             </div>
             <div class="flex items-center gap-2">
               <button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors" title="Pantalla completa">
-                <span class="material-symbols-outlined text-xl">fullscreen</span>
+                <Fullscreen size={24} />
               </button>
               <button id="close-modal" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-gray-500 hover:text-red-500 transition-colors" title="Cerrar">
-                <span class="material-symbols-outlined text-xl">close</span>
+                <X size={24} />
               </button>
             </div>
           </div>
@@ -186,13 +186,13 @@ const reports = [
               <img id="modal-image" src="" alt="Power BI Report" class="w-full h-full object-cover" />
               <!-- Overlay with Power BI branding -->
               <div class="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur px-3 py-2 rounded-lg shadow-lg">
-                <span class="material-symbols-outlined text-yellow-500">bolt</span>
+                <Bolt size={16} className="text-yellow-500" />
                 <span class="text-xs font-bold text-gray-700 dark:text-gray-300">Powered by Power BI</span>
               </div>
               <!-- Interactive overlay hint -->
               <div class="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
                 <div class="bg-white dark:bg-gray-900 px-6 py-4 rounded-xl shadow-2xl text-center">
-                  <span class="material-symbols-outlined text-4xl text-primary mb-2">touch_app</span>
+                  <MousePointer2 size={40} className="text-primary mb-2 mx-auto" />
                   <p class="text-sm font-bold text-gray-700 dark:text-gray-300">Haga clic para interactuar</p>
                   <p class="text-xs text-gray-500">Reporte interactivo de Power BI</p>
                 </div>
@@ -231,8 +231,8 @@ const reports = [
                 <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-200/50 dark:bg-gray-800 px-3 py-1 rounded-full">Hoy</span>
               </div>
               <div class="flex gap-3">
-                <div class="size-8 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm flex-shrink-0 mt-1">
-                  <span class="material-symbols-outlined text-[16px]">smart_toy</span>
+                <div class="size-8 rounded-full bg-linear-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm shrink-0 mt-1">
+                  <Bot size={16} />
                 </div>
                 <div class="flex flex-col gap-1 max-w-[85%]">
                   <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente Normativo</span>
@@ -249,15 +249,15 @@ const reports = [
               <p class="text-[10px] uppercase font-bold text-gray-400 ml-1 mb-1">Sugerencias</p>
               <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
                 <span>Explica los indicadores principales</span>
-                <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
+                <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
               </button>
               <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
                 <span>¿Hay alertas de cumplimiento?</span>
-                <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
+                <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
               </button>
               <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
                 <span>Generar resumen ejecutivo</span>
-                <span class="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-primary transition-colors">arrow_forward</span>
+                <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
               </button>
             </div>
           </div>
@@ -267,11 +267,11 @@ const reports = [
             <div class="relative">
               <input class="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-blue-500 outline-none transition-all placeholder-gray-400" placeholder="Pregunta sobre el reporte..." type="text" />
               <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md">
-                <span class="material-symbols-outlined text-[18px]">send</span>
+                <Send size={18} />
               </button>
             </div>
             <div class="flex justify-center mt-3 gap-2 text-[10px] text-gray-400">
-              <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[10px]">lock</span> Encrypted</span>
+              <span class="flex items-center gap-1"><Lock size={10} /> Encrypted</span>
               <span>•</span>
               <span>Powered by MDA Core</span>
             </div>
