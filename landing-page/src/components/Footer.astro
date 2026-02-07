@@ -1,20 +1,10 @@
 ---
 // Footer component
-import { MapPin, Mail, Phone, Globe, AtSign } from "lucide-react";
+import { MapPin, Mail, Phone, Globe, AtSign, PieChart } from "lucide-react";
 
-const solutions = [
-  { label: "Monitoreo SARLAFT", href: "#" },
-  { label: "Gestión PTEE", href: "#" },
-  { label: "Tableros Power BI", href: "#" },
-  { label: "Auditoría Técnica", href: "#" },
-];
+const solutions = [];
 
-const company = [
-  { label: "Sobre Nosotros", href: "#" },
-  { label: "Nuestra Metodología", href: "#" },
-  { label: "Blog de Riesgos", href: "#" },
-  { label: "Carreras", href: "#" },
-];
+const company = [];
 
 const contact = [
   { Icon: MapPin, text: "Medellín, Antioquia, Belén Rincón" },
@@ -38,28 +28,19 @@ const legal = [
   class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 py-16"
 >
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <div class="flex flex-col md:flex-row justify-between gap-12">
       <!-- Brand -->
-      <div class="col-span-1 lg:col-span-1">
+      <div class="flex-1">
         <div class="flex items-center gap-3 mb-6">
           <div class="size-6 text-primary">
-            <svg
-              fill="none"
-              viewBox="0 0 48 48"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
-                fill="currentColor"></path>
-            </svg>
+            <PieChart size={24} />
           </div>
-          <h2 class="text-primary dark:text-blue-400 text-lg font-bold">
+          <h2 class="text-primary dark:text-teal-400 text-lg font-bold">
             MDA Analítica
           </h2>
         </div>
         <p class="text-gray-500 text-sm leading-relaxed mb-6">
-          Líderes en analítica avanzada y consultoría de cumplimiento normativo
-          para el sector financiero y real.
+          Somos el centro de analítica para todo el sector solidario, agilizamos los procesos de toma de decisiones basado en datos
         </p>
         <div class="flex gap-4">
           <a
@@ -77,58 +58,13 @@ const legal = [
         </div>
       </div>
 
-      <!-- Solutions -->
-      <div>
-        <h4
-          class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest"
-        >
-          Soluciones
-        </h4>
-        <ul class="space-y-4">
-          {
-            solutions.map((item) => (
-              <li>
-                <a
-                  class="text-gray-500 hover:text-primary transition-colors text-sm"
-                  href={item.href}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <!-- Company -->
-      <div>
-        <h4
-          class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest"
-        >
-          Compañía
-        </h4>
-        <ul class="space-y-4">
-          {
-            company.map((item) => (
-              <li>
-                <a
-                  class="text-gray-500 hover:text-primary transition-colors text-sm"
-                  href={item.href}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
 
       <!-- Contact -->
-      <div>
+      <div class="text-left md:text-right">
         <h4
           class="font-bold text-[#0e111b] dark:text-white mb-6 uppercase text-xs tracking-widest"
         >
-          Contacto Formal
+          Contacto
         </h4>
         <ul class="space-y-4">
           {

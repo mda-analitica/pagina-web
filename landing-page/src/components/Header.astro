@@ -1,6 +1,6 @@
 ---
 // Header component con navegación y dark mode toggle
-import { Moon, Sun, Menu } from "lucide-react";
+import { Menu, PieChart } from "lucide-react";
 ---
 
 <header
@@ -12,14 +12,10 @@ import { Moon, Sun, Menu } from "lucide-react";
     <!-- Logo -->
     <div class="flex items-center gap-3">
       <div class="size-8 text-primary">
-        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
-            fill="currentColor"></path>
-        </svg>
+        <PieChart size={32} />
       </div>
       <h2
-        class="text-primary dark:text-blue-400 text-xl font-black leading-tight tracking-tight"
+        class="text-primary dark:text-teal-400 text-xl font-black leading-tight tracking-tight"
       >
         MDA Analítica
       </h2>
@@ -39,10 +35,10 @@ import { Moon, Sun, Menu } from "lucide-react";
         class="nav-link text-sm font-semibold leading-normal relative py-1"
         href="#analitica">Analítica</a
       >
-      <a
+      <!-- <a
         class="nav-link text-sm font-semibold leading-normal relative py-1"
         href="#blog">Blog</a
-      >
+      > -->
       <a
         class="nav-link text-sm font-semibold leading-normal relative py-1"
         href="#nosotros">Nosotros</a
@@ -52,23 +48,11 @@ import { Moon, Sun, Menu } from "lucide-react";
     <!-- Actions -->
     <div class="flex gap-3 items-center">
       <button
-        id="theme-toggle"
-        class="flex items-center justify-center rounded-lg h-10 w-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-        aria-label="Toggle dark mode"
-      >
-        <div class="dark:hidden">
-          <Moon size={20} />
-        </div>
-        <div class="hidden dark:block">
-          <Sun size={20} />
-        </div>
-      </button>
-      <a
-        href="/login"
+        onclick="document.getElementById('rif-modal').classList.remove('hidden')"
         class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
       >
-        <span>Probar Demo en Vivo</span>
-      </a>
+        <span>Ir a RIF-Analytic</span>
+      </button>
     </div>
 
     <!-- Mobile menu button -->
@@ -93,20 +77,20 @@ import { Moon, Sun, Menu } from "lucide-react";
   }
 
   .nav-link:hover {
-    color: #0056b3; /* primary approx */
+    color: #007878; /* primary approx */
   }
 
   :global(.dark) .nav-link:hover {
-    color: #60a5fa; /* blue-400 approx */
+    color: #2dd4bf; /* teal-400 approx */
   }
 
   /* Active state text color */
   .nav-link.active-link {
-    color: #0056b3; /* primary */
+    color: #007878; /* primary */
   }
 
   :global(.dark) .nav-link.active-link {
-    color: #60a5fa; /* blue-400 */
+    color: #2dd4bf; /* teal-400 */
   }
 
   /* Underline animation using pseudo-element */
@@ -117,12 +101,12 @@ import { Moon, Sun, Menu } from "lucide-react";
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #0056b3; /* primary */
+    background-color: #007878; /* primary */
     transition: width 0.3s ease-in-out;
   }
 
   :global(.dark) .nav-link::after {
-    background-color: #60a5fa; /* blue-400 */
+    background-color: #2dd4bf; /* teal-400 */
   }
 
   /* Show underline on active or hover if desired, usually just active for 'traveling' */
@@ -132,25 +116,6 @@ import { Moon, Sun, Menu } from "lucide-react";
 </style>
 
 <script>
-  // Dark mode toggle logic
-  const themeToggle = document.getElementById("theme-toggle");
-
-  themeToggle?.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-    localStorage.setItem(
-      "theme",
-      document.documentElement.classList.contains("dark") ? "dark" : "light",
-    );
-  });
-
-  if (
-    localStorage.getItem("theme") === "dark" ||
-    (!localStorage.getItem("theme") &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
-  ) {
-    document.documentElement.classList.add("dark");
-  }
-
   // Active Link Scroll Spy Logic
   document.addEventListener("DOMContentLoaded", () => {
     const sections = ["inicio", "soluciones", "analitica", "blog", "nosotros"];

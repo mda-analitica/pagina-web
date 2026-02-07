@@ -1,21 +1,56 @@
-import { useState, useEffect } from 'react';
-import { MessageCircle, X, Bot, ArrowRight, Send, Lock } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { MessageCircle, X, Bot, Send, Lock, PieChart, Loader2 } from 'lucide-react';
 
 interface Message {
   id: number;
-  type: 'bot' | 'user';
-  text: string;
+  role: 'user' | 'assistant';
+  content: string;
 }
 
-const suggestions = [
-  '¿Cuáles son los riesgos SARLAFT?',
-  'Generar reporte de cumplimiento',
-  'Ver normativa vigente 2024',
-];
+const INITIAL_MESSAGE: Message = {
+  id: 1,
+  role: 'assistant',
+  content:
+    'Hola, soy el asistente de MDA Analítica. ¿En qué puedo ayudarte hoy?',
+};
+
+
+function renderMessageContent(content: string) {
+  // Match markdown links [text](url) and plain URLs
+  const parts = content.split(/(\[[^\]]+\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s)]+)/g);
+  return parts.map((part, i) => {
+    const mdMatch = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/);
+    if (mdMatch) {
+      return (
+        <a key={i} href={mdMatch[2]} target="_blank" rel="noopener noreferrer" className="text-primary underline font-semibold hover:opacity-80">
+          {mdMatch[1]}
+        </a>
+      );
+    }
+    if (/^https?:\/\/[^\s)]+$/.test(part)) {
+      return (
+        <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary underline font-semibold hover:opacity-80">
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   // Check if modal is open and hide chatbot
   useEffect(() => {
@@ -26,48 +61,129 @@ export default function Chatbot() {
         setIsOpen(false);
       }
     };
-
-    // Check on mount and observe body attribute changes
     checkModalState();
     const observer = new MutationObserver(checkModalState);
     observer.observe(document.body, { attributes: true, attributeFilter: ['data-modal-open'] });
-
     return () => observer.disconnect();
   }, [isOpen]);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      type: 'bot',
-      text: 'Hola, soy el asistente normativo de MDA. ¿En qué puedo ayudarte hoy? Podemos hablar sobre SAGRILAFT, SARLAFT o el análisis de tus informes.',
+
+  // Cleanup abort controller on unmount
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
+
+  const sendMessage = useCallback(
+    async (text: string) => {
+      if (!text.trim() || isLoading) return;
+
+      const userMessage: Message = {
+        id: Date.now(),
+        role: 'user',
+        content: text.trim(),
+      };
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
+      setInputValue('');
+      setIsLoading(true);
+
+      // Prepare conversation history for API (exclude initial message ID logic, just send roles+content)
+      const chatHistory = updatedMessages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
+
+      // Create placeholder for streaming response
+      const assistantMessageId = Date.now() + 1;
+      setMessages((prev) => [
+        ...prev,
+        { id: assistantMessageId, role: 'assistant', content: '' },
+      ]);
+
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: chatHistory }),
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          throw new Error(
+            errorData?.error || `Error del servidor (${response.status})`
+          );
+        }
+
+        const reader = response.body?.getReader();
+        if (!reader) throw new Error('No response stream');
+
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed || !trimmed.startsWith('data: ')) continue;
+
+            const data = trimmed.slice(6);
+            if (data === '[DONE]') break;
+
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.error) throw new Error(parsed.error);
+              if (parsed.content) {
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMessageId
+                      ? { ...m, content: m.content + parsed.content }
+                      : m
+                  )
+                );
+              }
+            } catch (parseError) {
+              if (parseError instanceof Error && parseError.message !== data) {
+                throw parseError;
+              }
+            }
+          }
+        }
+      } catch (error) {
+        if ((error as Error).name === 'AbortError') return;
+
+        const errorText =
+          error instanceof Error
+            ? error.message
+            : 'Lo siento, hubo un error al procesar tu consulta. Por favor intenta de nuevo.';
+
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMessageId
+              ? { ...m, content: m.content || errorText }
+              : m
+          )
+        );
+      } finally {
+        setIsLoading(false);
+        abortControllerRef.current = null;
+      }
     },
-  ]);
-  const [inputValue, setInputValue] = useState('');
+    [messages, isLoading]
+  );
 
   const handleSend = () => {
-    if (!inputValue.trim()) return;
-
-    const newMessage: Message = {
-      id: messages.length + 1,
-      type: 'user',
-      text: inputValue,
-    };
-
-    setMessages([...messages, newMessage]);
-    setInputValue('');
-
-    // Simular respuesta del bot
-    setTimeout(() => {
-      const botResponse: Message = {
-        id: messages.length + 2,
-        type: 'bot',
-        text: 'Gracias por tu consulta. Un especialista revisará tu solicitud y te contactará pronto.',
-      };
-      setMessages((prev) => [...prev, botResponse]);
-    }, 1000);
-  };
-
-  const handleSuggestion = (suggestion: string) => {
-    setInputValue(suggestion);
+    sendMessage(inputValue);
   };
 
   // Don't render anything if modal is open
@@ -79,7 +195,7 @@ export default function Chatbot() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-100 w-14 h-14 bg-primary hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-40 w-14 h-14 bg-primary hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
         aria-label="Abrir chat"
         data-chatbot-trigger
       >
@@ -92,20 +208,18 @@ export default function Chatbot() {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-[#0e111b]/50 backdrop-blur-[2px] z-90"
+        className="fixed inset-0 bg-[#0e111b]/50 backdrop-blur-[2px] z-40"
         onClick={() => setIsOpen(false)}
       />
 
       {/* Chat window */}
-      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-100 flex flex-col items-end">
+      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 flex flex-col items-end">
         <div className="w-[360px] md:w-[400px] h-[600px] max-h-[85vh] bg-white dark:bg-background-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col font-display relative animate-in">
           {/* Header */}
           <div className="h-16 px-5 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md sticky top-0 z-10">
             <div className="flex items-center gap-3">
               <div className="size-9 text-primary bg-primary/10 rounded-lg p-1.5 flex items-center justify-center">
-                <svg className="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
-                </svg>
+                <PieChart size={24} />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-none mb-1">Asistente MDA</h3>
@@ -136,43 +250,35 @@ export default function Chatbot() {
               </div>
 
               {messages.map((message) => (
-                <div key={message.id} className={`flex gap-3 ${message.type === 'user' ? 'justify-end' : ''}`}>
-                  {message.type === 'bot' && (
+                <div key={message.id} className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : ''}`}>
+                  {message.role === 'assistant' && (
                     <div className="size-8 rounded-full bg-linear-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm shrink-0 mt-1">
                       <Bot size={16} />
                     </div>
                   )}
-                  <div className={`flex flex-col gap-1 max-w-[85%] ${message.type === 'user' ? 'items-end' : ''}`}>
-                    {message.type === 'bot' && (
+                  <div className={`flex flex-col gap-1 max-w-[85%] ${message.role === 'user' ? 'items-end' : ''}`}>
+                    {message.role === 'assistant' && (
                       <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente Normativo</span>
                     )}
-                    <div className={`p-4 rounded-2xl shadow-sm text-sm leading-relaxed ${message.type === 'bot'
+                    <div className={`p-4 rounded-2xl shadow-sm text-sm leading-relaxed ${message.role === 'assistant'
                       ? 'bg-white dark:bg-gray-800 rounded-tl-none border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300'
                       : 'bg-primary text-white rounded-tr-none'
                       }`}>
-                      <p>{message.text}</p>
+                      {message.role === 'assistant' && message.content === '' && isLoading ? (
+                        <div className="flex items-center gap-2">
+                          <Loader2 size={14} className="animate-spin" />
+                          <span className="text-gray-400 text-xs">Pensando...</span>
+                        </div>
+                      ) : (
+                        <p className="whitespace-pre-wrap">{renderMessageContent(message.content)}</p>
+                      )}
                     </div>
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
 
-            {/* Suggestions */}
-            {messages.length === 1 && (
-              <div className="mt-12 flex flex-col gap-2">
-                <p className="text-[10px] uppercase font-bold text-gray-400 ml-1 mb-1">Sugerencias</p>
-                {suggestions.map((suggestion, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleSuggestion(suggestion)}
-                    className="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group"
-                  >
-                    <span>{suggestion}</span>
-                    <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Input */}
@@ -182,23 +288,21 @@ export default function Chatbot() {
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                className="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-blue-500 outline-none transition-all placeholder-gray-400 shadow-inner"
-                placeholder="Escribe un mensaje..."
+                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
+                disabled={isLoading}
+                className="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-blue-500 outline-none transition-all placeholder-gray-400 shadow-inner disabled:opacity-50"
+                placeholder={isLoading ? 'Esperando respuesta...' : 'Escribe un mensaje...'}
               />
               <button
                 onClick={handleSend}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md"
+                disabled={isLoading || !inputValue.trim()}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Send size={18} />
+                {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
               </button>
             </div>
             <div className="flex justify-center mt-3 gap-2 text-[10px] text-gray-400">
-              <span className="flex items-center gap-1">
-                <Lock size={10} /> Encrypted
-              </span>
-              <span>•</span>
-              <span>Powered by MDA Core</span>
+              <span>Desarrollado por MDA Analitica</span>
             </div>
           </div>
         </div>
@@ -206,4 +310,3 @@ export default function Chatbot() {
     </>
   );
 }
-

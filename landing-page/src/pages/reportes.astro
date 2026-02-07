@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { BarChart3, ExternalLink, Headset, Fullscreen, X, Bolt, MousePointer2, Bot, MessageSquare, Send, Lock, ArrowRight } from 'lucide-react';
+import { BarChart3, ExternalLink, Headset, Fullscreen, X, Bolt, MousePointer2, Bot, MessageSquare, Send, Lock, ArrowRight, PieChart } from 'lucide-react';
 
 const categories = [
   { label: 'Todos', active: true },
@@ -136,10 +136,10 @@ const reports = [
         <div class="absolute bottom-0 left-0 w-48 h-48 bg-accent-green/10 rounded-full blur-3xl -ml-24 -mb-24"></div>
         <div class="relative z-10">
           <h2 class="text-2xl lg:text-3xl font-black mb-4">¿Necesita un reporte personalizado?</h2>
-          <p class="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+          <p class="text-teal-100 text-lg mb-8 max-w-2xl mx-auto">
             Nuestro equipo de analistas puede crear dashboards a medida para sus necesidades específicas de cumplimiento y análisis financiero.
           </p>
-          <a href="/login" class="inline-flex items-center gap-2 bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-xl">
+          <a href="/#nosotros" class="inline-flex items-center gap-2 bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-green-50 transition-colors shadow-xl">
             <Headset size={20} />
             Solicitar Consulta
           </a>
@@ -207,9 +207,7 @@ const reports = [
           <div class="h-16 px-5 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
             <div class="flex items-center gap-3">
               <div class="size-9 text-primary bg-primary/10 rounded-lg p-1.5 flex items-center justify-center">
-                <svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
-                </svg>
+                <PieChart size={24} />
               </div>
               <div>
                 <h3 class="text-sm font-bold text-gray-900 dark:text-white leading-none mb-1">Asistente MDA</h3>
@@ -231,14 +229,14 @@ const reports = [
                 <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-200/50 dark:bg-gray-800 px-3 py-1 rounded-full">Hoy</span>
               </div>
               <div class="flex gap-3">
-                <div class="size-8 rounded-full bg-linear-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-sm shrink-0 mt-1">
+                <div class="size-8 rounded-full bg-linear-to-br from-primary to-teal-600 flex items-center justify-center text-white shadow-sm shrink-0 mt-1">
                   <Bot size={16} />
                 </div>
                 <div class="flex flex-col gap-1 max-w-[85%]">
                   <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente Normativo</span>
                   <div class="p-4 bg-white dark:bg-gray-800 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                     <p>Hola, estoy aquí para ayudarte a analizar este reporte.</p>
-                    <p class="mt-2">Puedo explicarte los <strong class="text-primary dark:text-blue-400 font-semibold">indicadores clave</strong>, hacer <strong class="text-primary dark:text-blue-400 font-semibold">comparaciones</strong> o responder preguntas sobre cumplimiento.</p>
+                    <p class="mt-2">Puedo explicarte los <strong class="text-primary dark:text-teal-400 font-semibold">indicadores clave</strong>, hacer <strong class="text-primary dark:text-teal-400 font-semibold">comparaciones</strong> o responder preguntas sobre cumplimiento.</p>
                   </div>
                 </div>
               </div>
@@ -255,7 +253,7 @@ const reports = [
                 <span>¿Hay alertas de cumplimiento?</span>
                 <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
               </button>
-              <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-blue-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
+              <button class="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-teal-500/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group">
                 <span>Generar resumen ejecutivo</span>
                 <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
               </button>
@@ -265,8 +263,8 @@ const reports = [
           <!-- Chat Input -->
           <div class="p-4 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
             <div class="relative">
-              <input class="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-blue-500 outline-none transition-all placeholder-gray-400" placeholder="Pregunta sobre el reporte..." type="text" />
-              <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md">
+              <input class="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary dark:focus:border-teal-500 outline-none transition-all placeholder-gray-400" placeholder="Pregunta sobre el reporte..." type="text" />
+              <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-teal-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md">
                 <Send size={18} />
               </button>
             </div>

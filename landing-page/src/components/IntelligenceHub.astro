@@ -1,31 +1,40 @@
 ---
 // Intelligence Hub section - Power BI reports gallery
-import { Presentation, ArrowRight } from "lucide-react";
+import { Presentation, ArrowRight, X } from "lucide-react";
 
 const reports = [
   {
-    title: "Financial",
-    description: "Evolución de márgenes y EBITDA",
-    tag: "Executive",
+    title: "RIF Analítica",
+    description: "Minería de datos financiero",
+    tag: "",
     tagColor: "bg-primary",
     image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuC-ULsmmEvbRa0tS3FriS7z7Y2XyLM0ZKcUkbxsozMX01R40ydV9N9PlhzaRZ0eVKl8xGxsYPEldFMBBTJ_yvR1wzvFgyWc7-tSJsoVdTa6lQHf8Kgn1FrMUqtPwuqjeMbVuJLFoHmezFWKg9WGceJiLI-hg9wJMaoFTwdEgwd-LQGcD_fDYfW4nGOpE3gtDK7TEqPualt12hzNg5J4m70fVeSt0Xh6lcvv9cf9vKNxeWq5bh0PmtinM5q1CbygjKocE4UxfTf49SFG",
+      "https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png",
+    hasModal: true,
+    modalId: "rif-modal",
+    modalType: "powerbi",
   },
   {
-    title: "Risk",
-    description: "Mapas de calor e indicadores SARLAFT",
-    tag: "Real-Time",
-    tagColor: "bg-accent-green",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDhNDVuxeVSREDjsfgoaXX2RfXDw92Z464uewljymqB7Keudos2ymZQTq1brinODTfBpdV_aSmAGe6PdHRNmb7sLsb5sVML3TKraLxJvJEE67BNM_MX4GWaqYeKmcMwf957kXdLq5zsnRjuvCXDmPoqj_iTcxW9APzEqwuY0rGVs2Wmlbq9j1h9fo-Cobs08zByz92Jmk1_DhgLs4zk56jVslI9khaVIXz363xvDss-EAvFMiDxZmVaeNjVyi2DP9k7Vsyg8z_Pct2_",
-  },
-  {
-    title: "Real Sector",
-    description: "Análisis sectorial y competitividad",
-    tag: "Macro",
+    title: "Riesgo de cartera",
+    description: "Analítica del riesgo y de la mora",
+    tag: "Próximamente",
     tagColor: "bg-gray-800",
     image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDlyl3zM5wQ_f2RHbf2Jw55jdiI2VXlK3bwMu-iW5xIoYe9wcQnrumU-SKXEBx-CUXqevFpH-X-9IP-2avXYRKDjPo5uVuWyTxZ0IvHXlqg3X4jeMt8P1j85yXxzpNlshlUrnixijHnmeGNa_P1qAlv-ZshdeIdRAS0TuW_F0GLaKt3r6xbFgvduaK9lob1joKgDyvvQbXJx_TKaBI_eFX_PbP5DubMFGwQVk-L87duuXY3vzb0_khZ5dbEaOyoPDPrrLWmfkFU4tZd",
+      "https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/qxp/2yh/y20/Morosidad%20Cooperativas.png",
+    hasModal: true,
+    modalId: "riesgo-modal",
+    modalType: "image",
+  },
+  {
+    title: "Benchmarking sector solidario",
+    description: "Análisis del sector solidario con 77 indicadores.",
+    tag: "Próximamente",
+    tagColor: "bg-gray-800",
+    image:
+      "https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/9x0/g91/363/Benchmarking.png",
+    hasModal: true,
+    modalId: "benchmarking-modal",
+    modalType: "image",
   },
 ];
 ---
@@ -41,9 +50,7 @@ const reports = [
           <Presentation size={24} />
         </div>
         <h2 class="text-3xl font-extrabold text-[#0e111b] dark:text-white">
-          Intelligence Hub <span class="text-gray-400 font-light"
-            >| Power BI</span
-          >
+          Analítica de Datos
         </h2>
       </div>
       <a
@@ -58,16 +65,21 @@ const reports = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {
         reports.map((report) => (
-          <div class="group relative overflow-hidden rounded-2xl bg-gray-100 aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer">
+          <div
+            class="group relative overflow-hidden rounded-2xl bg-gray-100 aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer"
+            onclick={report.hasModal ? `document.getElementById('${report.modalId}').classList.remove('hidden')` : ""}
+          >
             <div
               class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
               style={`background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('${report.image}')`}
             />
-            <div
-              class={`absolute top-4 left-4 ${report.tagColor} text-white text-[10px] font-black px-3 py-1 rounded-full uppercase`}
-            >
-              {report.tag}
-            </div>
+            {report.tag && (
+              <div
+                class={`absolute top-4 left-4 ${report.tagColor} text-white text-[8px] font-semibold px-2 py-0.5 rounded-full uppercase opacity-70`}
+              >
+                {report.tag}
+              </div>
+            )}
             <div class="absolute bottom-6 left-6 right-6">
               <p class="text-white text-xl font-bold leading-tight">
                 {report.title}
@@ -80,3 +92,106 @@ const reports = [
     </div>
   </div>
 </section>
+
+<!-- RIF Analítica Modal -->
+<div id="rif-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur p-4">
+  <div class="bg-white dark:bg-background-dark rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
+    <!-- Close button -->
+    <button
+      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      onclick="document.getElementById('rif-modal').classList.add('hidden')"
+    >
+      <X size={24} />
+    </button>
+
+    <!-- iframe -->
+    <div class="w-full h-full flex items-center justify-center p-0">
+      <iframe
+        title="RIF-Analytic(2)"
+        width="100%"
+        height="100%"
+        src="https://app.powerbi.com/view?r=eyJrIjoiOTI4MDIwOGQtZjJkZC00ZmZhLWEwZmEtY2FjNjA4MzMwYTNkIiwidCI6IjFkY2Y4YjdlLTAzZTItNDU2ZC05Y2JkLTEyMTNiNjg1ZjU0MyJ9&embedImagePlaceholder=true"
+        frameborder="0"
+        allowfullscreen="true"
+      >
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Riesgo de Cartera Modal -->
+<div id="riesgo-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur p-4">
+  <div class="bg-white dark:bg-background-dark rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
+    <!-- Close button -->
+    <button
+      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      onclick="document.getElementById('riesgo-modal').classList.add('hidden')"
+    >
+      <X size={24} />
+    </button>
+
+    <!-- Próximamente badge -->
+    <div class="absolute top-4 left-4 z-10 bg-gray-800 text-white text-[8px] font-semibold px-2 py-0.5 rounded-full uppercase opacity-70">
+      Próximamente
+    </div>
+
+    <!-- Image -->
+    <div class="w-full h-full flex items-center justify-center p-0">
+      <img
+        src="https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/qxp/2yh/y20/Morosidad%20Cooperativas.png"
+        alt="Riesgo de cartera"
+        class="w-full h-full object-contain"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Benchmarking Sector Solidario Modal -->
+<div id="benchmarking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur p-4">
+  <div class="bg-white dark:bg-background-dark rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
+    <!-- Close button -->
+    <button
+      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      onclick="document.getElementById('benchmarking-modal').classList.add('hidden')"
+    >
+      <X size={24} />
+    </button>
+
+    <!-- Próximamente badge -->
+    <div class="absolute top-4 left-4 z-10 bg-gray-800 text-white text-[8px] font-semibold px-2 py-0.5 rounded-full uppercase opacity-70">
+      Próximamente
+    </div>
+
+    <!-- Image -->
+    <div class="w-full h-full flex items-center justify-center p-0">
+      <img
+        src="https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/9x0/g91/363/Benchmarking.png"
+        alt="Benchmarking sector solidario"
+        class="w-full h-full object-contain"
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  // Close modals when clicking backdrop
+  ['rif-modal', 'riesgo-modal', 'benchmarking-modal'].forEach(modalId => {
+    document.getElementById(modalId)?.addEventListener('click', (e) => {
+      if (e.target.id === modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+      }
+    });
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      ['rif-modal', 'riesgo-modal', 'benchmarking-modal'].forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (modal && !modal.classList.contains('hidden')) {
+          modal.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>
