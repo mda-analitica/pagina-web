@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { BarChart3, ExternalLink, Headset, Fullscreen, X, Bolt, MousePointer2, Bot, MessageSquare, Send, Lock, ArrowRight, PieChart } from 'lucide-react';
+import { BarChart3, ExternalLink, Headset, Fullscreen, X, Bolt, MousePointer2, Bot, MessageSquare, Send, Lock, ArrowRight } from 'lucide-react';
 
 const categories = [
   { label: 'Todos', active: true },
@@ -206,9 +206,6 @@ const reports = [
           <!-- Assistant Header -->
           <div class="h-16 px-5 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
             <div class="flex items-center gap-3">
-              <div class="size-9 text-primary bg-primary/10 rounded-lg p-1.5 flex items-center justify-center">
-                <PieChart size={24} />
-              </div>
               <div>
                 <h3 class="text-sm font-bold text-gray-900 dark:text-white leading-none mb-1">Asistente MDA</h3>
                 <div class="flex items-center gap-1.5">
@@ -233,7 +230,7 @@ const reports = [
                   <Bot size={16} />
                 </div>
                 <div class="flex flex-col gap-1 max-w-[85%]">
-                  <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente Normativo</span>
+                  <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">Asistente con Inteligencia Artificial</span>
                   <div class="p-4 bg-white dark:bg-gray-800 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                     <p>Hola, estoy aquí para ayudarte a analizar este reporte.</p>
                     <p class="mt-2">Puedo explicarte los <strong class="text-primary dark:text-teal-400 font-semibold">indicadores clave</strong>, hacer <strong class="text-primary dark:text-teal-400 font-semibold">comparaciones</strong> o responder preguntas sobre cumplimiento.</p>

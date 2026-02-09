@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { MessageCircle, X, Bot, Send, Lock, PieChart, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Bot, Send, Lock, Loader2 } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -218,9 +218,6 @@ export default function Chatbot() {
           {/* Header */}
           <div className="h-16 px-5 flex items-center justify-between border-b border-gray-100 bg-white/95 backdrop-blur-md sticky top-0 z-10">
             <div className="flex items-center gap-3">
-              <div className="size-9 text-primary bg-primary/10 rounded-xl p-1.5 flex items-center justify-center">
-                <PieChart size={24} />
-              </div>
               <div>
                 <h3 className="text-sm font-bold text-gray-900 leading-none mb-1">Asistente MDA</h3>
                 <div className="flex items-center gap-1.5">
@@ -258,7 +255,7 @@ export default function Chatbot() {
                   )}
                   <div className={`flex flex-col gap-1 max-w-[85%] ${message.role === 'user' ? 'items-end' : ''}`}>
                     {message.role === 'assistant' && (
-                      <span className="text-[11px] font-bold text-gray-500 ml-1">Asistente Normativo</span>
+                      <span className="text-[11px] font-bold text-gray-500 ml-1">Asistente con Inteligencia Artificial</span>
                     )}
                     <div className={`p-4 rounded-2xl shadow-sm text-sm leading-relaxed ${message.role === 'assistant'
                       ? 'bg-white rounded-tl-none border border-gray-100 text-gray-600'
