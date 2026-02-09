@@ -23,7 +23,8 @@ const images = [
 
 <section
   id="inicio"
-  class="relative overflow-hidden bg-white dark:bg-background-dark py-16 lg:py-24"
+  class="relative overflow-hidden bg-white py-20 lg:py-28"
+  style="background: radial-gradient(ellipse at 50% 50%, rgba(0,120,120,0.03), transparent 70%)"
 >
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
     <div class="flex flex-col lg:flex-row items-center gap-12">
@@ -31,21 +32,21 @@ const images = [
       <div class="flex flex-col gap-8 flex-1">
         <div class="flex flex-col gap-4 text-left">
           {tagline && <span
-            class="text-primary dark:text-teal-400 text-sm font-extrabold uppercase tracking-widest"
+            class="text-primary text-sm font-extrabold uppercase tracking-widest"
           >
             {tagline}
           </span>}
           <h1
-            class="text-[#0e111b] dark:text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight"
+            class="text-[#0e111b] text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight"
           >
             {title}
             <br />
-            <span class="text-primary dark:text-teal-400"
+            <span class="bg-gradient-to-r from-primary to-accent-green bg-clip-text text-transparent"
               >{highlightedText}</span
             >
           </h1>
           <p
-            class="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl"
+            class="text-gray-500 text-lg md:text-xl font-normal leading-relaxed max-w-xl"
           >
             {description}
           </p>
@@ -56,26 +57,36 @@ const images = [
       <div class="flex-1 w-full relative">
         <div
           id="hero-slider"
-          class="relative z-10 w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+          class="relative z-10 w-full aspect-video rounded-2xl overflow-hidden shadow-lg shadow-primary/5 border border-gray-200 bg-white"
         >
           {
             images.map((img, index) => (
               <img
                 src={img}
                 alt={`Balance General MDA Analítica ${index + 1}`}
-                class={`hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === 0 ? "opacity-100" : "opacity-0"}`}
+                class={`hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${index === 0 ? "opacity-100" : "opacity-0"}`}
                 data-index={index}
               />
             ))
           }
         </div>
+        <!-- Slider dots -->
+        <div class="flex justify-center gap-2 mt-4" id="hero-dots">
+          {images.map((_, index) => (
+            <button
+              class={`hero-dot h-2 rounded-full transition-all duration-300 ${index === 0 ? "w-6 bg-primary" : "w-2 bg-gray-300"}`}
+              data-dot-index={index}
+              aria-label={`Ir a slide ${index + 1}`}
+            />
+          ))}
+        </div>
         <!-- Decorative blurs -->
         <div
-          class="absolute -top-6 -right-6 w-32 h-32 bg-accent-green/10 rounded-full blur-3xl"
+          class="absolute -top-6 -right-6 w-48 h-48 bg-accent-green/[0.07] rounded-full blur-3xl"
         >
         </div>
         <div
-          class="absolute -bottom-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-3xl"
+          class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/[0.07] rounded-full blur-3xl"
         >
         </div>
       </div>
@@ -86,22 +97,40 @@ const images = [
 <script>
   function setupSlider() {
     const slides = document.querySelectorAll(".hero-slide");
+    const dots = document.querySelectorAll(".hero-dot");
     if (slides.length === 0) return;
 
     let currentIndex = 0;
 
-    function nextSlide() {
+    function goToSlide(index: number) {
       // Hide current
       slides[currentIndex].classList.remove("opacity-100");
       slides[currentIndex].classList.add("opacity-0");
 
-      // Move to next
-      currentIndex = (currentIndex + 1) % slides.length;
+      // Update dots
+      dots[currentIndex]?.classList.remove("w-6", "bg-primary");
+      dots[currentIndex]?.classList.add("w-2", "bg-gray-300");
 
-      // Show next
+      // Move to target
+      currentIndex = index;
+
+      // Show target
       slides[currentIndex].classList.remove("opacity-0");
       slides[currentIndex].classList.add("opacity-100");
+
+      // Update dot
+      dots[currentIndex]?.classList.remove("w-2", "bg-gray-300");
+      dots[currentIndex]?.classList.add("w-6", "bg-primary");
     }
+
+    function nextSlide() {
+      goToSlide((currentIndex + 1) % slides.length);
+    }
+
+    // Dot click handlers
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => goToSlide(i));
+    });
 
     // Change every 4 seconds
     setInterval(nextSlide, 4000);

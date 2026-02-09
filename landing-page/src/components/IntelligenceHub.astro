@@ -39,26 +39,29 @@ const reports = [
 ];
 ---
 
-<section id="analitica" class="py-20 bg-white dark:bg-background-dark">
+<section id="analitica" class="py-20 lg:py-28 bg-white">
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
     <!-- Section header -->
-    <div class="flex items-center justify-between mb-10">
-      <div class="flex items-center gap-4">
-        <div
-          class="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center text-white"
-        >
-          <Presentation size={24} />
+    <div class="flex flex-col gap-4 mb-12">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center text-white"
+          >
+            <Presentation size={24} />
+          </div>
+          <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-[#0e111b]">
+            Analítica de Datos
+          </h2>
         </div>
-        <h2 class="text-3xl font-extrabold text-[#0e111b] dark:text-white">
-          Analítica de Datos
-        </h2>
+        <a
+          class="text-primary font-bold text-sm flex items-center gap-1 hover:underline"
+          href="/reportes"
+        >
+          Ver todos los reportes <ArrowRight size={16} />
+        </a>
       </div>
-      <a
-        class="text-primary font-bold text-sm flex items-center gap-1 hover:underline"
-        href="/reportes"
-      >
-        Ver todos los reportes <ArrowRight size={16} />
-      </a>
+      <div class="w-20 h-1 bg-gradient-to-r from-primary to-accent-green rounded-full"></div>
     </div>
 
     <!-- Reports grid -->
@@ -66,25 +69,25 @@ const reports = [
       {
         reports.map((report) => (
           <div
-            class="group relative overflow-hidden rounded-2xl bg-gray-100 aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer"
+            class="group relative overflow-hidden rounded-2xl bg-gray-100 aspect-video shadow-sm hover:shadow-lg hover:shadow-primary/5 border border-gray-200/50 hover:border-primary/20 transition-all cursor-pointer"
             onclick={report.hasModal ? `document.getElementById('${report.modalId}').classList.remove('hidden')` : ""}
           >
             <div
-              class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-              style={`background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('${report.image}')`}
+              class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+              style={`background-image: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.15), rgba(0,0,0,0.7)), url('${report.image}')`}
             />
             {report.tag && (
               <div
-                class={`absolute top-4 left-4 ${report.tagColor} text-white text-[8px] font-semibold px-2 py-0.5 rounded-full uppercase opacity-70`}
+                class={`absolute top-4 left-4 ${report.tagColor} text-white text-[10px] font-semibold px-3 py-1 rounded-full uppercase backdrop-blur-sm opacity-70`}
               >
                 {report.tag}
               </div>
             )}
             <div class="absolute bottom-6 left-6 right-6">
-              <p class="text-white text-xl font-bold leading-tight">
+              <p class="text-white text-xl font-bold leading-tight drop-shadow-md">
                 {report.title}
               </p>
-              <p class="text-white/80 text-sm mt-1">{report.description}</p>
+              <p class="text-white/80 text-sm mt-1 drop-shadow-md">{report.description}</p>
             </div>
           </div>
         ))
@@ -95,10 +98,10 @@ const reports = [
 
 <!-- RIF Analítica Modal -->
 <div id="rif-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur p-4">
-  <div class="bg-white dark:bg-background-dark rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
+  <div class="bg-white rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
     <!-- Close button -->
     <button
-      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 rounded-xl text-gray-500 hover:text-gray-700 transition-colors"
       onclick="document.getElementById('rif-modal').classList.add('hidden')"
     >
       <X size={24} />
@@ -121,17 +124,17 @@ const reports = [
 
 <!-- Riesgo de Cartera Modal -->
 <div id="riesgo-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur p-4">
-  <div class="bg-white dark:bg-background-dark rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
+  <div class="bg-white rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
     <!-- Close button -->
     <button
-      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 rounded-xl text-gray-500 hover:text-gray-700 transition-colors"
       onclick="document.getElementById('riesgo-modal').classList.add('hidden')"
     >
       <X size={24} />
     </button>
 
     <!-- Próximamente badge -->
-    <div class="absolute top-4 left-4 z-10 bg-gray-800 text-white text-[8px] font-semibold px-2 py-0.5 rounded-full uppercase opacity-70">
+    <div class="absolute top-4 left-4 z-10 bg-gray-800 text-white text-[10px] font-semibold px-3 py-1 rounded-full uppercase opacity-70">
       Próximamente
     </div>
 
@@ -148,17 +151,17 @@ const reports = [
 
 <!-- Benchmarking Sector Solidario Modal -->
 <div id="benchmarking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur p-4">
-  <div class="bg-white dark:bg-background-dark rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
+  <div class="bg-white rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
     <!-- Close button -->
     <button
-      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      class="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 rounded-xl text-gray-500 hover:text-gray-700 transition-colors"
       onclick="document.getElementById('benchmarking-modal').classList.add('hidden')"
     >
       <X size={24} />
     </button>
 
     <!-- Próximamente badge -->
-    <div class="absolute top-4 left-4 z-10 bg-gray-800 text-white text-[8px] font-semibold px-2 py-0.5 rounded-full uppercase opacity-70">
+    <div class="absolute top-4 left-4 z-10 bg-gray-800 text-white text-[10px] font-semibold px-3 py-1 rounded-full uppercase opacity-70">
       Próximamente
     </div>
 

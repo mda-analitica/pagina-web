@@ -1,10 +1,10 @@
 ---
-// Header component con navegación y dark mode toggle
+// Header component con navegación
 import { Menu, PieChart } from "lucide-react";
 ---
 
 <header
-  class="sticky top-0 z-50 glass-header border-b border-solid border-[#e7eaf3] dark:border-gray-800 px-6 md:px-10 py-3"
+  class="sticky top-0 z-50 glass-header border-b border-gray-200/60 px-6 md:px-10 py-4"
 >
   <div
     class="max-w-[1280px] mx-auto flex items-center justify-between whitespace-nowrap"
@@ -15,7 +15,7 @@ import { Menu, PieChart } from "lucide-react";
         <PieChart size={32} />
       </div>
       <h2
-        class="text-primary dark:text-teal-400 text-xl font-black leading-tight tracking-tight"
+        class="text-xl font-black leading-tight tracking-tight bg-gradient-to-r from-primary to-accent-green bg-clip-text text-transparent"
       >
         MDA Analítica
       </h2>
@@ -35,10 +35,6 @@ import { Menu, PieChart } from "lucide-react";
         class="nav-link text-sm font-semibold leading-normal relative py-1"
         href="#analitica">Analítica</a
       >
-      <!-- <a
-        class="nav-link text-sm font-semibold leading-normal relative py-1"
-        href="#blog">Blog</a
-      > -->
       <a
         class="nav-link text-sm font-semibold leading-normal relative py-1"
         href="#nosotros">Nosotros</a
@@ -49,7 +45,7 @@ import { Menu, PieChart } from "lucide-react";
     <div class="flex gap-3 items-center">
       <button
         onclick="document.getElementById('rif-modal').classList.remove('hidden')"
-        class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
+        class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all duration-300 hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
       >
         <span>Ir a RIF-Analytic</span>
       </button>
@@ -57,7 +53,7 @@ import { Menu, PieChart } from "lucide-react";
 
     <!-- Mobile menu button -->
     <button
-      class="lg:hidden flex items-center justify-center rounded-lg h-10 w-10 text-gray-600 dark:text-gray-300"
+      class="lg:hidden flex items-center justify-center rounded-lg h-10 w-10 text-gray-600"
       id="mobile-menu-btn"
     >
       <Menu size={24} />
@@ -66,50 +62,30 @@ import { Menu, PieChart } from "lucide-react";
 </header>
 
 <style>
-  /* Base style for link text */
   .nav-link {
-    color: #4b5563; /* gray-600 */
-    transition: color 0.3s ease;
-  }
-
-  :global(.dark) .nav-link {
-    color: #9ca3af; /* gray-400 */
+    color: #4b5563;
+    transition: color 0.2s ease;
   }
 
   .nav-link:hover {
-    color: #007878; /* primary approx */
+    color: #007878;
   }
 
-  :global(.dark) .nav-link:hover {
-    color: #2dd4bf; /* teal-400 approx */
-  }
-
-  /* Active state text color */
   .nav-link.active-link {
-    color: #007878; /* primary */
+    color: #007878;
   }
 
-  :global(.dark) .nav-link.active-link {
-    color: #2dd4bf; /* teal-400 */
-  }
-
-  /* Underline animation using pseudo-element */
   .nav-link::after {
     content: "";
     position: absolute;
-    bottom: -4px; /* Adjust distance from text */
+    bottom: -4px;
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #007878; /* primary */
+    background-color: #007878;
     transition: width 0.3s ease-in-out;
   }
 
-  :global(.dark) .nav-link::after {
-    background-color: #2dd4bf; /* teal-400 */
-  }
-
-  /* Show underline on active or hover if desired, usually just active for 'traveling' */
   .nav-link.active-link::after {
     width: 100%;
   }
@@ -124,16 +100,14 @@ import { Menu, PieChart } from "lucide-react";
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.3, // Trigger when 30% of section is visible
+      threshold: 0.3,
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Remove active class from all links
           navLinks.forEach((link) => link.classList.remove("active-link"));
 
-          // Add active class to corresponding link
           const activeId = entry.target.id;
           const activeLink = document.querySelector(
             `.nav-link[href*="#${activeId}"]`,
