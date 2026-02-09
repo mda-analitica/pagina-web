@@ -59,7 +59,7 @@ const verticalesData = {
     <!-- Section header -->
     <div class="text-center mb-12">
       <h2 class="text-3xl lg:text-4xl font-extrabold tracking-tight text-[#0e111b]">Soluciones</h2>
-      <div class="w-20 h-1 bg-gradient-to-r from-primary to-accent-green mx-auto mt-4 rounded-full"></div>
+      <div class="w-20 h-1 bg-gradient-to-r from-primary to-primary/80 mx-auto mt-4 rounded-full"></div>
     </div>
 
     <!-- Tabs -->
@@ -95,7 +95,7 @@ const verticalesData = {
           <ul class="space-y-4">
             {data.features.map((feature) => (
               <li class="flex items-center gap-3 text-sm font-medium text-gray-600">
-                <CheckCircle2 size={20} className="text-accent-green shrink-0" />
+                <CheckCircle2 size={20} className="text-primary shrink-0" />
                 {feature}
               </li>
             ))}
@@ -106,7 +106,7 @@ const verticalesData = {
         <div class="grid grid-cols-2 gap-4">
           {data.stats.map((stat) => (
             <div class="p-6 bg-pearl rounded-xl shadow-sm border border-gray-100">
-              <h4 class="text-3xl font-black mb-1 bg-gradient-to-r from-primary to-accent-green bg-clip-text text-transparent">{stat.value}</h4>
+              <h4 class="text-3xl font-black mb-1 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">{stat.value}</h4>
               <p class="text-xs font-bold text-gray-500 uppercase">{stat.label}</p>
             </div>
           ))}

@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #007878;
-  --color-accent-green: #14b8a6;
+  --color-primary: #092C50;
+  --color-secondary-blue: #1475BB;
+  --color-accent-blue: #3B9FF3;
   --color-background-light: #f6f6f8;
   --color-pearl: #F5F7FA;
 
@@ -11,27 +12,27 @@
 
 @layer utilities {
   .glow-button {
-    box-shadow: 0 0 10px rgba(0, 120, 120, 0.25);
+    box-shadow: 0 0 10px rgba(9, 44, 80, 0.25);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glow-button:hover {
-    box-shadow: 0 0 20px rgba(20, 184, 166, 0.45);
+    box-shadow: 0 0 20px rgba(20, 117, 187, 0.35);
     transform: translateY(-2px);
   }
 
   .glow-accent {
-    box-shadow: 0 0 12px rgba(20, 184, 166, 0.2);
+    box-shadow: 0 0 12px rgba(20, 117, 187, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glow-accent:hover {
-    box-shadow: 0 0 22px rgba(20, 184, 166, 0.45);
+    box-shadow: 0 0 22px rgba(20, 117, 187, 0.35);
     transform: translateY(-2px);
   }
 
   .ai-glow {
-    box-shadow: 0 0 20px rgba(20, 184, 166, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(9, 44, 80, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.1);
   }
 
   .glass-header {

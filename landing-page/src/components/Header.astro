@@ -17,7 +17,7 @@ import { Menu } from "lucide-react";
         class="h-8 w-auto"
       />
       <h2
-        class="text-xl font-black leading-tight tracking-tight bg-gradient-to-r from-primary to-accent-green bg-clip-text text-transparent"
+        class="text-xl font-black leading-tight tracking-tight bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent"
       >
         MDA Analítica
       </h2>
@@ -47,7 +47,7 @@ import { Menu } from "lucide-react";
     <div class="flex gap-3 items-center">
       <button
         onclick="document.getElementById('rif-modal').classList.remove('hidden')"
-        class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all duration-300 hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
+        class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-primary text-white text-sm font-bold leading-normal tracking-wide transition-all duration-300 hover:bg-primary/90 border border-primary/20 glow-accent"
       >
         <span>Ir a RIF-Analytic</span>
       </button>
@@ -70,11 +70,11 @@ import { Menu } from "lucide-react";
   }
 
   .nav-link:hover {
-    color: #007878;
+    color: #092C50;
   }
 
   .nav-link.active-link {
-    color: #007878;
+    color: #092C50;
   }
 
   .nav-link::after {
@@ -84,7 +84,7 @@ import { Menu } from "lucide-react";
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #007878;
+    background-color: #092C50;
     transition: width 0.3s ease-in-out;
   }
 
