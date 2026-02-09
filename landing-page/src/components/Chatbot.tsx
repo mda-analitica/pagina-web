@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { MessageCircle, X, Bot, Send, Lock, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Bot, Send, Lock, Loader2, RotateCcw, Maximize2, Minimize2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   id: number;
@@ -14,33 +15,17 @@ const INITIAL_MESSAGE: Message = {
     'Hola, soy el asistente de MDA Analítica. ¿En qué puedo ayudarte hoy?',
 };
 
-
-function renderMessageContent(content: string) {
-  // Match markdown links [text](url) and plain URLs
-  const parts = content.split(/(\[[^\]]+\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s)]+)/g);
-  return parts.map((part, i) => {
-    const mdMatch = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/);
-    if (mdMatch) {
-      return (
-        <a key={i} href={mdMatch[2]} target="_blank" rel="noopener noreferrer" className="text-primary underline font-semibold hover:opacity-80">
-          {mdMatch[1]}
-        </a>
-      );
-    }
-    if (/^https?:\/\/[^\s)]+$/.test(part)) {
-      return (
-        <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary underline font-semibold hover:opacity-80">
-          {part}
-        </a>
-      );
-    }
-    return part;
-  });
-}
+// Preguntas frecuentes sugeridas
+const SUGGESTED_QUESTIONS = [
+  '¿Qué es RIF-Analytic?',
+  '¿De donde salen los datos de RIF-Analytic?',
+  '¿Puedo tener RIF-Analytic con los datos de mi cooperativa?',
+];
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -186,6 +171,17 @@ export default function Chatbot() {
     sendMessage(inputValue);
   };
 
+  const resetChat = () => {
+    // Cancelar cualquier petición en curso
+    abortControllerRef.current?.abort();
+    // Reiniciar mensajes al estado inicial
+    setMessages([INITIAL_MESSAGE]);
+    // Limpiar input
+    setInputValue('');
+    // Resetear loading
+    setIsLoading(false);
+  };
+
   // Don't render anything if modal is open
   if (isHidden) {
     return null;
@@ -193,14 +189,19 @@ export default function Chatbot() {
 
   if (!isOpen) {
     return (
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-40 w-14 h-14 bg-primary hover:bg-[#006060] text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
-        aria-label="Abrir chat"
-        data-chatbot-trigger
-      >
-        <MessageCircle size={28} />
-      </button>
+      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-40 flex items-center gap-3">
+        <div className="bg-white px-4 py-2 rounded-full shadow-lg border border-gray-200 animate-pulse">
+          <p className="text-sm font-semibold text-gray-800 whitespace-nowrap">Habla con la IA</p>
+        </div>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="w-14 h-14 bg-primary hover:bg-[#1475BB] text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+          aria-label="Abrir chat"
+          data-chatbot-trigger
+        >
+          <MessageCircle size={28} />
+        </button>
+      </div>
     );
   }
 
@@ -214,7 +215,9 @@ export default function Chatbot() {
 
       {/* Chat window */}
       <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 flex flex-col items-end">
-        <div className="w-[360px] md:w-[400px] h-[600px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col font-display relative animate-in">
+        <div className={`${isExpanded
+          ? 'w-[90vw] md:w-[700px] lg:w-[900px] h-[85vh]'
+          : 'w-[360px] md:w-[400px] h-[600px] max-h-[85vh]'} bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col font-display relative animate-in transition-all duration-300`}>
           {/* Header */}
           <div className="h-16 px-5 flex items-center justify-between border-b border-gray-100 bg-white/95 backdrop-blur-md sticky top-0 z-10">
             <div className="flex items-center gap-3">
@@ -231,8 +234,23 @@ export default function Chatbot() {
             </div>
             <div className="flex gap-1">
               <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="p-1.5 hover:bg-gray-100 rounded-full text-gray-400 hover:text-primary transition-colors"
+                title={isExpanded ? "Reducir" : "Ampliar"}
+              >
+                {isExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+              </button>
+              <button
+                onClick={resetChat}
+                className="p-1.5 hover:bg-gray-100 rounded-full text-gray-400 hover:text-primary transition-colors"
+                title="Nuevo chat"
+              >
+                <RotateCcw size={18} />
+              </button>
+              <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 hover:bg-gray-100 rounded-full text-gray-400 transition-colors"
+                title="Cerrar"
               >
                 <X size={20} />
               </button>
@@ -266,8 +284,33 @@ export default function Chatbot() {
                           <Loader2 size={14} className="animate-spin" />
                           <span className="text-gray-400 text-xs">Pensando...</span>
                         </div>
+                      ) : message.role === 'assistant' ? (
+                        <div className="prose prose-sm max-w-none">
+                        <ReactMarkdown
+                          components={{
+                            h1: (props) => <h1 className="text-lg font-bold mb-2 text-gray-900" {...props} />,
+                            h2: (props) => <h2 className="text-base font-bold mb-2 text-gray-900" {...props} />,
+                            h3: (props) => <h3 className="text-sm font-bold mb-1 text-gray-900" {...props} />,
+                            p: (props) => <p className="mb-2 last:mb-0" {...props} />,
+                            a: (props) => <a className="text-primary underline font-semibold hover:opacity-80" target="_blank" rel="noopener noreferrer" {...props} />,
+                            ul: (props) => <ul className="list-disc list-inside mb-2 space-y-1" {...props} />,
+                            ol: (props) => <ol className="list-decimal list-inside mb-2 space-y-1" {...props} />,
+                            li: (props) => <li className="ml-2" {...props} />,
+                            strong: (props) => <strong className="font-bold text-gray-900" {...props} />,
+                            em: (props) => <em className="italic" {...props} />,
+                            code: (props: any) => {
+                              const { inline, ...rest } = props;
+                              return inline ?
+                                <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800" {...rest} /> :
+                                <code className="block bg-gray-100 p-2 rounded text-xs font-mono text-gray-800 my-2" {...rest} />;
+                            }
+                          }}
+                        >
+                          {message.content}
+                        </ReactMarkdown>
+                      </div>
                       ) : (
-                        <p className="whitespace-pre-wrap">{renderMessageContent(message.content)}</p>
+                        <p className="whitespace-pre-wrap">{message.content}</p>
                       )}
                     </div>
                   </div>
@@ -275,6 +318,24 @@ export default function Chatbot() {
               ))}
               <div ref={messagesEndRef} />
             </div>
+
+            {/* Sugerencias de preguntas (solo cuando hay pocos mensajes) */}
+            {messages.length <= 2 && !isLoading && (
+              <div className="px-5 pb-4">
+                <p className="text-xs font-semibold text-gray-500 mb-3">Preguntas frecuentes:</p>
+                <div className="grid grid-cols-1 gap-2">
+                  {SUGGESTED_QUESTIONS.map((question, index) => (
+                    <button
+                      key={index}
+                      onClick={() => sendMessage(question)}
+                      className="text-left text-sm px-4 py-3 rounded-xl bg-white border border-gray-200 hover:border-primary hover:bg-primary/5 transition-all text-gray-700 hover:text-primary font-medium"
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </div>
 

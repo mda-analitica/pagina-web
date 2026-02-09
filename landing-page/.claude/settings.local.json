@@ -14,7 +14,9 @@
       "Bash(powershell -Command:*)",
       "Bash(powershell:*)",
       "Bash(npm run dev:*)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "WebSearch",
+      "WebFetch(domain:dev.to)"
     ]
   }
 }
