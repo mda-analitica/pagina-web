@@ -47,12 +47,28 @@ import { Menu, PieChart } from "lucide-react";
 
     <!-- Actions -->
     <div class="flex gap-3 items-center">
-      <button
-        onclick="document.getElementById('rif-modal').classList.remove('hidden')"
-        class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
-      >
-        <span>Ir a RIF-Analytic</span>
-      </button>
+      <div class="relative group">
+        <button
+          class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
+        >
+          <span>Ver Aplicaciones</span>
+        </button>
+        <!-- Dropdown Menu -->
+        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+          <button
+            onclick="document.getElementById('rif-modal').classList.remove('hidden')"
+            class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            RIF-Analytic
+          </button>
+          <button
+            onclick="window.location.href='/sagrilaft'"
+            class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            SAGRILAFT
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Mobile menu button -->
