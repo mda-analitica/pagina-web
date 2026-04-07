@@ -4,10 +4,14 @@
 
 @theme {
   --color-primary: #007878;
+  --color-secondary: #0e7490;
   --color-accent-green: #14b8a6;
   --color-background-light: #f6f6f8;
   --color-background-dark: #111521;
+  --color-card-dark: #1e2333;
   --color-pearl: #F5F7FA;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
 
   --font-family-display: "Inter", sans-serif;
 }

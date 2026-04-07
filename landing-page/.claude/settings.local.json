@@ -14,7 +14,13 @@
       "Bash(powershell -Command:*)",
       "Bash(powershell:*)",
       "Bash(npm run dev:*)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "Bash(find \"C:\\\\Users\\\\caesv\\\\Downloads\\\\Procol\\\\Proyectos - Code\\\\Ciplas\\\\my-code-app/src/generated/models/\" -type f \\\\\\( -name \"*Identificacion*\" -o -name \"*Control*\" -o -name \"*Evento*\" \\\\\\) 2>/dev/null | sort)",
+      "Bash(find \"C:\\\\Users\\\\caesv\\\\Downloads\\\\Procol\\\\Proyectos - Code\\\\Ciplas\\\\my-code-app/src/components/forms\" -type f -name \"*.tsx\" 2>/dev/null | sort)",
+      "Read(//c/Users/caesv/Downloads/Procol/Proyectos - Code/**)",
+      "Read(//c/Users/caesv/Downloads/Procol/**)",
+      "Read(//c/Users/caesv/Downloads/**)",
+      "Bash(find \"C:\\\\Users\\\\caesv\\\\Downloads\\\\Procol\\\\Proyectos - Code\\\\Ciplas\\\\my-code-app\" -name \"RiesgoForm.tsx\" -o -name \"*RiesgoForm*\" 2>/dev/null | head -5)"
     ]
   }
 }

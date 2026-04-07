@@ -1,0 +1,27 @@
+---
+import '../styles/global.css';
+import { SagrilaftApp } from '../components/sagrilaft/SagrilaftApp';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SAGRILAFT - Gestión de Riesgos</title>
+  </head>
+  <body class="bg-gray-50 dark:bg-gray-900">
+    <SagrilaftApp client:load />
+  </body>
+</html>
+
+<style is:global>
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #__astro {
+    height: 100%;
+  }
+</style>
