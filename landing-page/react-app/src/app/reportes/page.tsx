@@ -9,13 +9,10 @@ import {
   ExternalLink,
   Fullscreen,
   Headset,
-  Moon,
   MousePointer2,
   PieChart,
-  Sun,
   X,
 } from 'lucide-react';
-import { useTheme } from '@/context/ThemeContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -88,7 +85,6 @@ interface ModalReport {
 }
 
 export default function ReportesPage() {
-  const { theme, toggleTheme } = useTheme();
   const [activeCategory, setActiveCategory] = useState<Category>('Todos');
   const [modalReport, setModalReport] = useState<ModalReport | null>(null);
 

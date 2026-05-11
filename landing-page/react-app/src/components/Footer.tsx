@@ -19,7 +19,6 @@ const legal = [
 export default function Footer() {
   return (
     <footer
-      id="nosotros"
       className="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 py-16"
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
