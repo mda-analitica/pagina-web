@@ -97,12 +97,14 @@ export default function Header() {
               >
                 RIF-Analytic
               </button>
-              <Link
-                href="/sagrilaft"
+              <a
+                href="https://sagrilaft.mda-analitica.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
-                SAGRILAFT
-              </Link>
+                SARO-Analytic
+              </a>
             </div>
           </div>
 
@@ -140,13 +142,15 @@ export default function Header() {
             </a>
           ))}
           <div className="flex items-center gap-3 pt-2">
-            <Link
-              href="/sagrilaft"
+            <a
+              href="https://sagrilaft.mda-analitica.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 text-center rounded-lg h-10 px-4 bg-accent-green text-white text-sm font-bold flex items-center justify-center"
               onClick={() => setMobileOpen(false)}
             >
-              SAGRILAFT
-            </Link>
+              SARO-Analytic
+            </a>
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[#0e111b] dark:text-white"
