@@ -3,38 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Presentation, X } from 'lucide-react';
-
-type ModalId = 'rif' | 'riesgo' | 'benchmarking' | null;
-
-const reports = [
-  {
-    title: 'RIF Analítica',
-    description: 'Minería de datos financiero',
-    tag: '',
-    tagColor: 'bg-primary',
-    image:
-      'https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png',
-    modalId: 'rif' as ModalId,
-  },
-  {
-    title: 'Riesgo de cartera',
-    description: 'Analítica del riesgo y de la mora',
-    tag: 'Próximamente',
-    tagColor: 'bg-gray-800',
-    image:
-      'https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/qxp/2yh/y20/Morosidad%20Cooperativas.png',
-    modalId: 'riesgo' as ModalId,
-  },
-  {
-    title: 'Benchmarking sector solidario',
-    description: 'Análisis del sector solidario con 77 indicadores.',
-    tag: 'Próximamente',
-    tagColor: 'bg-gray-800',
-    image:
-      'https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/9x0/g91/363/Benchmarking.png',
-    modalId: 'benchmarking' as ModalId,
-  },
-];
+import { reports, type ModalId } from '@/data/reports';
 
 export default function IntelligenceHub() {
   const [openModal, setOpenModal] = useState<ModalId>(null);
@@ -98,7 +67,7 @@ export default function IntelligenceHub() {
                   backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('${report.image}')`,
                 }}
               />
-              {report.tag && (
+              {!report.available && (
                 <div
                   className={`absolute top-4 left-4 ${report.tagColor} text-white text-[8px] font-semibold px-2 py-0.5 rounded-full uppercase opacity-70`}
                 >
