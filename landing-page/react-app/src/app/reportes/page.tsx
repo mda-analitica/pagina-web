@@ -1,134 +1,75 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  BarChart3,
-  Bolt,
-  ExternalLink,
-  Fullscreen,
-  Headset,
-  Moon,
-  MousePointer2,
-  PieChart,
-  Sun,
-  X,
-} from 'lucide-react';
-import { useTheme } from '@/context/ThemeContext';
+import { ArrowLeft, BarChart3, Headset, X } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { reports, type ModalId } from '@/data/reports';
 
-const CATEGORIES = ['Todos', 'Executive', 'Real-Time', 'Macro', 'Compliance'] as const;
+const CATEGORIES = ['Todos', 'Disponible', 'Próximamente'] as const;
 type Category = (typeof CATEGORIES)[number];
 
-interface Report {
-  title: string;
-  description: string;
-  tag: Category;
-  tagColor: string;
-  image: string;
-}
-
-const reports: Report[] = [
-  {
-    title: 'Financial',
-    description: 'Evolución de márgenes y EBITDA',
-    tag: 'Executive',
-    tagColor: 'bg-primary',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC-ULsmmEvbRa0tS3FriS7z7Y2XyLM0ZKcUkbxsozMX01R40ydV9N9PlhzaRZ0eVKl8xGxsYPEldFMBBTJ_yvR1wzvFgyWc7-tSJsoVdTa6lQHf8Kgn1FrMUqtPwuqjeMbVuJLFoHmezFWKg9WGceJiLI-hg9wJMaoFTwdEgwd-LQGcD_fDYfW4nGOpE3gtDK7TEqPualt12hzNg5J4m70fVeSt0Xh6lcvv9cf9vKNxeWq5bh0PmtinM5q1CbygjKocE4UxfTf49SFG',
-  },
-  {
-    title: 'Risk',
-    description: 'Mapas de calor e indicadores SARLAFT',
-    tag: 'Real-Time',
-    tagColor: 'bg-accent-green',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDhNDVuxeVSREDjsfgoaXX2RfXDw92Z464uewljymqB7Keudos2ymZQTq1brinODTfBpdV_aSmAGe6PdHRNmb7sLsb5sVML3TKraLxJvJEE67BNM_MX4GWaqYeKmcMwf957kXdLq5zsnRjuvCXDmPoqj_iTcxW9APzEqwuY0rGVs2Wmlbq9j1h9fo-Cobs08zByz92Jmk1_DhgLs4zk56jVslI9khaVIXz363xvDss-EAvFMiDxZmVaeNjVyi2DP9k7Vsyg8z_Pct2_',
-  },
-  {
-    title: 'Real Sector',
-    description: 'Análisis sectorial y competitividad',
-    tag: 'Macro',
-    tagColor: 'bg-gray-800',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDlyl3zM5wQ_f2RHbf2Jw55jdiI2VXlK3bwMu-iW5xIoYe9wcQnrumU-SKXEBx-CUXqevFpH-X-9IP-2avXYRKDjPo5uVuWyTxZ0IvHXlqg3X4jeMt8P1j85yXxzpNlshlUrnixijHnmeGNa_P1qAlv-ZshdeIdRAS0TuW_F0GLaKt3r6xbFgvduaK9lob1joKgDyvvQbXJx_TKaBI_eFX_PbP5DubMFGwQVk-L87duuXY3vzb0_khZ5dbEaOyoPDPrrLWmfkFU4tZd',
-  },
-  {
-    title: 'Compliance Dashboard',
-    description: 'Estado de cumplimiento normativo integral',
-    tag: 'Compliance',
-    tagColor: 'bg-amber-500',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAzeb-nUlDbLvt4opgQ_u6gW-BJMNyotIiOv1-W3lbR6miBXAMujy7LlfDz-vr0QoqsjGDpd6F9Ciwsk_qL_Z_G0x4CWo5a_bs_97Zhy8ikmCwjHAfimpr3P5HM_2d8G4bKDa2ZMYOSVC_T-DOCkecJQSRNRbmzLMDVpk8DW1BgajsqoctjiakKNaNxI9yKd24GRaG0af2qYcprgZQn7bH_alUm8r9vlO0pUCUhTQw1OT18hqRzPDiFpQu-oR0kkfCYd85_sscuAOTW',
-  },
-  {
-    title: 'Operations',
-    description: 'KPIs operacionales y eficiencia',
-    tag: 'Executive',
-    tagColor: 'bg-primary',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAwxuU0G7PAXbuvfkCmPy12fO-30uCFLCAY3x6_kyLV2tYSN1i9xgf9lFEPFy0fgihHMrfowsKx-OxsK6vXEqs3oEKSAauD0H-NrGcFXrnOwI068zjZC70GgRsujancmi_VBoAIQhJ9CkMlexH6WqG0mXcksZsbbEN29W__CdZV2vFlw5rE30dIFmtV07Ug2uXSgJEAniEdFSSXkdnUkbQ6hET0ojthqtrR7zCKqbYCScbMBFmJtcMO3aiCAbFmQoJE4Yj_eCEgnRIs',
-  },
-  {
-    title: 'Transactions Monitor',
-    description: 'Monitoreo transaccional en tiempo real',
-    tag: 'Real-Time',
-    tagColor: 'bg-accent-green',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCa8AvioyoNv5xtYu2jHP0RvxxQtjPPp68j-D6O-ISSBT-RPDRRMZPMOOrJ0X6EW3x2ZBTp9fJ1CG4al4rv7Ubs-0IAYdMMapNXZoR66X4ki3KrUkOXgti7-24lvvf_lAQ61_Io94veE79LQsb7trDTlHmQYNCvnk5ZlciGzraCF96AHZMqd_USFJdn4QJnihsshIyJnzM_9nDNQR5B3FkwFqZ-Ij45ncWArSVqHpMWxtRf0EQflEXWpdmQ_RsDadeZpun10xDV9Uky',
-  },
-];
-
-interface ModalReport {
-  title: string;
-  description: string;
-  image: string;
-}
-
 export default function ReportesPage() {
-  const { theme, toggleTheme } = useTheme();
   const [activeCategory, setActiveCategory] = useState<Category>('Todos');
-  const [modalReport, setModalReport] = useState<ModalReport | null>(null);
+  const [openModal, setOpenModal] = useState<ModalId>(null);
 
   const filteredReports =
-    activeCategory === 'Todos' ? reports : reports.filter((r) => r.tag === activeCategory);
+    activeCategory === 'Todos'
+      ? reports
+      : reports.filter((r) => r.tag === activeCategory);
 
-  const openModal = (report: Report) => {
-    setModalReport({ title: report.title, description: report.description, image: report.image });
-    document.body.style.overflow = 'hidden';
-  };
+  const closeModal = () => setOpenModal(null);
 
-  const closeModal = () => {
-    setModalReport(null);
-    document.body.style.overflow = '';
-  };
+  useEffect(() => {
+    document.body.style.overflow = openModal ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [openModal]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeModal();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-gray-100 font-display transition-colors duration-300">
+    <div className="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-gray-100 transition-colors duration-300">
       <Header />
 
       <main className="max-w-[1280px] mx-auto px-6 md:px-10 py-12">
+        {/* Back link */}
+        <div className="mb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-teal-400 transition-colors"
+          >
+            <ArrowLeft size={16} />
+            Volver al inicio
+          </Link>
+        </div>
+
         {/* Hero */}
         <section className="mb-12 text-center max-w-3xl mx-auto">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center text-white">
-              <BarChart3 size={32} />
+              <BarChart3 size={28} />
             </div>
             <h1 className="text-[#0e111b] dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-tight">
-              Intelligence Hub{' '}
-              <span className="text-gray-400 font-light">| Power BI</span>
+              Todos los reportes
             </h1>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 text-lg font-normal leading-relaxed">
-            Explore nuestra galería completa de reportes interactivos. Dashboards ejecutivos,
-            análisis de riesgo y métricas en tiempo real para la toma de decisiones estratégicas.
+          <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+            Explore nuestra galería de reportes para el sector solidario colombiano. Datos
+            oficiales de la Supersolidaria, actualizados periódicamente.
           </p>
         </section>
 
         {/* Category Filters */}
-        <div className="flex gap-3 mb-12 overflow-x-auto pb-4 justify-center">
+        <div className="flex gap-3 mb-12 overflow-x-auto pb-2 justify-center">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
@@ -150,6 +91,7 @@ export default function ReportesPage() {
             <div
               key={report.title}
               className="group relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900 aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer"
+              onClick={() => report.available && setOpenModal(report.modalId)}
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
@@ -158,7 +100,7 @@ export default function ReportesPage() {
                 }}
               />
               <div
-                className={`absolute top-4 left-4 ${report.tagColor} text-white text-[10px] font-black px-3 py-1 rounded-full uppercase`}
+                className={`absolute top-4 left-4 ${report.tagColor} text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide`}
               >
                 {report.tag}
               </div>
@@ -166,16 +108,13 @@ export default function ReportesPage() {
                 <p className="text-white text-xl font-bold leading-tight">{report.title}</p>
                 <p className="text-white/80 text-sm mt-1">{report.description}</p>
               </div>
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <button
-                  onClick={() => openModal(report)}
-                  className="bg-white text-primary font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                >
-                  <ExternalLink size={20} />
-                  Ver Reporte
-                </button>
-              </div>
+              {report.available && (
+                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <span className="bg-white text-primary font-bold px-6 py-3 rounded-xl shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 text-sm">
+                    Abrir reporte →
+                  </span>
+                </div>
+              )}
             </div>
           ))}
         </section>
@@ -192,172 +131,42 @@ export default function ReportesPage() {
               Nuestro equipo de analistas puede crear dashboards a medida para sus necesidades
               específicas de cumplimiento y análisis financiero.
             </p>
-            <Link
-              href="/#nosotros"
+            <a
+              href="https://wa.link/91ybqa"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-green-50 transition-colors shadow-xl"
             >
               <Headset size={20} />
-              Solicitar Consulta
-            </Link>
+              Hablar con un especialista
+            </a>
           </div>
         </section>
       </main>
 
       <Footer />
 
-      {/* Report Modal */}
-      {modalReport && (
-        <div className="fixed inset-0 z-90">
-          <div
-            className="absolute inset-0 bg-[#0e111b]/50 backdrop-blur-[2px]"
-            onClick={closeModal}
-          />
-          <div className="absolute inset-4 md:inset-8 lg:inset-12 flex flex-col lg:flex-row gap-4 z-10">
-            {/* Main Report Viewer */}
-            <div className="flex-1 bg-white dark:bg-background-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col">
-              <div className="h-16 px-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center text-white">
-                    <BarChart3 size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-none mb-1">
-                      {modalReport.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {modalReport.description}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 transition-colors"
-                    title="Pantalla completa"
-                  >
-                    <Fullscreen size={24} />
-                  </button>
-                  <button
-                    onClick={closeModal}
-                    className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-gray-500 hover:text-red-500 transition-colors"
-                    title="Cerrar"
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
-              </div>
-              <div className="flex-1 bg-pearl dark:bg-[#0b0e14] p-4 overflow-auto">
-                <div className="w-full h-full rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={modalReport.image}
-                    alt="Power BI Report"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur px-3 py-2 rounded-lg shadow-lg">
-                    <Bolt size={16} className="text-yellow-500" />
-                    <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
-                      Powered by Power BI
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
-                    <div className="bg-white dark:bg-gray-900 px-6 py-4 rounded-xl shadow-2xl text-center">
-                      <MousePointer2 size={40} className="text-primary mb-2 mx-auto" />
-                      <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
-                        Haga clic para interactuar
-                      </p>
-                      <p className="text-xs text-gray-500">Reporte interactivo de Power BI</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Assistant Sidebar */}
-            <div className="w-full lg:w-[380px] bg-white dark:bg-background-dark rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col">
-              <div className="h-16 px-5 flex items-center border-b border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
-                <div className="flex items-center gap-3">
-                  <div className="size-9 text-primary bg-primary/10 rounded-lg p-1.5 flex items-center justify-center">
-                    <PieChart size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-none mb-1">
-                      Asistente MDA
-                    </h3>
-                    <div className="flex items-center gap-1.5">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-green" />
-                      </span>
-                      <span className="text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        Online
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex-1 bg-pearl dark:bg-[#0b0e14] p-5 overflow-y-auto">
-                <div className="space-y-6">
-                  <div className="flex justify-center my-2">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-200/50 dark:bg-gray-800 px-3 py-1 rounded-full">
-                      Hoy
-                    </span>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="size-8 rounded-full bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center text-white shadow-sm shrink-0 mt-1">
-                      <PieChart size={16} />
-                    </div>
-                    <div className="flex flex-col gap-1 max-w-[85%]">
-                      <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400 ml-1">
-                        Asistente Normativo
-                      </span>
-                      <div className="p-4 bg-white dark:bg-gray-800 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                        <p>Hola, estoy aquí para ayudarte a analizar este reporte.</p>
-                        <p className="mt-2">
-                          Puedo explicarte los{' '}
-                          <strong className="text-primary dark:text-teal-400 font-semibold">
-                            indicadores clave
-                          </strong>
-                          , hacer{' '}
-                          <strong className="text-primary dark:text-teal-400 font-semibold">
-                            comparaciones
-                          </strong>{' '}
-                          o responder preguntas sobre cumplimiento.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-8 flex flex-col gap-2">
-                  <p className="text-[10px] uppercase font-bold text-gray-400 ml-1 mb-1">
-                    Sugerencias
-                  </p>
-                  {[
-                    'Explica los indicadores principales',
-                    '¿Hay alertas de cumplimiento?',
-                    'Generar resumen ejecutivo',
-                  ].map((suggestion) => (
-                    <button
-                      key={suggestion}
-                      className="w-full text-left p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-primary/30 hover:shadow-md transition-all text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center justify-between group"
-                    >
-                      <span>{suggestion}</span>
-                      <ArrowRight size={16} className="text-gray-300 group-hover:text-primary transition-colors" />
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="p-4 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
-                <div className="relative">
-                  <input
-                    className="w-full bg-gray-50 dark:bg-[#1a202e] text-gray-800 dark:text-gray-200 text-sm rounded-xl py-3.5 pl-4 pr-12 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder-gray-400"
-                    placeholder="Pregunta sobre el reporte..."
-                    type="text"
-                  />
-                  <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary hover:bg-teal-700 text-white rounded-lg transition-colors flex items-center justify-center shadow-md">
-                    <ArrowRight size={18} />
-                  </button>
-                </div>
-              </div>
+      {/* RIF Analítica Modal (Power BI) */}
+      {openModal === 'rif' && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur p-4"
+          onClick={(e) => e.target === e.currentTarget && closeModal()}
+        >
+          <div className="bg-white dark:bg-background-dark rounded-2xl shadow-2xl w-[95vw] h-[95vh] overflow-auto relative">
+            <button
+              className="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+              onClick={closeModal}
+            >
+              <X size={24} />
+            </button>
+            <div className="w-full h-full flex items-center justify-center p-0">
+              <iframe
+                title="RIF-Analytic (Pagina Web)"
+                width="100%"
+                height="100%"
+                src="https://app.powerbi.com/view?r=eyJrIjoiNTEwNjExNjAtZjEzNi00NTUxLTg0OGMtMjlhOTVjYWI5YTc0IiwidCI6IjFkY2Y4YjdlLTAzZTItNDU2ZC05Y2JkLTEyMTNiNjg1ZjU0MyJ9"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
