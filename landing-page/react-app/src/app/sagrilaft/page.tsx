@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ArrowLeft, Clock, PieChart } from 'lucide-react';
+import { ArrowLeft, Clock } from 'lucide-react';
+import Header from '@/components/Header';
 
 export const metadata = {
   title: 'SAGRILAFT | MDA Analítica - Próximamente',
@@ -8,17 +9,7 @@ export const metadata = {
 export default function SagrilaftPage() {
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col">
-      {/* Simple header */}
-      <header className="border-b border-gray-200 dark:border-gray-800 px-6 py-4">
-        <Link href="/" className="flex items-center gap-3 w-fit">
-          <div className="size-7 text-primary">
-            <PieChart size={28} />
-          </div>
-          <span className="text-primary dark:text-teal-400 font-black text-lg">
-            MDA Analítica
-          </span>
-        </Link>
-      </header>
+      <Header />
 
       {/* Content */}
       <main className="flex-1 flex items-center justify-center px-6 py-16">
