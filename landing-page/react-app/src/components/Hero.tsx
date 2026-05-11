@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { BarChart3, MessageCircle } from 'lucide-react';
 
 const images = [
   'https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png',
@@ -68,6 +69,24 @@ export default function Hero({
               <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl">
                 {description}
               </p>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <button
+                  onClick={() => document.dispatchEvent(new CustomEvent('open-rif-modal'))}
+                  className="inline-flex items-center gap-2 rounded-lg h-12 px-6 bg-primary text-white text-sm font-bold tracking-wide transition-all hover:bg-teal-700"
+                >
+                  <BarChart3 size={18} />
+                  Abrir RIF-Analytic
+                </button>
+                <a
+                  href="https://wa.link/91ybqa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg h-12 px-6 bg-accent-green text-white text-sm font-bold tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20"
+                >
+                  <MessageCircle size={18} />
+                  Hablar con un especialista
+                </a>
+              </div>
             </div>
           </div>
 
