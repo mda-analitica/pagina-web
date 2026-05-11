@@ -16,7 +16,7 @@ interface HeroProps {
 
 export default function Hero({
   tagline = '',
-  title = 'Conoce las finanzas de tu Cooperativa con:',
+  title = 'Toma el control financiero de tu Cooperativa en minutos',
   highlightedText = 'RIF-Analytic',
   description = 'Somos la analítica de las cooperativas, fondos de empleados y asociaciones mutuales de Colombia.',
 }: HeroProps) {
