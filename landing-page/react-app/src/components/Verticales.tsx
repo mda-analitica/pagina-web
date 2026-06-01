@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { BarChart3, CheckCircle2, Code2, ShieldCheck } from 'lucide-react';
 
 const tabs = [
-  { id: 'rif', Icon: BarChart3, label: 'RIF - Analytic' },
   { id: 'cumplimiento', Icon: ShieldCheck, label: 'SAGRILAFT-PTEE' },
+  { id: 'rif', Icon: BarChart3, label: 'RIF - Analytic' },
   { id: 'desarrollo', Icon: Code2, label: 'Analítica de datos y riesgos' },
 ] as const;
 
@@ -31,7 +31,7 @@ const verticalesData: Record<
     ],
   },
   cumplimiento: {
-    title: 'Solución integral en riesgos LAFT',
+    title: 'Solución integral en riesgos',
     description:
       'Nuestro equipo apoyado por tecnología, generamos valor y seguridad en tu organización',
     features: ['Capacitación', 'Gestión de Riesgos', 'Documentación', 'Y mucho más'],
@@ -58,7 +58,7 @@ const verticalesData: Record<
 };
 
 export default function Verticales() {
-  const [activeTab, setActiveTab] = useState<TabId>('rif');
+  const [activeTab, setActiveTab] = useState<TabId>('cumplimiento');
   const data = verticalesData[activeTab];
 
   return (

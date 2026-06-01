@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Menu, Moon, PieChart, Sun, X } from 'lucide-react';
-import { useTheme } from '@/context/ThemeContext';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Inicio', href: '/#inicio' },
@@ -13,7 +12,6 @@ const navLinks = [
 ];
 
 export default function Header() {
-  const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -48,9 +46,11 @@ export default function Header() {
       <div className="max-w-[1280px] mx-auto flex items-center justify-between whitespace-nowrap">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="size-8 text-primary">
-            <PieChart size={32} />
-          </div>
+          <img
+            src="https://media.licdn.com/dms/image/v2/D4D0BAQFBTb4ytPgBqg/company-logo_200_200/company-logo_200_200/0/1734536293594/soli_data_logo?e=2147483647&v=beta&t=u1oNzOV0yDffdp9DSRG7Ga_wkfTgM4KBAuSzIUtaNXc"
+            alt="Soli Data Logo"
+            className="size-8 rounded-md object-contain"
+          />
           <h2 className="text-primary dark:text-teal-400 text-xl font-black leading-tight tracking-tight">
             MDA Analítica
           </h2>
@@ -86,33 +86,11 @@ export default function Header() {
 
         {/* Actions */}
         <div className="hidden lg:flex gap-3 items-center">
-          <div className="relative group">
-            <button className="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent">
-              <span>Ver Aplicaciones</span>
-            </button>
-            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
-              <button
-                onClick={openRifModal}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              >
-                RIF-Analytic
-              </button>
-              <Link
-                href="/sagrilaft"
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              >
-                SAGRILAFT
-              </Link>
-            </div>
-          </div>
-
-          {/* Dark mode toggle */}
           <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[#0e111b] dark:text-white transition-colors"
-            aria-label="Toggle dark mode"
+            onClick={openRifModal}
+            className="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
           >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            <span>Ir a RIF Analytic</span>
           </button>
         </div>
 
@@ -139,21 +117,15 @@ export default function Header() {
               {link.label}
             </a>
           ))}
-          <div className="flex items-center gap-3 pt-2">
-            <Link
-              href="/sagrilaft"
-              className="flex-1 text-center rounded-lg h-10 px-4 bg-accent-green text-white text-sm font-bold flex items-center justify-center"
-              onClick={() => setMobileOpen(false)}
-            >
-              SAGRILAFT
-            </Link>
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[#0e111b] dark:text-white"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          </div>
+          <button
+            onClick={() => {
+              openRifModal();
+              setMobileOpen(false);
+            }}
+            className="w-full text-center rounded-lg h-10 px-4 bg-accent-green text-white text-sm font-bold flex items-center justify-center"
+          >
+            Ir a RIF Analytic
+          </button>
         </div>
       )}
     </header>
