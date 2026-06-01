@@ -30,7 +30,7 @@ export default function Footer() {
               <div className="size-6 text-primary">
                 <PieChart size={24} />
               </div>
-              <h2 className="text-primary dark:text-teal-400 text-lg font-bold">
+              <h2 className="text-primary dark:text-primary text-lg font-bold">
                 MDA Analítica
               </h2>
             </div>

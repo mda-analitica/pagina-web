@@ -20,7 +20,7 @@ export default function SagrilaftPage() {
           <h1 className="text-4xl font-black text-[#0e111b] dark:text-white mb-4">
             SAGRILAFT
           </h1>
-          <p className="text-2xl font-bold text-primary dark:text-teal-400 mb-6">
+          <p className="text-2xl font-bold text-primary dark:text-primary mb-6">
             Próximamente
           </p>
           <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">

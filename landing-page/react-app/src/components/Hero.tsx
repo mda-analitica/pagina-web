@@ -54,14 +54,14 @@ export default function Hero({
           <div className="flex flex-col gap-8 flex-1">
             <div className="flex flex-col gap-4 text-left">
               {tagline && (
-                <span className="text-primary dark:text-teal-400 text-sm font-extrabold uppercase tracking-widest">
+                <span className="text-primary dark:text-primary text-sm font-extrabold uppercase tracking-widest">
                   {tagline}
                 </span>
               )}
               <h1 className="text-[#0e111b] dark:text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight">
                 {title}
                 <br />
-                <span className="text-primary dark:text-teal-400">
+                <span className="text-primary dark:text-primary">
                   {highlightedText}
                 </span>
               </h1>

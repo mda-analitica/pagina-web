@@ -51,7 +51,7 @@ export default function Header() {
             alt="Soli Data Logo"
             className="size-8 rounded-md object-contain"
           />
-          <h2 className="text-primary dark:text-teal-400 text-xl font-black leading-tight tracking-tight">
+          <h2 className="text-primary dark:text-primary text-xl font-black leading-tight tracking-tight">
             MDA Analítica
           </h2>
         </Link>
@@ -67,8 +67,8 @@ export default function Header() {
                 href={link.href}
                 className={`nav-link text-sm font-semibold leading-normal relative py-1 transition-colors ${
                   isActive
-                    ? 'text-primary dark:text-teal-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-teal-400'
+                    ? 'text-primary dark:text-primary'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary'
                 }`}
                 style={{
                   ['--tw-after' as string]: isActive ? '100%' : '0%',
@@ -76,7 +76,7 @@ export default function Header() {
               >
                 {link.label}
                 <span
-                  className="absolute bottom-[-4px] left-0 h-0.5 bg-primary dark:bg-teal-400 transition-all duration-300"
+                  className="absolute bottom-[-4px] left-0 h-0.5 bg-primary dark:bg-primary transition-all duration-300"
                   style={{ width: isActive ? '100%' : '0%' }}
                 />
               </a>
@@ -88,7 +88,7 @@ export default function Header() {
         <div className="hidden lg:flex gap-3 items-center">
           <button
             onClick={openRifModal}
-            className="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
+            className="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:opacity-90 border border-accent-green/30 glow-accent"
           >
             <span>Ir a RIF Analytic</span>
           </button>

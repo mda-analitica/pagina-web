@@ -114,7 +114,7 @@ export default function Verticales() {
           <div className="grid grid-cols-2 gap-4">
             {data.stats.map((stat) => (
               <div key={stat.label} className="p-6 bg-pearl dark:bg-gray-700 rounded-xl">
-                <h4 className="text-primary dark:text-teal-400 text-3xl font-black mb-1">
+                <h4 className="text-primary dark:text-primary text-3xl font-black mb-1">
                   {stat.value}
                 </h4>
                 <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
