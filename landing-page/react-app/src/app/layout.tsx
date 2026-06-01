@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: 'MDA Analítica - Información Financiera a un Solo Clíc | RIF-Analytic',
   description:
     'Usamos los datos oficiales de la Supersolidaria. Somos la analítica de las cooperativas, fondos de empleados y asociaciones mutuales de Colombia.',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({

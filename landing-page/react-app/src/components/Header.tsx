@@ -48,9 +48,9 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <img
-            src="https://media.licdn.com/dms/image/v2/D4D0BAQFBTb4ytPgBqg/company-logo_200_200/company-logo_200_200/0/1734536293594/soli_data_logo?e=2147483647&v=beta&t=u1oNzOV0yDffdp9DSRG7Ga_wkfTgM4KBAuSzIUtaNXc"
-            alt="Soli Data Logo"
-            className="size-8 rounded-md object-contain"
+            src="/favicon.png"
+            alt="MDA Analítica Logo"
+            className="size-8 object-contain"
           />
           <h2 className="text-primary dark:text-primary text-xl font-black leading-tight tracking-tight">
             MDA Analítica
