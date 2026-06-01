@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { BarChart3, CheckCircle2, Code2, ShieldCheck } from 'lucide-react';
 
 const tabs = [
@@ -91,39 +92,55 @@ export default function Verticales() {
         </div>
 
         {/* Content Panel */}
-        <div className="mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm transition-all duration-300">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm"
+        >
           <div>
             <h3 className="text-2xl font-bold mb-4 dark:text-white">{data.title}</h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               {data.description}
             </p>
             <ul className="space-y-3">
-              {data.features.map((feature) => (
-                <li
+              {data.features.map((feature, i) => (
+                <motion.li
                   key={feature}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.08 * i }}
                   className="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300"
                 >
                   <CheckCircle2 size={20} className="text-accent-green shrink-0" />
                   {feature}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
 
           {/* Stats grid */}
           <div className="grid grid-cols-2 gap-4">
-            {data.stats.map((stat) => (
-              <div key={stat.label} className="p-6 bg-pearl dark:bg-gray-700 rounded-xl">
+            {data.stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.08 * i }}
+                className="p-6 bg-pearl dark:bg-gray-700 rounded-xl"
+              >
                 <h4 className="text-primary dark:text-primary text-3xl font-black mb-1">
                   {stat.value}
                 </h4>
                 <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
                   {stat.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { ArrowRight, Presentation, X } from 'lucide-react';
 
 type ModalId = 'rif' | 'riesgo' | 'benchmarking' | null;
@@ -36,6 +37,15 @@ const reports = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.12, ease: 'easeOut' },
+  }),
+};
+
 export default function IntelligenceHub() {
   const [openModal, setOpenModal] = useState<ModalId>(null);
 
@@ -64,10 +74,16 @@ export default function IntelligenceHub() {
   }, []);
 
   return (
-    <section id="analitica" className="py-20 bg-white dark:bg-background-dark">
+    <motion.section id="analitica" className="py-20 bg-white dark:bg-background-dark">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         {/* Section header */}
-        <div className="flex items-center justify-between mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-between mb-10"
+        >
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center text-white">
               <Presentation size={24} />
@@ -82,14 +98,21 @@ export default function IntelligenceHub() {
           >
             Ver todos los reportes <ArrowRight size={16} />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Reports grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {reports.map((report) => (
-            <div
+          {reports.map((report, index) => (
+            <motion.div
               key={report.title}
-              className="group relative overflow-hidden rounded-2xl bg-gray-100 aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer"
+              custom={index}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative overflow-hidden rounded-2xl aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer"
               onClick={() => setOpenModal(report.modalId)}
             >
               <div
@@ -105,13 +128,13 @@ export default function IntelligenceHub() {
                   {report.tag}
                 </div>
               )}
-              <div className="absolute bottom-6 left-6 right-6">
+              <div className="absolute bottom-0 left-0 right-0 glass-card mx-4 mb-4 rounded-xl px-4 py-3">
                 <p className="text-white text-xl font-bold leading-tight">
                   {report.title}
                 </p>
                 <p className="text-white/80 text-sm mt-1">{report.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -194,6 +217,6 @@ export default function IntelligenceHub() {
           </div>
         </div>
       )}
-    </section>
+    </motion.section>
   );
 }

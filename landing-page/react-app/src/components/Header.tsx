@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -86,12 +87,15 @@ export default function Header() {
 
         {/* Actions */}
         <div className="hidden lg:flex gap-3 items-center">
-          <button
+          <motion.button
             onClick={openRifModal}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             className="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:opacity-90 border border-accent-green/30 glow-accent"
           >
             <span>Ir a RIF Analytic</span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile menu button */}
@@ -117,15 +121,18 @@ export default function Header() {
               {link.label}
             </a>
           ))}
-          <button
+          <motion.button
             onClick={() => {
               openRifModal();
               setMobileOpen(false);
             }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             className="w-full text-center rounded-lg h-10 px-4 bg-accent-green text-white text-sm font-bold flex items-center justify-center"
           >
             Ir a RIF Analytic
-          </button>
+          </motion.button>
         </div>
       )}
     </header>
