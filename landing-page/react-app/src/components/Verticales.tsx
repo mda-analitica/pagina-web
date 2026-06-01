@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BarChart3, CheckCircle2, Code2, ShieldCheck } from 'lucide-react';
 
 const tabs = [
-  { id: 'cumplimiento', Icon: ShieldCheck, label: 'SAGRILAFT-PTEE' },
+  { id: 'cumplimiento', Icon: ShieldCheck, label: 'Risk Analytic' },
   { id: 'rif', Icon: BarChart3, label: 'RIF - Analytic' },
   { id: 'desarrollo', Icon: Code2, label: 'Analítica de datos y riesgos' },
 ] as const;
