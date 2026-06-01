@@ -11,8 +11,8 @@ const reports = [
   {
     title: 'RIF Analítica',
     description: 'Minería de datos financiero',
-    tag: '',
-    tagColor: 'bg-primary',
+    tag: 'Próximamente',
+    tagColor: 'bg-gray-800',
     image:
       'https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png',
     modalId: 'rif' as ModalId,
