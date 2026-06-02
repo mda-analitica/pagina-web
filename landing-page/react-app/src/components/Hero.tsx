@@ -35,9 +35,9 @@ const sliderVariants = {
 
 export default function Hero({
   tagline = '',
-  title = 'Documenta tu gestión de riesgos con:',
+  title = 'Controla tus riesgos en minutos, no en días',
   highlightedText = 'Risk Analytic',
-  description = 'Utiliza sin costo, una herramienta tecnológica para las etapas de gestión de riesgos.',
+  description = 'Risk Analytic automatiza la identificación, documentación y monitoreo de riesgos. Toma decisiones basadas en datos sin costo adicional.',
 }: HeroProps) {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const currentIndexRef = useRef(0);
