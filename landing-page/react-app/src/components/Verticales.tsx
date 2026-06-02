@@ -34,7 +34,7 @@ const verticalesData: Record<
   cumplimiento: {
     title: 'Solución integral en riesgos',
     description:
-      'Nuestro equipo apoyado por tecnología, generamos valor y seguridad en tu organización',
+      'Tecnología que le genera seguridad a tu organización en la toma de decisiones basada en riesgos, donde podrás sistematizar:',
     features: ['Capacitación', 'Gestión de Riesgos', 'Documentación', 'Y mucho más'],
     stats: [
       { value: '100%', label: 'Analítica de Datos' },
