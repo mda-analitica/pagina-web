@@ -17,18 +17,18 @@ const verticalesData: Record<
   { title: string; description: string; features: string[]; stats: { value: string; label: string }[] }
 > = {
   rif: {
-    title: 'Tu Información financiera a un solo clic.',
+    title: 'Analiza la salud financiera de cualquier entidad en segundos',
     description:
-      'Conoce los activos, pasivos, patrimomio, ingresos y egresos de cualquier cooperativa, fondo de empleados o asociación mutual.',
+      'Accede a 9 años de datos financieros de más de 3.500 cooperativas, fondos y asociaciones. Compara, proyecta y detecta tendencias que otros pierden.',
     features: [
-      'Realiza verdadera minería de datos',
-      'Analítica descriptiva con clases, grupos y cuentas',
-      'Actualización constante con datos de la supersolidaria',
-      'Disponible 24/7',
+      'Acceso a 9 años de histórico financiero actualizado',
+      'Compara entidades para identificar oportunidades y riesgos',
+      'Alertas automáticas ante cambios significativos en el sector',
+      'Funciona 24/7 sin bajar de velocidad',
     ],
     stats: [
-      { value: '3.5K', label: 'Entidades disponibles' },
-      { value: '2017', label: 'Información disponible' },
+      { value: '3.5K+', label: 'Cooperativas del país disponibles' },
+      { value: '9+', label: 'Años de datos históricos' },
     ],
   },
   cumplimiento: {
