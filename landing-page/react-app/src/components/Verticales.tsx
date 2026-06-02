@@ -32,13 +32,18 @@ const verticalesData: Record<
     ],
   },
   cumplimiento: {
-    title: 'Solución integral en riesgos',
+    title: 'Riesgos documentados, decisiones seguras',
     description:
-      'Tecnología que le genera seguridad a tu organización en la toma de decisiones basada en riesgos, donde podrás sistematizar:',
-    features: ['Capacitación', 'Gestión de Riesgos', 'Documentación', 'Y mucho más'],
+      'Risk Analytic convierte procesos manuales en flujos automatizados. Documenta, monitorea y reporta riesgos en tiempo real. Cumple con SARLAFT, SAGRILAFT y PTEE sin atajos.',
+    features: [
+      'Identificar riesgos antes de que causen pérdidas',
+      'Cumplimiento automático con normativas colombianas',
+      'Reportes ejecutivos en segundos, no en semanas',
+      'Matriz de riesgos dinámica y colaborativa',
+    ],
     stats: [
-      { value: '100%', label: 'Analítica de Datos' },
-      { value: '6', label: 'Módulos Independientes' },
+      { value: '80%', label: 'Reducción en tiempo de documentación' },
+      { value: '4', label: 'Pilares de compliance integrados' },
     ],
   },
   desarrollo: {
