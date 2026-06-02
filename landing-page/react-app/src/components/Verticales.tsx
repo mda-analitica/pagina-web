@@ -47,18 +47,18 @@ const verticalesData: Record<
     ],
   },
   desarrollo: {
-    title: 'Tecnología y Riesgos',
+    title: 'Proyectos personalizados que escalan con tu negocio',
     description:
-      'Nuestro equipo de especialistas en análisis de datos e inteligencia de negocios desarrollará para tu negocio dashboard analíticos para la adecuada toma de decisiones empresariales',
+      'No necesitas un software genérico. Nuestro equipo desarrolla dashboards, automatizaciones y reportes diseñados para TU operación. Incluye capacitación y soporte continuo.',
     features: [
-      'Desarrollo de aplicaciones web para sistematizar procesos',
-      'Gestión de sistema de notificaciones automáticas',
-      'Consultoría en cumplimiento normativo de riesgos',
-      'Consultoría en SAGRILAFT, SARLAFT y PTEE',
+      'Apps web personalizadas que sistematizan tus procesos únicos',
+      'Alertas en tiempo real para decisiones críticas',
+      'Compliance verificado (SARLAFT, SAGRILAFT, PTEE integrados)',
+      'Capacitación y soporte sin costo mientras lo uses',
     ],
     stats: [
-      { value: '30+', label: 'Proyectos entregados' },
-      { value: '100%', label: 'Satisfacción cliente' },
+      { value: '30+', label: 'Proyectos entregados en sector cooperativo' },
+      { value: '8.5', label: 'NPS promedio de clientes' },
     ],
   },
 };
