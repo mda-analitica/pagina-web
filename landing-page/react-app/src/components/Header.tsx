@@ -94,7 +94,7 @@ export default function Header() {
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             className="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:opacity-90 border border-accent-green/30 glow-accent"
           >
-            <span>Ir a RIF Analytic</span>
+            <span>Risk Analytic</span>
           </motion.button>
         </div>
 
@@ -131,7 +131,7 @@ export default function Header() {
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             className="w-full text-center rounded-lg h-10 px-4 bg-accent-green text-white text-sm font-bold flex items-center justify-center"
           >
-            Ir a RIF Analytic
+            Risk Analytic
           </motion.button>
         </div>
       )}
