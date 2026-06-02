@@ -17,11 +17,11 @@ interface HeroProps {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: 0.1 * i, ease: 'easeOut' },
-  }),
+    transition: { duration: 0.5 },
+  },
 };
 
 const sliderVariants = {
@@ -29,15 +29,15 @@ const sliderVariants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, delay: 0.3, ease: 'easeOut' },
+    transition: { duration: 0.6, delay: 0.3 },
   },
 };
 
 export default function Hero({
   tagline = '',
-  title = 'Conoce las finanzas de tu Cooperativa con:',
-  highlightedText = 'RIF-Analytic',
-  description = 'Somos la analítica de las cooperativas, fondos de empleados y asociaciones mutuales de Colombia.',
+  title = 'Documenta tu gestión de riesgos con:',
+  highlightedText = 'Risk Analytic',
+  description = 'Utiliza sin costo, una herramienta tecnológica para las etapas de gestión de riesgos.',
 }: HeroProps) {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const currentIndexRef = useRef(0);
@@ -75,20 +75,20 @@ export default function Hero({
             <div className="flex flex-col gap-4 text-left">
               {tagline && (
                 <motion.span
-                  custom={0}
                   variants={itemVariants}
                   initial="hidden"
                   animate="visible"
+                  transition={{ delay: 0 }}
                   className="text-primary dark:text-primary text-sm font-extrabold uppercase tracking-widest"
                 >
                   {tagline}
                 </motion.span>
               )}
               <motion.h1
-                custom={1}
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
+                transition={{ delay: 0.1 }}
                 className="text-[#0e111b] dark:text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight"
               >
                 {title}
@@ -98,10 +98,10 @@ export default function Hero({
                 </span>
               </motion.h1>
               <motion.p
-                custom={2}
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
+                transition={{ delay: 0.2 }}
                 className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl"
               >
                 {description}

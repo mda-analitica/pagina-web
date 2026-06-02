@@ -39,11 +39,11 @@ const reports = [
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.12, ease: 'easeOut' },
-  }),
+    transition: { duration: 0.5 },
+  },
 };
 
 export default function IntelligenceHub() {
@@ -105,11 +105,11 @@ export default function IntelligenceHub() {
           {reports.map((report, index) => (
             <motion.div
               key={report.title}
-              custom={index}
               variants={cardVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: index * 0.12 }}
               whileHover={{ y: -6, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="group relative overflow-hidden rounded-2xl aspect-video shadow-md hover:shadow-xl transition-all cursor-pointer"
