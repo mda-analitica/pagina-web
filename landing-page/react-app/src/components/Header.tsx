@@ -38,8 +38,8 @@ export default function Header() {
     return () => observerRef.current?.disconnect();
   }, []);
 
-  const openRifModal = () => {
-    document.dispatchEvent(new CustomEvent('open-rif-modal'));
+  const openRiskAnalytic = () => {
+    window.open('https://sagrilaft-ptee.vercel.app/', '_blank');
   };
 
   return (
@@ -88,7 +88,7 @@ export default function Header() {
         {/* Actions */}
         <div className="hidden lg:flex gap-3 items-center">
           <motion.button
-            onClick={openRifModal}
+            onClick={openRiskAnalytic}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
@@ -123,7 +123,7 @@ export default function Header() {
           ))}
           <motion.button
             onClick={() => {
-              openRifModal();
+              openRiskAnalytic();
               setMobileOpen(false);
             }}
             whileHover={{ scale: 1.02 }}
