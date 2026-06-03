@@ -6,13 +6,13 @@ import { MapPin, Building2, Target } from 'lucide-react';
 const features = [
   {
     icon: Building2,
-    title: 'Constitución Formal',
-    description: 'Analítica Solidaria S.A.S. constituida bajo las leyes colombianas y registrada en el Registro Único Empresarial y Social (RUES)'
+    title: 'Empresa formal y colombiana',
+    description: 'MDA Analítica (razón social Analítica Solidaria S.A.S.) opera bajo la normativa colombiana y está registrada en el Registro Único Empresarial y Social (RUES). Trabajas con una empresa real, responsable y verificable.'
   },
   {
     icon: MapPin,
-    title: 'Ubicación',
-    description: 'Domiciliada en Medellín, Antioquia - Centro neurálgico de innovación tecnológica y desarrollo de software en América Latina'
+    title: 'Hechos en Medellín, cerca de ti',
+    description: 'Operamos desde Medellín, Antioquia. Conocemos el contexto colombiano del sector solidario y del transporte, y trabajamos en tu mismo huso horario y realidad regulatoria.'
   },
 ];
 
@@ -35,7 +35,7 @@ export default function About() {
             </h2>
           </div>
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            Líderes en analítica de datos y gestión de riesgos para el sector solidario colombiano
+            Conocemos por dentro el sector solidario y el de transporte. Por eso construimos herramientas que sí entienden cómo trabajas.
           </p>
           <div className="w-16 h-1 bg-primary mx-auto mt-6 rounded-full" />
         </motion.div>
@@ -49,10 +49,11 @@ export default function About() {
           className="bg-pearl dark:bg-gray-800 p-8 lg:p-12 rounded-2xl mb-12"
         >
           <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-            En el panorama empresarial de la analítica de datos y la gestión de riesgos en Colombia,
-            destaca la constitución formal de <span className="font-bold text-primary">Analítica Solidaria S.A.S.</span>,
-            una organización que opera comercialmente bajo normativas colombianas y se posiciona como
-            un actor clave en la transformación digital del sector solidario, cooperativo y de asociaciones mutuales.
+            Somos <span className="font-bold text-primary">MDA Analítica</span>, una empresa colombiana
+            especializada en dos sectores que el software genérico suele ignorar: el solidario y el de transporte.
+            Cooperativas, fondos de empleados, asociaciones mutuales y empresas de transporte enfrentan retos propios
+            que las soluciones de molde no resuelven. Nacimos para resolver justamente esos: combinamos analítica de datos
+            y gestión de riesgos en herramientas pensadas para tu operación, tu normativa y tu realidad.
           </p>
         </motion.div>
 
