@@ -42,24 +42,20 @@ const verticalesData: Record<
       'Matriz de riesgos dinámica y colaborativa',
     ],
     stats: [
-      { value: '80%', label: 'Reducción en tiempo de documentación' },
-      { value: '4', label: 'Pilares de compliance integrados' },
+      { value: '100%', label: 'Sistematización de la gestión de riesgos' },
+      { value: '4', label: 'Etapas de la gestión de riesgos' },
     ],
   },
   desarrollo: {
     title: 'Proyectos personalizados que escalan con tu negocio',
     description:
-      'No necesitas un software genérico. Nuestro equipo desarrolla dashboards, automatizaciones y reportes diseñados para TU operación. Incluye capacitación y soporte continuo.',
+      'No necesitas un software genérico. Nuestro equipo desarrolla dashboards, automatizaciones y reportes diseñados para TU operación.',
     features: [
-      'Apps web personalizadas que sistematizan tus procesos únicos',
-      'Alertas en tiempo real para decisiones críticas',
-      'Compliance verificado (SARLAFT, SAGRILAFT, PTEE integrados)',
-      'Capacitación y soporte sin costo mientras lo uses',
+      'Reportes web personalizados para tus proceso de datos',
+      'Alertas personalizadas, según las reglas de negocio de TU entidad',
+      'Apoyamos en el cumplimiento de normativididad, como SARLAFT, entre otros.',
     ],
-    stats: [
-      { value: '30+', label: 'Proyectos entregados en sector cooperativo' },
-      { value: '8.5', label: 'NPS promedio de clientes' },
-    ],
+    stats: [],
   },
 };
 
