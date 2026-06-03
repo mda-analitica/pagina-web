@@ -1,0 +1,148 @@
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { BarChart3, CheckCircle2, Code2, ShieldCheck } from 'lucide-react';
+
+const tabs = [
+  { id: 'cumplimiento', Icon: ShieldCheck, label: 'Risk Analytic' },
+  { id: 'rif', Icon: BarChart3, label: 'RIF - Analytic' },
+  { id: 'desarrollo', Icon: Code2, label: 'Analítica de datos y riesgos' },
+] as const;
+
+type TabId = (typeof tabs)[number]['id'];
+
+const verticalesData: Record<
+  TabId,
+  { title: string; description: string; features: string[]; stats: { value: string; label: string }[] }
+> = {
+  rif: {
+    title: 'Analiza la salud financiera de cualquier entidad en segundos',
+    description:
+      'Accede a 9 años de datos financieros de más de 3.500 cooperativas, fondos y asociaciones. Compara, proyecta y detecta tendencias que otros pierden.',
+    features: [
+      'Acceso a 9 años de histórico financiero actualizado',
+      'Compara entidades para identificar oportunidades y riesgos',
+      'Alertas automáticas ante cambios significativos en el sector',
+      'Funciona 24/7 sin bajar de velocidad',
+    ],
+    stats: [
+      { value: '3.5K+', label: 'Cooperativas del país disponibles' },
+      { value: '9+', label: 'Años de datos históricos' },
+    ],
+  },
+  cumplimiento: {
+    title: 'Riesgos documentados, decisiones seguras',
+    description:
+      'Risk Analytic convierte procesos manuales en flujos automatizados. Documenta, monitorea y reporta riesgos en tiempo real. Cumple con SARLAFT, SAGRILAFT y PTEE sin atajos.',
+    features: [
+      'Identificar riesgos antes de que causen pérdidas',
+      'Cumplimiento automático con normativas colombianas',
+      'Reportes ejecutivos en segundos, no en semanas',
+      'Matriz de riesgos dinámica y colaborativa',
+    ],
+    stats: [
+      { value: '100%', label: 'Sistematización de la gestión de riesgos' },
+      { value: '4', label: 'Etapas de la gestión de riesgos' },
+    ],
+  },
+  desarrollo: {
+    title: 'Proyectos personalizados que escalan con tu negocio',
+    description:
+      'No necesitas un software genérico. Nuestro equipo desarrolla dashboards, automatizaciones y reportes diseñados para TU operación.',
+    features: [
+      'Reportes web personalizados para tus proceso de datos',
+      'Alertas personalizadas, según las reglas de negocio de TU entidad',
+      'Apoyamos en el cumplimiento de normativididad, como SARLAFT, entre otros.',
+    ],
+    stats: [],
+  },
+};
+
+export default function Verticales() {
+  const [activeTab, setActiveTab] = useState<TabId>('cumplimiento');
+  const data = verticalesData[activeTab];
+
+  return (
+    <section id="soluciones" className="bg-pearl dark:bg-gray-900/50 py-16">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+        {/* Section header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-[#0e111b] dark:text-white">
+            Nuestros Servicios
+          </h2>
+          <div className="w-16 h-1 bg-primary mx-auto mt-4 rounded-full" />
+        </div>
+
+        {/* Tabs */}
+        <div className="flex flex-wrap border-b border-gray-200 dark:border-gray-800 gap-4 md:gap-12 justify-center">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex flex-col items-center justify-center border-b-4 pb-4 pt-2 transition-all cursor-pointer ${
+                activeTab === tab.id
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-gray-500 hover:text-primary'
+              }`}
+            >
+              <tab.Icon size={28} className="mb-2" />
+              <p className="text-sm font-bold uppercase tracking-wider">{tab.label}</p>
+            </button>
+          ))}
+        </div>
+
+        {/* Content Panel */}
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="mt-10 grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-gray-800 p-8 lg:p-12 rounded-2xl shadow-sm"
+        >
+          <div>
+            <h3 className="text-2xl font-bold mb-4 dark:text-white">{data.title}</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+              {data.description}
+            </p>
+            <ul className="space-y-3">
+              {data.features.map((feature, i) => (
+                <motion.li
+                  key={feature}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.08 * i }}
+                  className="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300"
+                >
+                  <CheckCircle2 size={20} className="text-accent-green shrink-0" />
+                  {feature}
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Stats grid */}
+          <div className="grid grid-cols-2 gap-4">
+            {data.stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.08 * i }}
+                className="p-6 bg-pearl dark:bg-gray-700 rounded-xl"
+              >
+                <h4 className="text-primary dark:text-primary text-3xl font-black mb-1">
+                  {stat.value}
+                </h4>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

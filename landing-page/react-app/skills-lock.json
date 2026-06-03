@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "landing-page-design": {
+      "source": "tool-belt/skills",
+      "sourceType": "github",
+      "computedHash": "c2588da4b3c084ad762e28388d36bfafbbe2c1870d52a0f98d6e4095ee01b26d"
+    }
+  }
+}
