@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { ArrowRight, Calendar, ChevronRight, Clock, Moon, PieChart, Sun } from 'lucide-react';
-import { useTheme } from '@/context/ThemeContext';
+import { ArrowRight, Calendar, ChevronRight, Clock } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const CATEGORIES = ['Todos', 'Cumplimiento', 'Tecnología', 'Finanzas', 'Eventos'] as const;
 type Category = (typeof CATEGORIES)[number];
@@ -54,7 +54,6 @@ const posts = [
 ];
 
 export default function BlogPage() {
-  const { theme, toggleTheme } = useTheme();
   const [activeCategory, setActiveCategory] = useState<Category>('Todos');
 
   const filteredPosts =
@@ -64,62 +63,9 @@ export default function BlogPage() {
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-white antialiased transition-colors duration-300">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-solid border-gray-200 dark:border-gray-800 px-4 md:px-20 py-3">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="size-8 text-primary">
-                <PieChart size={32} />
-              </div>
-              <h2 className="text-[#0e111b] dark:text-white text-xl font-bold tracking-tight">
-                MDA Analítica
-              </h2>
-            </Link>
-            <nav className="hidden lg:flex items-center gap-8">
-              <Link href="/" className="text-gray-600 dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors">
-                Inicio
-              </Link>
-              <Link href="/#soluciones" className="text-gray-600 dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors">
-                Soluciones
-              </Link>
-              <Link href="/#analitica" className="text-gray-600 dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors">
-                Analítica
-              </Link>
-              <Link href="/blog" className="text-primary text-sm font-bold">
-                Blog
-              </Link>
-              <Link href="/#nosotros" className="text-gray-600 dark:text-gray-400 text-sm font-medium hover:text-primary transition-colors">
-                Nosotros
-              </Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative group">
-              <button className="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-accent-green text-white text-sm font-bold transition-transform hover:scale-105">
-                Ver Aplicaciones
-              </button>
-              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
-                <Link href="/#analitica" className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                  RIF-Analytic
-                </Link>
-                <Link href="/sagrilaft" className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                  SAGRILAFT
-                </Link>
-              </div>
-            </div>
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-[#0e111b] dark:text-white"
-              aria-label="Toggle dark mode"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          </div>
-        </div>
-      </header>
+      <Header />
 
-      <main className="max-w-[1200px] mx-auto px-4 py-12">
+      <main className="max-w-[1280px] mx-auto px-6 md:px-10 py-12">
         {/* Hero */}
         <section className="mb-16 text-center max-w-3xl mx-auto">
           <h1 className="text-[#0e111b] dark:text-white text-5xl font-black leading-tight tracking-tighter mb-6">
@@ -255,30 +201,7 @@ export default function BlogPage() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="max-w-[1200px] mx-auto px-4 py-12 border-t border-gray-200 dark:border-gray-800">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-3 grayscale opacity-70">
-            <div className="size-6 text-[#0e111b] dark:text-white">
-              <PieChart size={24} />
-            </div>
-            <span className="text-sm font-bold">MDA Analítica © 2024</span>
-          </div>
-          <div className="flex gap-8">
-            <a className="text-gray-500 text-xs hover:text-primary transition-colors" href="#">
-              Términos de Servicio
-            </a>
-            <a className="text-gray-500 text-xs hover:text-primary transition-colors" href="#">
-              Privacidad
-            </a>
-            <a className="text-gray-500 text-xs hover:text-primary transition-colors" href="#">
-              Cookies
-            </a>
-          </div>
-        </div>
-      </footer>
-
+      <Footer />
     </div>
   );
 }

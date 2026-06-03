@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/context/ThemeContext';
-import ChatbotWrapper from '@/components/ChatbotWrapper';
 import '@/styles/global.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -10,6 +9,9 @@ export const metadata: Metadata = {
   title: 'MDA Analítica - Información Financiera a un Solo Clíc | RIF-Analytic',
   description:
     'Usamos los datos oficiales de la Supersolidaria. Somos la analítica de las cooperativas, fondos de empleados y asociaciones mutuales de Colombia.',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
@@ -32,7 +34,6 @@ export default function RootLayout({
       >
         <ThemeProvider>
           {children}
-          <ChatbotWrapper />
         </ThemeProvider>
       </body>
     </html>

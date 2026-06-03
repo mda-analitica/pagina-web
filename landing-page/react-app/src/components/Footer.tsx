@@ -1,4 +1,4 @@
-import { AtSign, Globe, Mail, MapPin, Phone, PieChart } from 'lucide-react';
+import { Mail, MapPin, Phone, PieChart } from 'lucide-react';
 
 const contact = [
   { Icon: MapPin, text: 'Medellín, Antioquia, Belén Rincón' },
@@ -18,10 +18,7 @@ const legal = [
 
 export default function Footer() {
   return (
-    <footer
-      id="nosotros"
-      className="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 py-16"
-    >
+    <footer className="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 py-16">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row justify-between gap-12">
           {/* Brand */}
@@ -30,7 +27,7 @@ export default function Footer() {
               <div className="size-6 text-primary">
                 <PieChart size={24} />
               </div>
-              <h2 className="text-primary dark:text-teal-400 text-lg font-bold">
+              <h2 className="text-primary dark:text-primary text-lg font-bold">
                 MDA Analítica
               </h2>
             </div>
@@ -38,20 +35,6 @@ export default function Footer() {
               Somos el centro de analítica para todo el sector solidario,
               agilizamos los procesos de toma de decisiones basado en datos
             </p>
-            <div className="flex gap-4">
-              <a
-                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all"
-                href="#"
-              >
-                <Globe size={18} />
-              </a>
-              <a
-                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all"
-                href="#"
-              >
-                <AtSign size={18} />
-              </a>
-            </div>
           </div>
 
           {/* Contact */}

@@ -314,11 +314,11 @@ export default function ReportesPage() {
                         <p>Hola, estoy aquí para ayudarte a analizar este reporte.</p>
                         <p className="mt-2">
                           Puedo explicarte los{' '}
-                          <strong className="text-primary dark:text-teal-400 font-semibold">
+                          <strong className="text-primary dark:text-primary font-semibold">
                             indicadores clave
                           </strong>
                           , hacer{' '}
-                          <strong className="text-primary dark:text-teal-400 font-semibold">
+                          <strong className="text-primary dark:text-primary font-semibold">
                             comparaciones
                           </strong>{' '}
                           o responder preguntas sobre cumplimiento.

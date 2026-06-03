@@ -16,7 +16,8 @@
       "WebSearch",
       "WebFetch(domain:www.heroui.com)",
       "WebFetch(domain:pagina-web-lime.vercel.app)",
-      "WebFetch(domain:www.chatbase.co)"
+      "WebFetch(domain:www.chatbase.co)",
+      "Bash(git config *)"
     ]
   }
 }
