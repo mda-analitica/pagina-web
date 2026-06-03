@@ -1,12 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-
-const images = [
-  'https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png',
-  'https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/jx5/y15/lye/Balance%20General%20Nivel%203.png',
-];
 
 interface HeroProps {
   tagline?: string;
@@ -39,29 +33,6 @@ export default function Hero({
   highlightedText = 'Risk Analytic',
   description = 'Risk Analytic automatiza la identificación, documentación y monitoreo de riesgos. Toma decisiones basadas en datos sin costo adicional.',
 }: HeroProps) {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const currentIndexRef = useRef(0);
-  const slidesRef = useRef<NodeListOf<Element> | null>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    slidesRef.current = document.querySelectorAll('.hero-slide');
-    if (!slidesRef.current.length) return;
-
-    const nextSlide = () => {
-      const slides = slidesRef.current!;
-      slides[currentIndexRef.current].classList.remove('opacity-100');
-      slides[currentIndexRef.current].classList.add('opacity-0');
-      currentIndexRef.current = (currentIndexRef.current + 1) % slides.length;
-      slides[currentIndexRef.current].classList.remove('opacity-0');
-      slides[currentIndexRef.current].classList.add('opacity-100');
-    };
-
-    intervalRef.current = setInterval(nextSlide, 4000);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
 
   return (
     <section
@@ -109,7 +80,7 @@ export default function Hero({
             </div>
           </div>
 
-          {/* Dynamic Image Slider */}
+          {/* Video Player */}
           <motion.div
             variants={sliderVariants}
             initial="hidden"
@@ -117,24 +88,19 @@ export default function Hero({
             className="flex-1 w-full relative"
           >
             <div
-              id="hero-slider"
-              className="relative z-10 w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+              id="hero-video"
+              className="relative z-10 w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-gray-900"
             >
-              {!imagesLoaded && (
-                <div className="absolute inset-0 skeleton" />
-              )}
-              {images.map((img, index) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={index}
-                  src={img}
-                  alt={`Balance General MDA Analítica ${index + 1}`}
-                  className={`hero-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-                    index === 0 ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  onLoad={() => index === 0 && setImagesLoaded(true)}
-                />
-              ))}
+              <video
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+              >
+                <source src="/Video1.mp4" type="video/mp4" />
+              </video>
             </div>
             {/* Decorative blurs */}
             <div className="absolute -top-6 -right-6 w-32 h-32 bg-accent-green/10 rounded-full blur-3xl" />
