@@ -1,4 +1,4 @@
-import { AtSign, Globe, Mail, MapPin, Phone, PieChart } from 'lucide-react';
+import { Mail, MapPin, Phone, PieChart } from 'lucide-react';
 
 const contact = [
   { Icon: MapPin, text: 'Medellín, Antioquia, Belén Rincón' },
@@ -35,20 +35,6 @@ export default function Footer() {
               Somos el centro de analítica para todo el sector solidario,
               agilizamos los procesos de toma de decisiones basado en datos
             </p>
-            <div className="flex gap-4">
-              <a
-                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all"
-                href="#"
-              >
-                <Globe size={18} />
-              </a>
-              <a
-                className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all"
-                href="#"
-              >
-                <AtSign size={18} />
-              </a>
-            </div>
           </div>
 
           {/* Contact */}
