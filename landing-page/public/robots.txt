@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /sagrilaft
+
+Sitemap: https://mda-analitica.com/sitemap-index.xml
