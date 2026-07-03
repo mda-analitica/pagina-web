@@ -1,6 +1,13 @@
 ---
-// Header component con navegación y dark mode toggle
-import { Menu, PieChart } from "lucide-react";
+// Header component con navegación, dropdown de aplicaciones y menú móvil
+import { Menu, X, PieChart, ChevronDown, Home, LayoutGrid, BarChart3, Users } from "lucide-react";
+
+const navLinks = [
+  { href: "/#inicio", label: "Inicio", icon: Home },
+  { href: "/#soluciones", label: "Soluciones", icon: LayoutGrid },
+  { href: "/#analitica", label: "Analítica", icon: BarChart3 },
+  { href: "/#nosotros", label: "Nosotros", icon: Users },
+];
 ---
 
 <header
@@ -10,7 +17,7 @@ import { Menu, PieChart } from "lucide-react";
     class="max-w-[1280px] mx-auto flex items-center justify-between whitespace-nowrap"
   >
     <!-- Logo -->
-    <div class="flex items-center gap-3">
+    <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
       <div class="size-8 text-primary">
         <PieChart size={32} />
       </div>
@@ -19,67 +26,132 @@ import { Menu, PieChart } from "lucide-react";
       >
         MDA Analítica
       </h2>
-    </div>
+    </a>
 
     <!-- Navigation -->
     <nav class="hidden lg:flex flex-1 justify-center gap-9">
-      <a
-        class="nav-link text-sm font-semibold leading-normal relative py-1"
-        href="/#inicio">Inicio</a
-      >
-      <a
-        class="nav-link text-sm font-semibold leading-normal relative py-1"
-        href="#soluciones">Soluciones</a
-      >
-      <a
-        class="nav-link text-sm font-semibold leading-normal relative py-1"
-        href="#analitica">Analítica</a
-      >
-      <!-- <a
-        class="nav-link text-sm font-semibold leading-normal relative py-1"
-        href="#blog">Blog</a
-      > -->
-      <a
-        class="nav-link text-sm font-semibold leading-normal relative py-1"
-        href="#nosotros">Nosotros</a
-      >
+      {navLinks.map((link) => (
+        <a
+          class="nav-link text-sm font-semibold leading-normal relative py-1"
+          href={link.href}
+        >
+          {link.label}
+        </a>
+      ))}
     </nav>
 
-    <!-- Actions -->
-    <div class="flex gap-3 items-center">
-      <div class="relative group">
+    <!-- Actions (desktop) -->
+    <div class="hidden lg:flex gap-3 items-center">
+      <div class="relative" id="apps-dropdown">
         <button
-          class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
+          id="apps-dropdown-btn"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="apps-dropdown-menu"
+          class="flex min-w-[160px] cursor-pointer items-center justify-center gap-1 overflow-hidden rounded-lg h-10 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20 glow-accent"
         >
           <span>Ver Aplicaciones</span>
+          <ChevronDown size={16} className="transition-transform duration-200" />
         </button>
         <!-- Dropdown Menu -->
-        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50 flex flex-col">
+        <div
+          id="apps-dropdown-menu"
+          class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg hidden py-2 z-50 flex-col"
+        >
           <button
-            onclick="document.getElementById('rif-modal').classList.remove('hidden')"
-            class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            class="rif-app-btn w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
           >
             RIF-Analytic
           </button>
-          <button
-            onclick="window.location.href='/sagrilaft'"
-            class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          <a
+            href="/sagrilaft"
+            class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
             SAGRILAFT
-          </button>
+          </a>
         </div>
       </div>
     </div>
 
     <!-- Mobile menu button -->
     <button
-      class="lg:hidden flex items-center justify-center rounded-lg h-10 w-10 text-gray-600 dark:text-gray-300"
+      class="lg:hidden flex items-center justify-center rounded-lg h-10 w-10 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
       id="mobile-menu-btn"
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <Menu size={24} />
     </button>
   </div>
 </header>
+
+<!-- Mobile Menu Overlay -->
+<div
+  id="mobile-menu-overlay"
+  class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
+  aria-hidden="true"
+>
+</div>
+
+<!-- Mobile Menu Panel -->
+<nav
+  id="mobile-menu"
+  class="fixed top-0 right-0 h-full w-[300px] max-w-[85vw] bg-white dark:bg-background-dark shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-out lg:hidden"
+  aria-label="Menú móvil"
+>
+  <div class="flex flex-col h-full">
+    <!-- Header del panel -->
+    <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+      <div class="flex items-center gap-3">
+        <div class="size-6 text-primary">
+          <PieChart size={24} />
+        </div>
+        <span class="text-primary dark:text-teal-400 text-lg font-bold">Menú</span>
+      </div>
+      <button
+        id="mobile-menu-close"
+        class="flex items-center justify-center rounded-lg h-10 w-10 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        aria-label="Cerrar menú"
+      >
+        <X size={24} />
+      </button>
+    </div>
+
+    <!-- Links de navegación -->
+    <div class="flex-1 overflow-y-auto py-6">
+      <ul class="space-y-2 px-4">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="mobile-nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <link.icon size={20} className="text-primary shrink-0" />
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Aplicaciones -->
+    <div class="p-6 border-t border-gray-200 dark:border-gray-800 space-y-3">
+      <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Aplicaciones</p>
+      <button
+        class="rif-app-btn flex w-full cursor-pointer items-center justify-center rounded-xl h-12 px-6 bg-accent-green text-white text-sm font-bold leading-normal tracking-wide transition-all hover:bg-emerald-600 border border-emerald-400/20"
+      >
+        RIF-Analytic
+      </button>
+      <a
+        href="/sagrilaft"
+        class="flex w-full cursor-pointer items-center justify-center rounded-xl h-12 px-6 border-2 border-primary/30 text-primary dark:text-teal-400 dark:border-teal-400/30 text-sm font-bold leading-normal transition-all hover:bg-primary/5"
+      >
+        SAGRILAFT
+      </a>
+    </div>
+  </div>
+</nav>
 
 <style>
   /* Base style for link text */
@@ -132,7 +204,91 @@ import { Menu, PieChart } from "lucide-react";
 </style>
 
 <script>
-  // Active Link Scroll Spy Logic
+  // --- Dropdown "Ver Aplicaciones" (click, compatible con táctil) ---
+  const dropdownBtn = document.getElementById("apps-dropdown-btn");
+  const dropdownMenu = document.getElementById("apps-dropdown-menu");
+
+  function closeDropdown() {
+    dropdownMenu?.classList.add("hidden");
+    dropdownBtn?.setAttribute("aria-expanded", "false");
+  }
+
+  dropdownBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = !dropdownMenu?.classList.contains("hidden");
+    if (isOpen) {
+      closeDropdown();
+    } else {
+      dropdownMenu?.classList.remove("hidden");
+      dropdownBtn.setAttribute("aria-expanded", "true");
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!document.getElementById("apps-dropdown")?.contains(e.target as Node)) {
+      closeDropdown();
+    }
+  });
+
+  // --- Botones RIF-Analytic: abre el modal si existe en la página, si no navega ---
+  document.querySelectorAll(".rif-app-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const rifModal = document.getElementById("rif-modal");
+      if (rifModal) {
+        closeDropdown();
+        closeMobileMenu();
+        rifModal.classList.remove("hidden");
+      } else {
+        window.location.href = "/#analitica";
+      }
+    });
+  });
+
+  // --- Menú móvil ---
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenuClose = document.getElementById("mobile-menu-close");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+
+  let isMenuOpen = false;
+
+  function openMobileMenu() {
+    if (!mobileMenu || !mobileMenuOverlay || !mobileMenuBtn) return;
+    isMenuOpen = true;
+    mobileMenu.classList.remove("translate-x-full");
+    mobileMenuOverlay.classList.remove("opacity-0", "pointer-events-none");
+    mobileMenuBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+    (mobileMenuClose as HTMLElement | null)?.focus();
+  }
+
+  function closeMobileMenu() {
+    if (!mobileMenu || !mobileMenuOverlay || !mobileMenuBtn || !isMenuOpen) return;
+    isMenuOpen = false;
+    mobileMenu.classList.add("translate-x-full");
+    mobileMenuOverlay.classList.add("opacity-0", "pointer-events-none");
+    mobileMenuBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+    mobileMenuBtn.focus();
+  }
+
+  mobileMenuBtn?.addEventListener("click", openMobileMenu);
+  mobileMenuClose?.addEventListener("click", closeMobileMenu);
+  mobileMenuOverlay?.addEventListener("click", closeMobileMenu);
+
+  // Cerrar el menú al navegar con un link
+  mobileMenu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => closeMobileMenu());
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMobileMenu();
+      closeDropdown();
+    }
+  });
+
+  // --- Scroll Spy: resalta el link activo según la sección visible ---
   document.addEventListener("DOMContentLoaded", () => {
     const sections = ["inicio", "soluciones", "analitica", "blog", "nosotros"];
     const navLinks = document.querySelectorAll(".nav-link");
