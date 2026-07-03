@@ -4,12 +4,46 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /** URL absoluta de la imagen para previsualizaciones al compartir (OG/Twitter) */
+  image?: string;
+  /** Evita que la página sea indexada por buscadores */
+  noindex?: boolean;
 }
 
 const {
-  title = "MDA Analítica - Corporate Landing Page",
-  description = "Especialistas en gestión de riesgos SARLAFT, SAGRILAFT y PTEE con analítica avanzada"
+  title = "MDA Analítica - Analítica Financiera para el Sector Solidario",
+  description = "Analítica de datos y gestión de riesgos LAFT para cooperativas, fondos de empleados y asociaciones mutuales de Colombia, con datos oficiales de la Supersolidaria.",
+  image = "https://f158ae34df.imgdist.com/pub/bfra/i6q4k2r4/8sm/xkp/fl4/Balance%20General%20Nivel%201.png",
+  noindex = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "MDA Analítica",
+  url: Astro.site?.toString(),
+  description:
+    "Firma consultora colombiana especializada en analítica de datos y gestión de riesgos LAFT (SARLAFT, SAGRILAFT, PTEE) para el sector solidario.",
+  email: "contacto@mda-analitica.com",
+  telephone: "+57-301-215-9933",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Medellín",
+    addressRegion: "Antioquia",
+    addressCountry: "CO",
+  },
+  areaServed: "Colombia",
+  knowsAbout: [
+    "SARLAFT",
+    "SAGRILAFT",
+    "PTEE",
+    "Analítica financiera",
+    "Sector solidario",
+    "Cooperativas",
+  ],
+};
 ---
 
 <!doctype html>
@@ -17,12 +51,37 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph (WhatsApp, LinkedIn, Facebook) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MDA Analítica" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Datos estructurados -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
   <body class="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-gray-100 font-display transition-colors duration-300">
     <slot />
