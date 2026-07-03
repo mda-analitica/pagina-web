@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { BarChart3, ExternalLink, Headset, Fullscreen, X, Bolt, MousePointer2, Bot, MessageSquare, Send, Lock, ArrowRight, PieChart } from 'lucide-react';
@@ -58,15 +58,10 @@ const reports = [
 ];
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>MDA Analítica | Intelligence Hub - Reportes Power BI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  </head>
-  <body class="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-gray-100 font-display transition-colors duration-300">
+<Layout
+  title="MDA Analítica | Intelligence Hub - Reportes Power BI"
+  description="Galería de reportes interactivos de Power BI: dashboards ejecutivos, análisis de riesgo y métricas del sector solidario colombiano en tiempo real."
+>
     <Header />
 
     <main class="max-w-[1280px] mx-auto px-6 md:px-10 py-12">
@@ -345,5 +340,4 @@ const reports = [
         }
       });
     </script>
-  </body>
-</html>
+</Layout>
