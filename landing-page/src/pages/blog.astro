@@ -1,5 +1,5 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 import {
   Moon,
   Sun,
@@ -67,20 +67,11 @@ const posts = [
 ];
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>MDA Analítica | Insights & Perspectivas Normativas</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body
-    class="bg-background-light dark:bg-background-dark text-[#0e111b] dark:text-white antialiased transition-colors duration-300"
-  >
+<Layout
+  title="MDA Analítica | Insights & Perspectivas Normativas"
+  description="Análisis y actualizaciones sobre SARLAFT, SAGRILAFT, PTEE y analítica financiera para oficiales de cumplimiento del sector solidario colombiano."
+  noindex={true}
+>
     <!-- Header -->
     <header
       class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-solid border-gray-200 dark:border-gray-800 px-4 md:px-20 py-3"
@@ -398,5 +389,4 @@ const posts = [
         document.documentElement.classList.add("dark");
       }
     </script>
-  </body>
-</html>
+</Layout>
