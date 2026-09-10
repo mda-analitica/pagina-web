@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
-import Groq from 'groq-sdk';
+import { ThinkingLevel } from '@google/genai';
+import { getGeminiClient, getGeminiModel, isGeminiRateLimitError } from '@/lib/geminiClient';
 
 const SYSTEM_PROMPT = `Perfil: Eres el Asistente Virtual oficial de MDA Analítica, una firma consultora colombiana líder en analítica de datos y gestión de riesgos para el sector solidario (cooperativas, fondos de empleados y asociaciones mutuales).
 
@@ -19,8 +20,8 @@ Directrices de Comportamiento:
 
 export async function POST(request: NextRequest) {
   try {
-    const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) {
+    const ai = getGeminiClient();
+    if (!ai) {
       return new Response(
         JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -45,25 +46,28 @@ export async function POST(request: NextRequest) {
       })
     );
 
-    const groq = new Groq({ apiKey });
+    const contents = trimmedMessages.map((m) => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }],
+    }));
 
-    const chatCompletion = await groq.chat.completions.create({
-      model: 'llama-3.1-8b-instant',
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...trimmedMessages,
-      ],
-      temperature: 0.7,
-      max_completion_tokens: 1024,
-      stream: true,
+    const geminiStream = await ai.models.generateContentStream({
+      model: getGeminiModel(),
+      contents,
+      config: {
+        systemInstruction: SYSTEM_PROMPT,
+        temperature: 0.7,
+        maxOutputTokens: 1024,
+        thinkingConfig: { thinkingLevel: ThinkingLevel.MINIMAL },
+      },
     });
 
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of chatCompletion) {
-            const content = chunk.choices[0]?.delta?.content;
+          for await (const chunk of geminiStream) {
+            const content = chunk.text;
             if (content) {
               const data = JSON.stringify({ content });
               controller.enqueue(encoder.encode(`data: ${data}\n\n`));
@@ -92,7 +96,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Chat API error:', error);
 
-    if (error instanceof Groq.APIError && error.status === 429) {
+    if (isGeminiRateLimitError(error)) {
       return new Response(
         JSON.stringify({
           error: 'Nuestro asistente esta experimentando alta demanda. Por favor intente de nuevo en unos segundos.',
